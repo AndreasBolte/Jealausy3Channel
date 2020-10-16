@@ -1,2 +1,7 @@
-# Jealausy3Channel
-Sun protection controlling for house automation by Raspberry Pi4 Node-Red and controllino-Mini (Arduino) 
+# Jealausy2Channel
+Raspberry-Pi node-Red ui for Jealausy2Channel
+Controllino Mini Software
+
+visit my website: https://colmuspro.de/
+contact: info@colmuspro.de
+
