@@ -16,7 +16,7 @@
 
 
 // board: Controllino Mini
-// Date: 15.12.2019
+// Date: 16.10.2020
 // Andreas Bolte
 // info@colmuspro.de
 
@@ -35,7 +35,7 @@ void setup()
   Controllino_RTC_init();
   useControllinoTime();
 
-  if (false) putValuesToEEPROM();      // true = factory settings: use it when changes in libraries
+  if (true) putValuesToEEPROM();      // true = factory settings: use it when changes in libraries or load first time
   else getValuesFromEEPROM();
 
   sunWatch.sm.init(sunWatch.timezone, sunWatch.latitude, sunWatch.longtitude);
