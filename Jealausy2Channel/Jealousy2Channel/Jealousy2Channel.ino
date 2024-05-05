@@ -26,18 +26,43 @@ const int AI_SOLAR_HEATING_EXTERN = CONTROLLINO_A4;  //A5: Analog Input Heating 
 const int AI_ROOM_TEMPERATURE = CONTROLLINO_A5;      //A5: Analog Input temperature
 
 // Integer constants
-int DO_Channel1Up = 0;       //DO: Digital output CHANNEL 1 UP
-int DO_Channel1Down = 0;     //D1: Digital output CHANNEL 1 DOWN
-int DO_Channel2Up = 0;       //D2: Digital output CHANNEL 2 UP
-int DO_Channel2Down = 0;     //D3: Digital output CHANNEL 2 DOWN
-int DO_Wind_Led = 0;         //D5: Digital output LED WIND
-int DO_Rain_Led = 0;         //D5: Digital output LED RAIN
-int DI_RC_Channel1Up = 0;    //Remote Controll Channel 1 Up
+int DO_Channel1Up = 0;     //DO: Digital output CHANNEL 1 UP
+int DO_Channel1Down = 0;   //D1: Digital output CHANNEL 1 DOWN
+int DO_Channel2Up = 0;     //D2: Digital output CHANNEL 2 UP
+int DO_Channel2Down = 0;   //D3: Digital output CHANNEL 2 DOWN
+int DO_Wind_Led = 0;       //D5: Digital output LED WIND
+int DO_Rain_Led = 0;       //D5: Digital output LED RAIN
+int DI_RC_Channel1Up = 0;  //Remote Controll Channel 1 Up
+int DI_RC_Channel1UpOld = 0;
+int DI_RC_Channel1UpFlank1 = 0;
+int DI_RC_Channel1UpFlank0 = 0;
 int DI_RC_Channel1Down = 0;  //Remote Controll Channel 1 Down
-int DI_RC_Channel2Up = 0;    //Remote Controll Channel 2 Up
-int DI_RC_Channel2Down = 0;  //Remote Controll Channel 2 Down
+int DI_RC_Channel1DownOld = 0;
+int DI_RC_Channel1DownFlank1 = 0;
+int DI_RC_Channel1DownFlank0 = 0;
+int DI_RC_Channel2Up = 0;  //Remote Controll Channel 1 Up
+int DI_RC_Channel2UpOld = 0;
+int DI_RC_Channel2UpFlank1 = 0;
+int DI_RC_Channel2UpFlank0 = 0;
+int DI_RC_Channel2Down = 0;  //Remote Controll Channel 1 Down
+int DI_RC_Channel2DownOld = 0;
+int DI_RC_Channel2DownFlank1 = 0;
+int DI_RC_Channel2DownFlank0 = 0;
+
 int DI_Wind = 0;             //Wind
 int DI_Rain = 0;             //Rain
+int DI_RainOld = 0;
+int DI_RainFlank1 = 0;
+int DI_RainFlank0 = 0;
+
+long int i = 0;      // Loop counter ca 120 s
+long int i0 = 100000;  // fix i0
+long int i1 = 200000;  // fix i1
+long int i2 = 300000;  // fix i2
+long int i3 = 400000;  // fix i3
+long int i4 = 500000;  // fix i4
+long int iMax = 1000000;  
+
 
 
 void setup() {
@@ -67,7 +92,7 @@ void setup() {
 }  //End void setup()
 
 void loop() {
-
+  
   // send data only when available:
   if (Serial.available() > 0) {
     //serialAvailable();  // UserInterface.h
@@ -100,7 +125,7 @@ void loop() {
     if (str.equals(String("y104"))) DO_Channel2Down = valInt;
     if (str.equals(String("y105"))) DO_Wind_Led = valInt;
     if (str.equals(String("y106"))) DO_Rain_Led = valInt;
-    
+
 
 
     if (answerSend != 1) Serial.println("1");  // readNodeRed(); // after writing read
@@ -111,6 +136,69 @@ void loop() {
   DI_RC_Channel1Down = digitalRead(DI_CHANNEL1DOWN_RC);
   DI_RC_Channel2Up = digitalRead(DI_CHANNEL2UP_RC);
   DI_RC_Channel2Down = digitalRead(DI_CHANNEL2DOWN_RC);
+  DI_Rain = digitalRead(DI_INTERRUPT_RAIN);
+
+  // DI_RC_Channel1Up flanks High and Low x001:1
+  if ((DI_RC_Channel1Up == 1) && (DI_RC_Channel1UpOld == 0)) DI_RC_Channel1UpFlank1 = 1;
+  else DI_RC_Channel1UpFlank1 = 0;
+  if (DI_RC_Channel1UpFlank1 == 1) Serial.println("x001:1");
+  if ((DI_RC_Channel1Up == 0) && (DI_RC_Channel1UpOld == 1)) DI_RC_Channel1UpFlank0 = 1;
+  else DI_RC_Channel1UpFlank0 = 0;
+  DI_RC_Channel1UpOld = DI_RC_Channel1Up;
+  if (DI_RC_Channel1UpFlank0 == 1) Serial.println("x001:0");
+
+   // DI_RC_Channel1Down flanks High and Low x002:1
+  if ((DI_RC_Channel1Down == 1) && (DI_RC_Channel1DownOld == 0)) DI_RC_Channel1DownFlank1 = 1;
+  else DI_RC_Channel1DownFlank1 = 0;
+  if (DI_RC_Channel1DownFlank1 == 1) Serial.println("x002:1");
+  if ((DI_RC_Channel1Down == 0) && (DI_RC_Channel1DownOld == 1)) DI_RC_Channel1DownFlank0 = 1;
+  else DI_RC_Channel1DownFlank0 = 0;
+  DI_RC_Channel1DownOld = DI_RC_Channel1Down;
+  if (DI_RC_Channel1DownFlank0 == 1) Serial.println("x002:0");
+
+  // DI_RC_Channel2Up flanks High and Low x003:1
+  if ((DI_RC_Channel2Up == 1) && (DI_RC_Channel2UpOld == 0)) DI_RC_Channel2UpFlank1 = 1;
+  else DI_RC_Channel2UpFlank1 = 0;
+  if (DI_RC_Channel2UpFlank1 == 1) Serial.println("x003:1");
+  if ((DI_RC_Channel2Up == 0) && (DI_RC_Channel2UpOld == 1)) DI_RC_Channel2UpFlank0 = 1;
+  else DI_RC_Channel2UpFlank0 = 0;
+  DI_RC_Channel2UpOld = DI_RC_Channel2Up;
+  if (DI_RC_Channel2UpFlank0 == 1) Serial.println("x003:0");
+
+   // DI_RC_Channel2Down flanks High and Low x004:1
+  if ((DI_RC_Channel2Down == 1) && (DI_RC_Channel2DownOld == 0)) DI_RC_Channel2DownFlank1 = 1;
+  else DI_RC_Channel2DownFlank1 = 0;
+  if (DI_RC_Channel2DownFlank1 == 1) Serial.println("x004:1");
+  if ((DI_RC_Channel2Down == 0) && (DI_RC_Channel2DownOld == 1)) DI_RC_Channel2DownFlank0 = 1;
+  else DI_RC_Channel2DownFlank0 = 0;
+  DI_RC_Channel2DownOld = DI_RC_Channel2Down;
+  if (DI_RC_Channel2DownFlank0 == 1) Serial.println("x004:0");
+
+  // DI_Rain flanks High and Low x005:1
+  if ((DI_Rain == 1) && (DI_RainOld == 0)) DI_RainFlank1 = 1;
+  else DI_RainFlank1 = 0;
+  if (DI_RainFlank1 == 1) Serial.println("x005:1");
+  if ((DI_Rain == 0) && (DI_RainOld == 1)) DI_RainFlank0 = 1;
+  else DI_RainFlank0 = 0;
+  DI_RainOld = DI_Rain;
+  if (DI_RainFlank0 == 1) Serial.println("x005:0");
+
+
+    
+  //send by polling time
+    i = i + 1;
+  if (DI_RC_Channel1Up == 0 && i == i0) Serial.println("x001:0");
+  if (DI_RC_Channel1Up == 1 && i == i0) Serial.println("x001:1");
+  if (DI_RC_Channel1Down == 0 && i == i1) Serial.println("x002:0" );
+  if (DI_RC_Channel1Down == 1 && i == i1) Serial.println("x002:1");
+  if (DI_RC_Channel2Up == 0 && i == i2) Serial.println("x003:0");
+  if (DI_RC_Channel2Up == 1 && i == i2) Serial.println("x003:1");
+  if (DI_RC_Channel2Down == 0 && i == i3) Serial.println("x004:0");
+  if (DI_RC_Channel2Down == 1 && i == i3) Serial.println("x004:1");
+  if (DI_Rain == 0 && i == i4) Serial.println("x005:0");
+  if (DI_Rain == 1 && i == i4) Serial.println("x005:1");
+  if (i >= iMax) i = 0;
+
 
   // // write all Engines
   if (DO_Channel1Up == 1) digitalWrite(DO_CHANNEL1UP, HIGH);
@@ -127,6 +215,6 @@ void loop() {
   else digitalWrite(DO_WIND_LED, LOW);
   if (DO_Rain_Led == 1) digitalWrite(DO_RAIN_LED, HIGH);
   else digitalWrite(DO_RAIN_LED, LOW);
-  
+
 
 }  // End void loop()
