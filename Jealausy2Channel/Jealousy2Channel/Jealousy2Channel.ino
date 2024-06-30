@@ -127,8 +127,7 @@ void loop() {
     int valInt = 0;
     float valFloat = 0;
     unsigned long valUnsignedLong = 0;
-    int answerSend = 0;
-
+   
     // read the incoming String:
     sdata = Serial.readStringUntil(' ');
     sdata.trim();
@@ -150,10 +149,7 @@ void loop() {
     if (str.equals(String("y104"))) DO_Channel2Down = valInt;
     if (str.equals(String("y105"))) DO_Wind_Led = valInt;
     if (str.equals(String("y106"))) DO_Rain_Led = valInt;
-
-
-
-    if (answerSend != 1) Serial.println("1");  // readNodeRed(); // after writing read
+    
   }                                            // End if (Serial.available() > 0)
 
   // read all inputs
