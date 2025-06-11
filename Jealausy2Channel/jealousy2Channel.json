@@ -437,7 +437,7 @@
         "type": "debug",
         "z": "5f4e599e.885b58",
         "name": "serial out",
-        "active": false,
+        "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -3104,7 +3104,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "y101:x DO_Channel1UpFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nif (x1 === 0 ){\n     msg.payload = 'y101:1';     \n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y101:0';\n\nif (x1 === 0 ){\n     msg.payload = 'y101:1';     \n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3123,7 +3123,7 @@
         "id": "56f8764c1e1c9eab",
         "type": "rbe",
         "z": "951993f4.8206d",
-        "name": "Blockiren bis Werteänderung",
+        "name": "Blockieren bis Werteänderung",
         "func": "rbe",
         "gap": "",
         "start": "",
@@ -3131,7 +3131,7 @@
         "septopics": true,
         "property": "payload",
         "topi": "topic",
-        "x": 940,
+        "x": 950,
         "y": 3620,
         "wires": [
             [
@@ -3231,7 +3231,7 @@
         "id": "a2557b0a5d8ed49f",
         "type": "rbe",
         "z": "951993f4.8206d",
-        "name": "Blockiren bis Werteänderung",
+        "name": "Blockieren bis Werteänderung",
         "func": "rbei",
         "gap": "",
         "start": "",
@@ -3239,7 +3239,7 @@
         "septopics": true,
         "property": "payload",
         "topi": "topic",
-        "x": 880,
+        "x": 890,
         "y": 3720,
         "wires": [
             [
@@ -3341,7 +3341,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "y101:1 DO_Channel1UpAlarm",
-        "func": "var alarm = flow.get('BV_RainAlarm', 'file') + flow.get('BV_WindAlarm', 'file');\n\n// DO_Channel1Up\nif ( alarm > 0) {\n     msg.payload = 'y101:1';\n}\nelse {\n     msg.payload = 'y101:0'\n}\n\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = '';\n\nif (x1 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5407,8 +5407,8 @@
         "z": "812b0ff61703e7f7",
         "name": "y104:0 DO_Channel1Down",
         "info": "",
-        "x": 1150,
-        "y": 3560,
+        "x": 1430,
+        "y": 3520,
         "wires": []
     },
     {
@@ -5446,7 +5446,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "y103:x DO_Channel1UpFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nif (x1 === 0 ){\n     msg.payload = 'y103:1';     \n}\nif (x2 === 0) {\n     msg.payload = 'y103:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y103:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y103:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y103:0';\n\nif (x1 === 0 ){\n     msg.payload = 'y103:1';     \n}\nif (x2 === 0) {\n     msg.payload = 'y103:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y103:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y103:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5457,52 +5457,7 @@
         "y": 3620,
         "wires": [
             [
-                "3d98eab1e7086178"
-            ]
-        ]
-    },
-    {
-        "id": "3d98eab1e7086178",
-        "type": "rbe",
-        "z": "812b0ff61703e7f7",
-        "name": "Blockiren bis Werteänderung",
-        "func": "rbei",
-        "gap": "",
-        "start": "",
-        "inout": "out",
-        "septopics": true,
-        "property": "payload",
-        "topi": "topic",
-        "x": 880,
-        "y": 3620,
-        "wires": [
-            [
-                "7747ffc4cbbbb843"
-            ]
-        ]
-    },
-    {
-        "id": "7747ffc4cbbbb843",
-        "type": "trigger",
-        "z": "812b0ff61703e7f7",
-        "name": "",
-        "op1": "",
-        "op2": "y103:0",
-        "op1type": "pay",
-        "op2type": "str",
-        "duration": "60",
-        "extend": false,
-        "overrideDelay": false,
-        "units": "s",
-        "reset": "y103:0",
-        "bytopic": "all",
-        "topic": "topic",
-        "outputs": 1,
-        "x": 1430,
-        "y": 3620,
-        "wires": [
-            [
-                "751ce24b8f19b37a"
+                "731558c993b7360b"
             ]
         ]
     },
@@ -5526,7 +5481,7 @@
         "name": "y103:1 DO_Channel1Up",
         "info": "",
         "x": 550,
-        "y": 3560,
+        "y": 3500,
         "wires": []
     },
     {
@@ -5554,7 +5509,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "y104:x DO_Channel1DownFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nif (x1 === 0) {\n     msg.payload = 'y104:0';\n}\nif (x2 === 0) {\n     msg.payload = 'y104:0';\n}\nif (x1 === 1) {\n     msg.payload = 'y104:1';\n}\nif (x2 === 1) {\n     msg.payload = 'y104:1';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y104:0';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y104:0';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y104:0';\n\nif (x1 === 0) {\n     msg.payload = 'y104:0';\n}\nif (x2 === 0) {\n     msg.payload = 'y104:0';\n}\nif (x1 === 1) {\n     msg.payload = 'y104:1';\n}\nif (x2 === 1) {\n     msg.payload = 'y104:1';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y104:0';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y104:0';\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5573,7 +5528,7 @@
         "id": "7c45abadcbab50ee",
         "type": "rbe",
         "z": "812b0ff61703e7f7",
-        "name": "Blockiren bis Werteänderung",
+        "name": "Blockieren bis Werteänderung",
         "func": "rbei",
         "gap": "",
         "start": "",
@@ -5581,7 +5536,7 @@
         "septopics": true,
         "property": "payload",
         "topi": "topic",
-        "x": 900,
+        "x": 910,
         "y": 3720,
         "wires": [
             [
@@ -5654,7 +5609,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "y103:1 DO_Channel1UpAlarm",
-        "func": "var alarm = flow.get('BV_RainAlarm', 'file') + flow.get('BV_WindAlarm', 'file');\n\n// DO_Channel1Up\nif ( alarm > 0) {\n     msg.payload = 'y103:1';\n}\nelse {\n     msg.payload = 'y103:0'\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n\nmsg.payload = '';\n\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5673,7 +5628,7 @@
         "id": "aeef981bec63ee67",
         "type": "inject",
         "z": "812b0ff61703e7f7",
-        "name": "12h string",
+        "name": "2h string",
         "props": [
             {
                 "p": "payload"
@@ -5683,14 +5638,14 @@
                 "vt": "str"
             }
         ],
-        "repeat": "43200",
+        "repeat": "7200",
         "crontab": "",
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
         "payloadType": "str",
-        "x": 490,
+        "x": 480,
         "y": 3920,
         "wires": [
             [
@@ -5818,5 +5773,50 @@
         "x": 760,
         "y": 4080,
         "wires": []
+    },
+    {
+        "id": "7747ffc4cbbbb843",
+        "type": "trigger",
+        "z": "812b0ff61703e7f7",
+        "name": "",
+        "op1": "",
+        "op2": "y103:0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "60",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "y103:0",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1430,
+        "y": 3620,
+        "wires": [
+            [
+                "751ce24b8f19b37a"
+            ]
+        ]
+    },
+    {
+        "id": "731558c993b7360b",
+        "type": "rbe",
+        "z": "812b0ff61703e7f7",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbei",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 990,
+        "y": 3620,
+        "wires": [
+            [
+                "7747ffc4cbbbb843"
+            ]
+        ]
     }
 ]
