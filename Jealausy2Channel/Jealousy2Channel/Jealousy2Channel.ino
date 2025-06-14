@@ -3,7 +3,7 @@
 
 
 // board: Controllino Mini
-// Date: 04.05.2024
+// Date: 04.06.2025
 // Andreas Bolte
 // info@colmuspro.de
 
@@ -12,8 +12,8 @@ const int DO_CHANNEL1UP = CONTROLLINO_D0;    //DO: Digital output CHANNEL 1 UP
 const int DO_CHANNEL1DOWN = CONTROLLINO_D1;  //D1: Digital output CHANNEL 1 DOWN
 const int DO_CHANNEL2UP = CONTROLLINO_D2;    //D2: Digital output CHANNEL 2 UP
 const int DO_CHANNEL2DOWN = CONTROLLINO_D3;  //D3: Digital output CHANNEL 2 DOWN
-const int DO_WIND_LED = CONTROLLINO_D5;      //D5: Digital output LED WIND
-const int DO_RAIN_LED = CONTROLLINO_D6;      //D5: Digital output LED RAIN
+const int DO_WIND_LED = CONTROLLINO_D4;      //D5: Digital output LED WIND
+const int DO_RAIN_LED = CONTROLLINO_D5;      //D5: Digital output LED RAIN
 
 // Integer constants for digital/analog  inputs
 const int DI_CHANNEL1UP_RC = CONTROLLINO_A0;    //AO: Digital Input CHANNEL 1 UP from Remote Controll
@@ -37,30 +37,19 @@ int DO_Channel2Down = 0;   //D3: Digital output CHANNEL 2 DOWN
 int DO_Wind_Led = 0;       //D5: Digital output LED WIND
 int DO_Rain_Led = 0;       //D5: Digital output LED RAIN
 int DI_RC_Channel1Up = 0;  //Remote Controll Channel 1 Up
-int DI_RC_Channel1UpOld = 0;
-int DI_RC_Channel1UpFlank1 = 0;
-int DI_RC_Channel1UpFlank0 = 0;
 int DI_RC_Channel1Down = 0;  //Remote Controll Channel 1 Down
-int DI_RC_Channel1DownOld = 0;
-int DI_RC_Channel1DownFlank1 = 0;
-int DI_RC_Channel1DownFlank0 = 0;
 int DI_RC_Channel2Up = 0;  //Remote Controll Channel 1 Up
-int DI_RC_Channel2UpOld = 0;
-int DI_RC_Channel2UpFlank1 = 0;
-int DI_RC_Channel2UpFlank0 = 0;
 int DI_RC_Channel2Down = 0;  //Remote Controll Channel 1 Down
-int DI_RC_Channel2DownOld = 0;
-int DI_RC_Channel2DownFlank1 = 0;
-int DI_RC_Channel2DownFlank0 = 0;
 
 int DI_Wind = 0;  //Wind
 int DI_Rain = 0;  //Rain
-int DI_RainOld = 0;
-int DI_RainFlank1 = 0;
-int DI_RainFlank0 = 0;
 int windCounter = 0;
 
 long int i = 0;        // Loop counter ca 120 s
+long int i0 = 2000;  // fix i4
+long int i1 = 4000;  // fix i4
+long int i2 = 6000;  // fix i4
+long int i3 = 80000;  // fix i4
 long int i4 = 100000;  // fix i4
 long int i5 = 200000;  // fix i5
 long int i6 = 300000;  // fix i6
@@ -152,18 +141,16 @@ void loop() {
   DI_RC_Channel2Down = digitalRead(DI_CHANNEL2DOWN_RC);
   DI_Rain = digitalRead(DI_INTERRUPT_RAIN);
 
-    // DI_Rain flanks High and Low x005:1
-  if ((DI_Rain == 1) && (DI_RainOld == 0)) DI_RainFlank1 = 1;
-  else DI_RainFlank1 = 0;
-  if (DI_RainFlank1 == 1) Serial.println("x005:1");
-  if ((DI_Rain == 0) && (DI_RainOld == 1)) DI_RainFlank0 = 1;
-  else DI_RainFlank0 = 0;
-  DI_RainOld = DI_Rain;
-  if (DI_RainFlank0 == 1) Serial.println("x005:0");
-
-
   //send by polling time
   i = i + 1;
+  if (DI_RC_Channel1Up == 1 && i == i0) Serial.println("x001:1");
+  if (DI_RC_Channel1Up == 0 && i == i0) Serial.println("x001:0");
+  if (DI_RC_Channel1Down == 1 && i == i1) Serial.println("x002:1");
+  if (DI_RC_Channel1Down == 0 && i == i1) Serial.println("x002:0");
+  if (DI_RC_Channel2Up == 1 && i == i2) Serial.println("x003:1");
+  if (DI_RC_Channel2Up == 0 && i == i2) Serial.println("x003:0");
+  if (DI_RC_Channel2Down == 1 && i == i3) Serial.println("x004:1");
+  if (DI_RC_Channel2Down == 0 && i == i3) Serial.println("x004:0");
   if (DI_Rain == 0 && i == i4) Serial.println("x005:0");
   if (DI_Rain == 1 && i == i5) Serial.println("x005:1");
   if (i == i6) {

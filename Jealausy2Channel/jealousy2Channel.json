@@ -28,6 +28,14 @@
         "info": ""
     },
     {
+        "id": "b58df928500ccc77",
+        "type": "tab",
+        "label": "History",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "90f9ec1d.3035a",
         "type": "serial-port",
         "serialport": "/dev/ttyACM0",
@@ -252,7 +260,7 @@
         "id": "eaf72d29c27d5532",
         "type": "ui_tab",
         "name": "Jalausie",
-        "icon": "settings",
+        "icon": "dashboard",
         "disabled": false,
         "hidden": false
     },
@@ -364,11 +372,48 @@
         "className": ""
     },
     {
+        "id": "2038a0f4c400756e",
+        "type": "ui_tab",
+        "name": "Historie",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "161e9e42bd0768fa",
+        "type": "ui_group",
+        "name": "log",
+        "tab": "2038a0f4c400756e",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ef88dac95fd5e728",
+        "type": "ui_group",
+        "name": "Funktion",
+        "tab": "2038a0f4c400756e",
+        "order": 1,
+        "disp": false,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "48418b79.0f5834",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
         "id": "a8c97c40.96936",
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "Controllino seriell set values ",
-        "func": "if (msg.payload.startsWith('x005:0')) {\n    global.set('DI_Rain',0);\n} \nif (msg.payload.startsWith('x005:1')) {\n    global.set('DI_Rain',1);\n} \nif (msg.payload.startsWith('x006:')) {\n    var result = msg.payload;\n    var resultPart = result.substr(5);\n    var  windspeed = parseFloat(resultPart);\n    global.set('AI_Wind',windspeed);\n} \nreturn msg;",
+        "func": "if (msg.payload.startsWith('x001:0')) {\n    global.set('DI_RC_Channel1Up', 0);\n} \nif (msg.payload.startsWith('x001:1')) {\n    global.set('DI_RC_Channel1Up', 1);\n} \nif (msg.payload.startsWith('x002:0')) {\n    global.set('DI_RC_Channel1Down', 0);\n}\nif (msg.payload.startsWith('x002:1')) {\n    global.set('DI_RC_Channel1Down', 1);\n} \nif (msg.payload.startsWith('x003:0')) {\n    global.set('DI_RC_Channel2Up', 0);\n}\nif (msg.payload.startsWith('x003:1')) {\n    global.set('DI_RC_Channel2Up', 1);\n}\nif (msg.payload.startsWith('x004:0')) {\n    global.set('DI_RC_Channel2Down', 0);\n}\nif (msg.payload.startsWith('x004:1')) {\n    global.set('DI_RC_Channel2Down', 1);\n} \nif (msg.payload.startsWith('x005:0')) {\n    global.set('DI_Rain',0);\n} \nif (msg.payload.startsWith('x005:1')) {\n    global.set('DI_Rain',1);\n} \nif (msg.payload.startsWith('x006:')) {\n    var result = msg.payload;\n    var resultPart = result.substr(5);\n    var  windspeed = parseFloat(resultPart);\n    global.set('AI_Wind',windspeed);\n} \nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -701,10 +746,19 @@
         "type": "inject",
         "z": "305c6dd9.7f9612",
         "name": "all 60 minutes",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
         "repeat": "",
         "crontab": "0 0-2 * * *",
         "once": true,
-        "onceDelay": "5",
+        "onceDelay": "1",
         "topic": "",
         "payload": "true",
         "payloadType": "bool",
@@ -849,7 +903,7 @@
         "type": "function",
         "z": "305c6dd9.7f9612",
         "name": "date",
-        "func": "var date = msg.payload.results.sunset;\nmsg.payload = flow.get('FontUebersicht') + date;\nvar year = date.substr(0,4);\nvar month = date.substr(5,2);\nvar day = date.substr(8,2);\nmsg.payload =flow.get('FontUebersicht') + day+\".\"+month+\".\"+year;\nreturn msg;",
+        "func": "var date = msg.payload.results.sunset;\nmsg.payload = flow.get('FontUebersicht') + date;\nvar year = date.substr(0,4);\nvar month = date.substr(5,2);\nvar day = date.substr(8,2);\nmsg.payload =flow.get('FontUebersicht') + day+\".\"+month+\".\"+year;\n\nglobal.set('date', date.substr(0,4) + \"/\" + date.substr(5,2) + \"/\" + date.substr(8,2));\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1231,14 +1285,10 @@
         "id": "db8e62b9.cf8df",
         "type": "inject",
         "z": "951993f4.8206d",
-        "name": "10s string",
+        "name": "10s timestamp",
         "props": [
             {
                 "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
             }
         ],
         "repeat": "10",
@@ -1247,9 +1297,9 @@
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
-        "payloadType": "str",
-        "x": 130,
-        "y": 660,
+        "payloadType": "date",
+        "x": 140,
+        "y": 760,
         "wires": [
             [
                 "f40e5390.8246b",
@@ -1270,7 +1320,7 @@
         "finalize": "",
         "libs": [],
         "x": 560,
-        "y": 560,
+        "y": 660,
         "wires": [
             [
                 "d94e9c4c.277eb"
@@ -1300,7 +1350,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "Calculate BV_WindAlarn",
-        "func": "var x = 0; \nvar active = flow.get('BV_WindMeasureActive','file');\nif(active === 1 && global.get('AV_WindMax') <= flow.get('AI_speedHighLimit' )){\n   x = 0; \n}\nif(active === 1 && global.get('AV_WindMax') >= flow.get('AI_speedHighLimit' )){\n   x = 1; \n}\nelse {\n   x = 0; \n}\n\nif (x === 1){\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm'; \n    global.set('BV_WindAlarm1', 1);  \n}\nif (x === 0) {\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm'; \n    global.set('BV_WindAlarm1', 0);\n}\nif (active === 0) {\n    msg.payload ='Funktion nicht aktiv!';\n    global.set('BV_WindAlarm1', 0);    \n}\nflow.set('BV_WindAlarm', x,'file');\nreturn msg;",
+        "func": "var x = 0; \nvar active = flow.get('BV_WindMeasureActive','file');\nif(active === 1 && global.get('AV_WindMax') <= flow.get('AI_speedHighLimit' )){\n   x = 0; \n}\nif(active === 1 && global.get('AV_WindMax') >= flow.get('AI_speedHighLimit' )){\n   x = 1; \n}\nelse {\n   x = 0; \n}\n\nif (x === 1){\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm'; \n    global.set('BV_WindAlarm1', 1);  \n    flow.set('AV_WindAlarmTimestamp1',msg.payload);\n}\nif (x === 0) {\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm'; \n    global.set('BV_WindAlarm1', 0);\n}\nif (active === 0) {\n    msg.payload ='Funktion nicht aktiv!';\n    global.set('BV_WindAlarm1', 0);    \n}\nflow.set('BV_WindAlarm', x,'file');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1308,7 +1358,7 @@
         "finalize": "",
         "libs": [],
         "x": 570,
-        "y": 660,
+        "y": 760,
         "wires": [
             [
                 "3427729b.2e5b0e"
@@ -1322,7 +1372,7 @@
         "name": "Jalausie",
         "info": "",
         "x": 80,
-        "y": 760,
+        "y": 860,
         "wires": []
     },
     {
@@ -1332,7 +1382,7 @@
         "name": "Niederschlag",
         "info": "",
         "x": 90,
-        "y": 800,
+        "y": 900,
         "wires": []
     },
     {
@@ -1347,8 +1397,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1400,
-        "y": 1000,
+        "x": 1380,
+        "y": 1080,
         "wires": [
             []
         ]
@@ -1360,21 +1410,17 @@
         "name": "Flow BV_RainAlarm",
         "info": "",
         "x": 270,
-        "y": 800,
+        "y": 900,
         "wires": []
     },
     {
         "id": "4ce02a2f.e3c5c4",
         "type": "inject",
         "z": "951993f4.8206d",
-        "name": "10s string",
+        "name": "10s timestamp",
         "props": [
             {
                 "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
             }
         ],
         "repeat": "10",
@@ -1383,8 +1429,8 @@
         "onceDelay": 0.1,
         "topic": "",
         "payload": "",
-        "payloadType": "str",
-        "x": 123,
+        "payloadType": "date",
+        "x": 133,
         "y": 1386,
         "wires": [
             [
@@ -1439,14 +1485,14 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "Calculate BV_RainAlarn",
-        "func": "var rain = 0;\nvar x = 0;\nvar active = flow.get('BV_RainActive','file');\n// Regenwahrscheinlichkeit\nif(active === 1 && global.get('AI_Regenwahrscheinlichkeit') + 2.0 <= flow.get('AV_RegenwahrscheinlichkeitLimit' )){\n   x = 0; \n}\nif(active === 1 && global.get('AI_Regenwahrscheinlichkeit') - 2.0 >= flow.get('AV_RegenwahrscheinlichkeitLimit' )){\n   x = 1; \n}\nelse {\n   x = 0; \n}\n\nif (x === 1){\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm';  \n}\nif (x === 0) {\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm';   \n}\n\n\n// rain sensor\nrain = global.get('DI_Rain');\nif (rain == 1 && active === 1) {\n    x = 1;\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm'; \n      \n} \nif (rain == 1 && active === 0) {\n    x = 0;\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm';\n    \n} \n\n// not active\nif (active === 0) {\n    x = 0;\n    msg.payload ='Funktion nicht aktiv!'; \n    \n}\nflow.set('BV_RainAlarm', x,'file');\nglobal.set('BV_RainAlarm1', x); \n\n\n\n\nreturn msg;",
+        "func": "var rain = 0;\nvar x = 0;\nvar active = flow.get('BV_RainActive','file');\n// Regenwahrscheinlichkeit\nif(active === 1 && global.get('AI_Regenwahrscheinlichkeit') + 2.0 <= flow.get('AV_RegenwahrscheinlichkeitLimit' )){\n   x = 0; \n}\nif(active === 1 && global.get('AI_Regenwahrscheinlichkeit') - 2.0 >= flow.get('AV_RegenwahrscheinlichkeitLimit' )){\n   x = 1; \n}\nelse {\n   x = 0; \n}\n\nif (x === 1){\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm';  \n}\nif (x === 0) {\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm';   \n}\n\n\n// rain sensor\nrain = global.get('DI_Rain');\nif (rain == 1 && active === 1) {\n    x = 1;\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm'; \n      \n} \nif (rain == 1 && active === 0) {\n    x = 0;\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm';\n    \n} \n\n// not active\nif (active === 0) {\n    x = 0;\n    msg.payload ='Funktion nicht aktiv!'; \n    \n}\n\n// Time Delay\nif (x === 1) {\n    flow.set('RainAlarmTimeStamp', Date.now());\n}\nvar millis = flow.get('RainAlarmTimeStamp') + flow.get('AV_WindAlarmDelayMinute')*1000*60;\nvar millisDelay = flow.get('AV_WindAlarmDelayMinute') * 1000 * 60 - millis;\n\nif (Date.now() < millis) {\n    flow.set('RainAlarmResttime', millisDelay);\n}\n\n\n\n\n\nflow.set('BV_RainAlarm', x);\nglobal.set('BV_RainAlarm1', x); \n\n\n\n\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 530,
+        "x": 610,
         "y": 1380,
         "wires": [
             [
@@ -1474,7 +1520,7 @@
         "step": "5",
         "className": "",
         "x": 1050,
-        "y": 940,
+        "y": 1040,
         "wires": [
             [
                 "ef1b7795.2a4dd8",
@@ -1500,7 +1546,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 910,
-        "y": 660,
+        "y": 760,
         "wires": []
     },
     {
@@ -1570,7 +1616,7 @@
         "diff": false,
         "className": "",
         "x": 1020,
-        "y": 560,
+        "y": 660,
         "wires": []
     },
     {
@@ -1613,8 +1659,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1270,
-        "y": 380,
+        "x": 1290,
+        "y": 320,
         "wires": [
             []
         ]
@@ -1689,9 +1735,7 @@
             "98c3295deb403c37",
             "e595f826611aedb7",
             "ed0dadfdcd8cfbb8",
-            "871d0107e443882f",
-            "36a87055067c2ed4",
-            "aca41db0771d24d6"
+            "871d0107e443882f"
         ],
         "uncaught": false,
         "x": 260,
@@ -1730,7 +1774,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 510,
-        "y": 860,
+        "y": 960,
         "wires": [
             [
                 "14b41ce8835d7af2"
@@ -1748,8 +1792,8 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 1310,
-        "y": 760,
+        "x": 1350,
+        "y": 900,
         "wires": [
             []
         ]
@@ -1767,7 +1811,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 570,
-        "y": 940,
+        "y": 1040,
         "wires": [
             [
                 "9e25c6d2aade8067"
@@ -1785,8 +1829,8 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "none",
-        "x": 1430,
-        "y": 940,
+        "x": 1410,
+        "y": 1020,
         "wires": [
             []
         ]
@@ -1831,8 +1875,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1260,
-        "y": 860,
+        "x": 1320,
+        "y": 960,
         "wires": [
             []
         ]
@@ -1937,7 +1981,7 @@
         "topicType": "msg",
         "className": "",
         "x": 1010,
-        "y": 860,
+        "y": 960,
         "wires": [
             [
                 "53b6edee4ac8d11f",
@@ -2092,7 +2136,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 860,
+        "y": 960,
         "wires": [
             [
                 "c87caffc91cbe0ac"
@@ -2112,7 +2156,7 @@
         "finalize": "",
         "libs": [],
         "x": 870,
-        "y": 940,
+        "y": 1040,
         "wires": [
             [
                 "6f07e1e2.4d9dc"
@@ -2165,7 +2209,9 @@
         "wires": [
             [
                 "4bc9993ac3ad2372",
-                "1e520ce621aa8577"
+                "1e520ce621aa8577",
+                "eb3ae9bebf524ee4",
+                "5de35d559cdbf50d"
             ]
         ]
     },
@@ -2191,7 +2237,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 150,
-        "y": 900,
+        "y": 1000,
         "wires": [
             [
                 "98c3295deb403c37",
@@ -3104,7 +3150,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "y101:x DO_Channel1UpFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y101:0';\n\nif (x1 === 0 ){\n     msg.payload = 'y101:1';     \n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y101:0';\n\nif (x1 === 0 ){\n     msg.payload = 'y101:1'; \n     global.set('DO_Channel1Up', 1);    \n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n     global.set('DO_Channel1Up', 0);\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n     global.set('DO_Channel1Up', 0);\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3212,7 +3258,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "y102:x DO_Channel1DownFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nif (x1 === 0) {\n     msg.payload = 'y102:0';\n}\nif (x2 === 0) {\n     msg.payload = 'y102:0';\n}\nif (x1 === 1 ){\n     msg.payload = 'y102:1';     \n}\nif (x2 === 1) {\n     msg.payload = 'y102:1';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y102:0';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y102:0';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nif (x1 === 0) {\n     msg.payload = 'y102:0';\n     global.set('DO_Channel1Down', 0);\n}\nif (x2 === 0) {\n     msg.payload = 'y102:0';\n     global.set('DO_Channel1Down', 0);\n}\nif (x1 === 1 ){\n     msg.payload = 'y102:1';\n     global.set('DO_Channel1Down', 1);     \n}\nif (x2 === 1) {\n     msg.payload = 'y102:1';\n     global.set('DO_Channel1Down', 1);\n}\nif (alarm1 === 1) {\n     msg.payload = 'y102:0';\n     global.set('DO_Channel1Down', 0);\n}\nif (alarm2 === 1) {\n     msg.payload = 'y102:0';\n     global.set('DO_Channel1Down', 0);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3341,7 +3387,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "y101:1 DO_Channel1UpAlarm",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = '';\n\nif (x1 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = '';\n\nif (x1 === 0) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nif (x2 === 0) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nif (x1 === 1) {\n     msg.payload = 'y101:0';\n     global.set('DO_Channel1Up', 0);\n}\nif (x2 === 1) {\n     msg.payload = 'y101:0';\n     global.set('DO_Channel1Up', 0);\n}\nif (alarm1 === 1) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nif (alarm2 === 1) {\n     msg.payload = 'y101:1';\n     global.set('DO_Channel1Up', 1);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3509,11 +3555,217 @@
         "id": "b0c6c4ef2138d443",
         "type": "comment",
         "z": "951993f4.8206d",
-        "name": "Remote Controll is in Controllino realiced",
+        "name": "Remote Controll is in Controllino-programm",
         "info": "",
         "x": 780,
         "y": 4040,
         "wires": []
+    },
+    {
+        "id": "eb3ae9bebf524ee4",
+        "type": "file in",
+        "z": "951993f4.8206d",
+        "name": "AV_RainAlarmDelayMinute read file",
+        "filename": "/home/pi/.node-red/context/Jalausie/AV_RainAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 480,
+        "y": 360,
+        "wires": [
+            [
+                "de71355baf7804e0"
+            ]
+        ]
+    },
+    {
+        "id": "de71355baf7804e0",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "String to number",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 360,
+        "wires": [
+            [
+                "f1760992934b100c"
+            ]
+        ]
+    },
+    {
+        "id": "f1760992934b100c",
+        "type": "ui_slider",
+        "z": "951993f4.8206d",
+        "name": "Grenzwert",
+        "label": "Verzögerung in Minuten",
+        "tooltip": "Verzögerung in Minuten nach Grenzwert",
+        "group": "f38a2925ce1a334a",
+        "order": 3,
+        "width": "",
+        "height": "",
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "topicType": "str",
+        "min": 0,
+        "max": "120",
+        "step": "10",
+        "className": "",
+        "x": 950,
+        "y": 360,
+        "wires": [
+            [
+                "451c2561f808bfc3",
+                "28775efa7b7f787a"
+            ]
+        ]
+    },
+    {
+        "id": "451c2561f808bfc3",
+        "type": "file",
+        "z": "951993f4.8206d",
+        "name": "AV_RainAlarmDelayMinute",
+        "filename": "/home/pi/.node-red/context/Jalausie/AV_RainAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1220,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28775efa7b7f787a",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "AV_RainAlarmDelayMinute",
+        "func": "flow.set('AV_RainAlarmDelayMinute', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5de35d559cdbf50d",
+        "type": "file in",
+        "z": "951993f4.8206d",
+        "name": "AV_WindAlarmDelayMinute read file",
+        "filename": "/home/pi/.node-red/context/Jalausie/AV_WindAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 450,
+        "y": 460,
+        "wires": [
+            [
+                "f155033d4105dc9b"
+            ]
+        ]
+    },
+    {
+        "id": "f155033d4105dc9b",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "String to number",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 460,
+        "wires": [
+            [
+                "484afd5761f4fe28"
+            ]
+        ]
+    },
+    {
+        "id": "484afd5761f4fe28",
+        "type": "ui_slider",
+        "z": "951993f4.8206d",
+        "name": "Grenzwert",
+        "label": "Verzögerung in Minuten",
+        "tooltip": "Verzögerung in Minuten nach Grenzwert",
+        "group": "d90c12143c2e28b4",
+        "order": 3,
+        "width": "",
+        "height": "",
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "topicType": "str",
+        "min": 0,
+        "max": "120",
+        "step": "10",
+        "className": "",
+        "x": 950,
+        "y": 460,
+        "wires": [
+            [
+                "0b8f3cf83c4d0712",
+                "0c21a2f74cffaaaa"
+            ]
+        ]
+    },
+    {
+        "id": "0b8f3cf83c4d0712",
+        "type": "file",
+        "z": "951993f4.8206d",
+        "name": "AV_WindAlarmDelayMinute",
+        "filename": "/home/pi/.node-red/context/Jalausie/AV_WindAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1220,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0c21a2f74cffaaaa",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "AV_WindAlarmDelayMinute",
+        "func": "flow.set('AV_WindAlarmDelayMinute', msg.payload, 'file');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 500,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "12d61d262137e15c",
@@ -3567,7 +3819,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 130,
-        "y": 660,
+        "y": 800,
         "wires": [
             [
                 "95a12170dd3f8493",
@@ -3588,7 +3840,7 @@
         "finalize": "",
         "libs": [],
         "x": 560,
-        "y": 560,
+        "y": 700,
         "wires": [
             [
                 "f99edf1cad1eee21"
@@ -3626,7 +3878,7 @@
         "finalize": "",
         "libs": [],
         "x": 570,
-        "y": 660,
+        "y": 800,
         "wires": [
             [
                 "e9503aec35c6ab85"
@@ -3640,7 +3892,7 @@
         "name": "Sonnensegel",
         "info": "",
         "x": 80,
-        "y": 760,
+        "y": 900,
         "wires": []
     },
     {
@@ -3650,7 +3902,7 @@
         "name": "Niederschlag",
         "info": "",
         "x": 90,
-        "y": 800,
+        "y": 940,
         "wires": []
     },
     {
@@ -3666,7 +3918,7 @@
         "finalize": "",
         "libs": [],
         "x": 1400,
-        "y": 1000,
+        "y": 1140,
         "wires": [
             []
         ]
@@ -3678,7 +3930,7 @@
         "name": "Flow BV_RainAlarm",
         "info": "",
         "x": 270,
-        "y": 800,
+        "y": 940,
         "wires": []
     },
     {
@@ -3792,7 +4044,7 @@
         "step": "5",
         "className": "",
         "x": 1050,
-        "y": 940,
+        "y": 1080,
         "wires": [
             [
                 "0528787dce9e05f1",
@@ -3818,7 +4070,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 910,
-        "y": 660,
+        "y": 800,
         "wires": []
     },
     {
@@ -3888,7 +4140,7 @@
         "diff": false,
         "className": "",
         "x": 1020,
-        "y": 560,
+        "y": 700,
         "wires": []
     },
     {
@@ -4048,7 +4300,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 510,
-        "y": 860,
+        "y": 1000,
         "wires": [
             [
                 "e8c8e64d1a76a3a2"
@@ -4067,7 +4319,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 1310,
-        "y": 760,
+        "y": 900,
         "wires": [
             []
         ]
@@ -4085,7 +4337,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 570,
-        "y": 940,
+        "y": 1080,
         "wires": [
             [
                 "ce49997e320f7472"
@@ -4104,7 +4356,7 @@
         "overwriteFile": "true",
         "encoding": "none",
         "x": 1430,
-        "y": 940,
+        "y": 1080,
         "wires": [
             []
         ]
@@ -4150,7 +4402,7 @@
         "finalize": "",
         "libs": [],
         "x": 1260,
-        "y": 860,
+        "y": 1000,
         "wires": [
             []
         ]
@@ -4255,7 +4507,7 @@
         "topicType": "msg",
         "className": "",
         "x": 1010,
-        "y": 860,
+        "y": 1000,
         "wires": [
             [
                 "0bed1be55ccb7209",
@@ -4438,7 +4690,7 @@
         "finalize": "",
         "libs": [],
         "x": 750,
-        "y": 860,
+        "y": 1000,
         "wires": [
             [
                 "92b951e5eb0e2f38"
@@ -4458,7 +4710,7 @@
         "finalize": "",
         "libs": [],
         "x": 870,
-        "y": 940,
+        "y": 1080,
         "wires": [
             [
                 "eba1f9f5e06547cb"
@@ -4511,7 +4763,9 @@
         "wires": [
             [
                 "18e64e7304bd2667",
-                "124c28740d3da1ea"
+                "124c28740d3da1ea",
+                "cda2312bc40d183b",
+                "fe766c95d812a907"
             ]
         ]
     },
@@ -4537,7 +4791,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 150,
-        "y": 900,
+        "y": 1040,
         "wires": [
             [
                 "be097f99b00d85d3",
@@ -5395,7 +5649,7 @@
         "id": "5aeb59ced2b7bfd5",
         "type": "comment",
         "z": "812b0ff61703e7f7",
-        "name": "y103:0 DO_Channel1Up Motorlaufzeit",
+        "name": "y103:0 DO_Channel2Up Motorlaufzeit",
         "info": "",
         "x": 1470,
         "y": 3560,
@@ -5405,7 +5659,7 @@
         "id": "40c32dd581a70d90",
         "type": "comment",
         "z": "812b0ff61703e7f7",
-        "name": "y104:0 DO_Channel1Down",
+        "name": "y104:0 DO_Channel2Down",
         "info": "",
         "x": 1430,
         "y": 3520,
@@ -5445,8 +5699,8 @@
         "id": "aaaf2c5c74a85ecc",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "y103:x DO_Channel1UpFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y103:0';\n\nif (x1 === 0 ){\n     msg.payload = 'y103:1';     \n}\nif (x2 === 0) {\n     msg.payload = 'y103:1';\n}\nif (x1 === 1) {\n     msg.payload = 'y103:0';\n}\nif (x2 === 1) {\n     msg.payload = 'y103:0';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n}\nreturn msg;",
+        "name": "y103:x DO_Channel2UpFunction",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y103:0';\n\nif (x1 === 0 ){\n     msg.payload = 'y103:1'; \n     global.set('DO_Channel2Up', 1);\n}\nif (x2 === 0) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nif (x1 === 1) {\n     msg.payload = 'y103:0';\n     global.set('DO_Channel2Up', 0);\n}\nif (x2 === 1) {\n     msg.payload = 'y103:0';\n     global.set('DO_Channel2Up', 0);\n}\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5478,7 +5732,7 @@
         "id": "165d655ae544dddf",
         "type": "comment",
         "z": "812b0ff61703e7f7",
-        "name": "y103:1 DO_Channel1Up",
+        "name": "y103:1 DO_Channel2Up",
         "info": "",
         "x": 550,
         "y": 3500,
@@ -5498,7 +5752,7 @@
         "id": "ea1b5709f5078945",
         "type": "comment",
         "z": "812b0ff61703e7f7",
-        "name": "y104:0 DO_Channel1Down Motorlaufzeit",
+        "name": "y104:0 DO_Channel2Down Motorlaufzeit",
         "info": "",
         "x": 1280,
         "y": 3860,
@@ -5508,8 +5762,8 @@
         "id": "99569e4f59dffddb",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "y104:x DO_Channel1DownFunction",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y104:0';\n\nif (x1 === 0) {\n     msg.payload = 'y104:0';\n}\nif (x2 === 0) {\n     msg.payload = 'y104:0';\n}\nif (x1 === 1) {\n     msg.payload = 'y104:1';\n}\nif (x2 === 1) {\n     msg.payload = 'y104:1';\n}\nif (alarm1 === 1) {\n     msg.payload = 'y104:0';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y104:0';\n}\nreturn msg;",
+        "name": "y104:x DO_Channel2DownFunction",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = 'y104:0';\n\nif (x1 === 0) {\n     msg.payload = 'y104:0';\n     global.set('DO_Channel2Down', 0);\n}\nif (x2 === 0) {\n     msg.payload = 'y104:0';\n     global.set('DO_Channel2Down', 0);\n}\nif (x1 === 1) {\n     msg.payload = 'y104:1';\n     global.set('DO_Channel2Down', 1);\n}\nif (x2 === 1) {\n     msg.payload = 'y104:1';\n     global.set('DO_Channel2Down', 1);\n}\nif (alarm1 === 1) {\n     msg.payload = 'y104:0';\n     global.set('DO_Channel2Down', 0);\n}\nif (alarm2 === 1) {\n     msg.payload = 'y104:0';\n     global.set('DO_Channel2Down', 0);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5573,7 +5827,7 @@
         "id": "e481a8b367c2bd30",
         "type": "comment",
         "z": "812b0ff61703e7f7",
-        "name": "y104:1 DO_Channel1Down",
+        "name": "y104:1 DO_Channel2Down",
         "info": "",
         "x": 550,
         "y": 3680,
@@ -5608,8 +5862,8 @@
         "id": "d6521794f856aeca",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "y103:1 DO_Channel1UpAlarm",
-        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n\nmsg.payload = '';\n\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n}\nreturn msg;",
+        "name": "y103:1 DO_Channel2UpAlarm",
+        "func": "// alarm\nvar alarm1 = flow.get('BV_RainAlarm', 'file');\nvar alarm2 = flow.get('BV_WindAlarm', 'file');\n\n// sun function\nvar x1 = flow.get('BV_Sun', 'file');\n// schedule  function\nvar x2 = flow.get('BV_Schedule', 'file');\n\nmsg.payload = '';\n\nif (x1 === 0) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nif (x2 === 0) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nif (x1 === 1) {\n     msg.payload = 'y103:0';\n     global.set('DO_Channel2Up', 0);\n}\nif (x2 === 1) {\n     msg.payload = 'y103:0';\n     global.set('DO_Channel2Up', 0);\n}\nif (alarm1 === 1) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nif (alarm2 === 1) {\n     msg.payload = 'y103:1';\n     global.set('DO_Channel2Up', 1);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5768,9 +6022,9 @@
         "id": "87dc84313b2ea35e",
         "type": "comment",
         "z": "812b0ff61703e7f7",
-        "name": "Remote Controll is in Controllino realiced",
+        "name": "Remote Controll is in Controllino -programm",
         "info": "",
-        "x": 760,
+        "x": 770,
         "y": 4080,
         "wires": []
     },
@@ -5816,6 +6070,1311 @@
         "wires": [
             [
                 "7747ffc4cbbbb843"
+            ]
+        ]
+    },
+    {
+        "id": "cda2312bc40d183b",
+        "type": "file in",
+        "z": "812b0ff61703e7f7",
+        "name": "AV_RainAlarmDelayMinute read file",
+        "filename": "/home/pi/.node-red/context/Sonnensegel/AV_RainAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 560,
+        "y": 460,
+        "wires": [
+            [
+                "ecb87132a7cd6535"
+            ]
+        ]
+    },
+    {
+        "id": "ecb87132a7cd6535",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "String to number",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 460,
+        "wires": [
+            [
+                "4809127d3a1d80dc"
+            ]
+        ]
+    },
+    {
+        "id": "4809127d3a1d80dc",
+        "type": "ui_slider",
+        "z": "812b0ff61703e7f7",
+        "name": "Grenzwert",
+        "label": "Verzögerung in Minuten",
+        "tooltip": "Verzögerung in Minuten nach Grenzwert",
+        "group": "7931605bd60b47a1",
+        "order": 3,
+        "width": "",
+        "height": "",
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "topicType": "str",
+        "min": 0,
+        "max": "120",
+        "step": "10",
+        "className": "",
+        "x": 1030,
+        "y": 460,
+        "wires": [
+            [
+                "89c0c485c8403694",
+                "4b7bcbeb978d0eac"
+            ]
+        ]
+    },
+    {
+        "id": "89c0c485c8403694",
+        "type": "file",
+        "z": "812b0ff61703e7f7",
+        "name": "AV_RainAlarmDelayMinute",
+        "filename": "/home/pi/.node-red/context/Sonnensegel/AV_RainAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1300,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4b7bcbeb978d0eac",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "AI_speedHighLimit",
+        "func": "flow.set('AI_speedHighLiAV_RainAlarmDelayMinute', msg.payload, 'file');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fe766c95d812a907",
+        "type": "file in",
+        "z": "812b0ff61703e7f7",
+        "name": "AV_WindAlarmDelayMinute read file",
+        "filename": "/home/pi/.node-red/context/Sonnensegel/AV_WindAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 530,
+        "y": 560,
+        "wires": [
+            [
+                "88074a81531f7bf5"
+            ]
+        ]
+    },
+    {
+        "id": "88074a81531f7bf5",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "String to number",
+        "func": "msg.payload = Number(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 560,
+        "wires": [
+            [
+                "705fe6369f5321af"
+            ]
+        ]
+    },
+    {
+        "id": "705fe6369f5321af",
+        "type": "ui_slider",
+        "z": "812b0ff61703e7f7",
+        "name": "Grenzwert",
+        "label": "Verzögerung in Minuten",
+        "tooltip": "Verzögerung in Minuten nach Grenzwert",
+        "group": "922b78cb649e46cb",
+        "order": 3,
+        "width": "",
+        "height": "",
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "topicType": "str",
+        "min": 0,
+        "max": "120",
+        "step": "10",
+        "className": "",
+        "x": 1030,
+        "y": 560,
+        "wires": [
+            [
+                "4c7b1791d3133985",
+                "591309715a0a34ad"
+            ]
+        ]
+    },
+    {
+        "id": "4c7b1791d3133985",
+        "type": "file",
+        "z": "812b0ff61703e7f7",
+        "name": "AV_WindAlarmDelayMinute",
+        "filename": "/home/pi/.node-red/context/Sonnensegel/AV_WindAlarmDelayMinute.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1300,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "591309715a0a34ad",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "AV_WindAlarmDelayMinute",
+        "func": "flow.set('AV_WindAlarmDelayMinute', msg.payload, 'file');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cc8499a82cba5bd5",
+        "type": "file in",
+        "z": "b58df928500ccc77",
+        "name": "Log read file",
+        "filename": "/home/pi/.node-red/context/Log.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 230,
+        "y": 1340,
+        "wires": [
+            [
+                "af5f1ae6c734249c"
+            ]
+        ]
+    },
+    {
+        "id": "3176efbd0552b403",
+        "type": "ui_table",
+        "z": "b58df928500ccc77",
+        "group": "161e9e42bd0768fa",
+        "name": "Log",
+        "order": 1,
+        "width": "12",
+        "height": "8",
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 630,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "22bded1e6d819792",
+        "type": "inject",
+        "z": "b58df928500ccc77",
+        "name": "Intervall 10 Minuten",
+        "props": [],
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "30",
+        "topic": "",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "147667c999b6000a",
+                "a0a4cc691097431f",
+                "62a8daaffc762a3a",
+                "ac78de81ae274a8d",
+                "cc8499a82cba5bd5",
+                "a9df603736548e4e",
+                "1e0f21bad9a8ff78",
+                "5adb984c71229861",
+                "59c3ba42c97d7150",
+                "6b14b1b8632b752e",
+                "f6fb370b6d945c77",
+                "d76094d3b5132d13",
+                "dba2663f3c73a6ce"
+            ]
+        ]
+    },
+    {
+        "id": "147667c999b6000a",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieDown_Change",
+        "func": "msg.payload = global.get('DO_Channel1Down');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "cec41a62a340f483"
+            ]
+        ]
+    },
+    {
+        "id": "d796d27e28edcd7f",
+        "type": "file",
+        "z": "b58df928500ccc77",
+        "name": "Log write file",
+        "filename": "/home/pi/.node-red/context/Log.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1330,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "af5f1ae6c734249c",
+        "type": "csv",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "sep": ";",
+        "hdrin": true,
+        "hdrout": "all",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 430,
+        "y": 1340,
+        "wires": [
+            [
+                "3176efbd0552b403"
+            ]
+        ]
+    },
+    {
+        "id": "95e0c71542850d45",
+        "type": "inject",
+        "z": "b58df928500ccc77",
+        "name": "Once",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0,2",
+        "topic": "",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "49b5924155aef42d"
+            ]
+        ]
+    },
+    {
+        "id": "49b5924155aef42d",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "LogToFileCSV JalausieLog column heading",
+        "func": "msg.payload = \"Zeitpunkt;Anlage;Gerät;Zustand\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "cec41a62a340f483",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 710,
+        "y": 220,
+        "wires": [
+            [
+                "52e52073a5f40e52"
+            ]
+        ]
+    },
+    {
+        "id": "a0a4cc691097431f",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieUp_Change",
+        "func": "msg.payload = global.get('DO_Channel1Up');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "e5429d46437f7d30"
+            ]
+        ]
+    },
+    {
+        "id": "e5429d46437f7d30",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 710,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac78de81ae274a8d",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieUpRCT_Change",
+        "func": "msg.payload = global.get('DI_RC_Channel1Up');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 460,
+        "wires": [
+            [
+                "92043ed88c8e51b3"
+            ]
+        ]
+    },
+    {
+        "id": "92043ed88c8e51b3",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 710,
+        "y": 460,
+        "wires": [
+            [
+                "65ed2acb1d06d43d"
+            ]
+        ]
+    },
+    {
+        "id": "62a8daaffc762a3a",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieDownRC_Change",
+        "func": "  msg.payload = global.get('DI_RC_Channel1Down'); \nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "e1dc591e2d5d40aa"
+            ]
+        ]
+    },
+    {
+        "id": "e1dc591e2d5d40aa",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 710,
+        "y": 380,
+        "wires": [
+            [
+                "4856bd2b53bb53fc"
+            ]
+        ]
+    },
+    {
+        "id": "4856bd2b53bb53fc",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieDownRCToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DI_RC_Channel1Down');\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Jalausie;\"  +\"Fernbedienung;\" +  \"Unten Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" + \"Fernbedienung;\" + \"Unten Aus\"\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 380,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "52e52073a5f40e52",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieDownToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DO_Channel1Down');\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Jalausie;\"  +\"Lamellen;\" +  \"Unten Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" + \"Lamellen;\" + \"Unten Aus\"   \n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 220,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "03ceb9aef4f1069a",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieUpToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DO_Channel1Up');\nmsg.change = dummy;\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Jalausie;\"  +\"Lamellen;\" +  \"Oben Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" + \"Lamellen;\" + \"Oben Aus\"   \n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 300,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "65ed2acb1d06d43d",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieUpRCToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DI_RC_Channel1Up');\nmsg.change = dummy;\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Jalausie;\"  +\"Fernbedienung;\" +  \"Oben Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" + \"Fernbedienung;\" + \"Oben Aus\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 460,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "a9df603736548e4e",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieRainAlarm_Change",
+        "func": "msg.payload = global.get('BV_RainAlarm1');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "e88c04d682bcb97a"
+            ]
+        ]
+    },
+    {
+        "id": "e88c04d682bcb97a",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 710,
+        "y": 520,
+        "wires": [
+            [
+                "372d1ff2e5ed8402"
+            ]
+        ]
+    },
+    {
+        "id": "372d1ff2e5ed8402",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieRainAlarmToFileCSV",
+        "func": "var dummy = global.get('BV_RainAlarm1');\nif (dummy === 0) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" + \"Niederschlagschutz;\" + \"Normal\"\n};\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" +\"Niederschlagschutz;\" +  \"Alarm\"   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 520,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "1e0f21bad9a8ff78",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieWindAlarm_Change",
+        "func": "msg.payload = global.get('BV_WindAlarm1');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 600,
+        "wires": [
+            [
+                "455efdc40d68c62c"
+            ]
+        ]
+    },
+    {
+        "id": "455efdc40d68c62c",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 710,
+        "y": 600,
+        "wires": [
+            [
+                "0101157946d270bc"
+            ]
+        ]
+    },
+    {
+        "id": "0101157946d270bc",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "JalausieWindAlarmToFileCSV",
+        "func": "var dummy = global.get('BV_WindAlarm1');\nif (dummy === 0) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" + \"Windschutz;\" + \"Normal\"\n};\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Jalausie;\" +\"Windschutz;\" +  \"Alarm\"   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 600,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "71b2a5ae7be93827",
+        "type": "ui_button",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "group": "ef88dac95fd5e728",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Aktualisieren",
+        "tooltip": "Aktualisiert die Log-Tabelle",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 85,
+        "y": 440,
+        "wires": [
+            [
+                "147667c999b6000a",
+                "a0a4cc691097431f",
+                "62a8daaffc762a3a",
+                "ac78de81ae274a8d",
+                "a9df603736548e4e",
+                "1e0f21bad9a8ff78",
+                "cc8499a82cba5bd5",
+                "5adb984c71229861",
+                "59c3ba42c97d7150",
+                "6b14b1b8632b752e",
+                "f6fb370b6d945c77",
+                "d76094d3b5132d13",
+                "dba2663f3c73a6ce"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "8a3f52c43c9468c0",
+        "type": "downloadfile",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "filename": "log.txt",
+        "encoding": "none",
+        "x": 810,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "4d700459265c515f",
+        "type": "csv",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "sep": ";",
+        "hdrin": true,
+        "hdrout": "all",
+        "multi": "mult",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 630,
+        "y": 1520,
+        "wires": [
+            [
+                "8a3f52c43c9468c0"
+            ]
+        ]
+    },
+    {
+        "id": "bd1adc13061ea6f8",
+        "type": "file in",
+        "z": "b58df928500ccc77",
+        "name": "Log read file",
+        "filename": "/home/pi/.node-red/context/Log.txt",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 370,
+        "y": 1520,
+        "wires": [
+            [
+                "4d700459265c515f"
+            ]
+        ]
+    },
+    {
+        "id": "f8ee1a95cc036862",
+        "type": "ui_button",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "group": "ef88dac95fd5e728",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Download",
+        "tooltip": "Download der Log-Tabelle",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 155,
+        "y": 1520,
+        "wires": [
+            [
+                "bd1adc13061ea6f8"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "53b89dcaf4418874",
+        "type": "ui_button",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "group": "ef88dac95fd5e728",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Inhalte löschen",
+        "tooltip": "Inhalte löschen",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 155,
+        "y": 1460,
+        "wires": [
+            [
+                "96da1f8fdc1611e4"
+            ]
+        ],
+        "l": false
+    },
+    {
+        "id": "96da1f8fdc1611e4",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "LogToFileCSV JalausieLog column heading",
+        "func": "msg.payload = \"Zeitpunkt;Anlage;Gerät;Zustand\";\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1460,
+        "wires": [
+            [
+                "d0dcfd20440c467e"
+            ]
+        ]
+    },
+    {
+        "id": "d0dcfd20440c467e",
+        "type": "file",
+        "z": "b58df928500ccc77",
+        "name": "JalausieLog delete file",
+        "filename": "/home/pi/.node-red/context/Log.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 740,
+        "y": 1460,
+        "wires": [
+            [
+                "5fc74a7a37853500"
+            ]
+        ]
+    },
+    {
+        "id": "5fc74a7a37853500",
+        "type": "trigger",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "op1": "",
+        "op2": "",
+        "op1type": "pay",
+        "op2type": "pay",
+        "duration": "60",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 990,
+        "y": 1460,
+        "wires": [
+            [
+                "cc8499a82cba5bd5"
+            ]
+        ]
+    },
+    {
+        "id": "6ad56c92b0e23858",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "CollectMessages",
+        "func": "return msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1190,
+        "y": 740,
+        "wires": [
+            [
+                "d796d27e28edcd7f"
+            ]
+        ]
+    },
+    {
+        "id": "5adb984c71229861",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelDown_Change",
+        "func": "msg.payload = global.get('DO_Channel2Down');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 820,
+        "wires": [
+            [
+                "0a6a1189ab4c6359"
+            ]
+        ]
+    },
+    {
+        "id": "0a6a1189ab4c6359",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 690,
+        "y": 820,
+        "wires": [
+            [
+                "64c29e02eb9d1d4c"
+            ]
+        ]
+    },
+    {
+        "id": "59c3ba42c97d7150",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelUp_Change",
+        "func": "msg.payload = global.get('DO_Channel2Up');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 900,
+        "wires": [
+            [
+                "05856e6d8904d9aa"
+            ]
+        ]
+    },
+    {
+        "id": "05856e6d8904d9aa",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 690,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f6fb370b6d945c77",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelUpRCT_Change",
+        "func": "msg.payload = global.get('DI_RC_Channel2Up');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 1060,
+        "wires": [
+            [
+                "f0f2e27dcb833d48"
+            ]
+        ]
+    },
+    {
+        "id": "f0f2e27dcb833d48",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 690,
+        "y": 1060,
+        "wires": [
+            [
+                "4f6af63f88c21c2a"
+            ]
+        ]
+    },
+    {
+        "id": "6b14b1b8632b752e",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelDownRC_Change",
+        "func": "  msg.payload = global.get('DI_RC_Channel2Down'); \nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 980,
+        "wires": [
+            [
+                "55bd3c4cf442c51c"
+            ]
+        ]
+    },
+    {
+        "id": "55bd3c4cf442c51c",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 690,
+        "y": 980,
+        "wires": [
+            [
+                "19c271e08bdb3aef"
+            ]
+        ]
+    },
+    {
+        "id": "19c271e08bdb3aef",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelDownRCToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DI_RC_Channel2Down');\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Sonnensegel;\"  +\"Fernbedienung;\" +  \"Unten Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" + \"Fernbedienung;\" + \"Unten Aus\"\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 980,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "64c29e02eb9d1d4c",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelDownToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DO_Channel2Down');\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Sonnensegel;\"  +\"Plane;\" +  \"Unten Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" + \"Plane;\" + \"Unten Aus\"   \n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 820,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "91de4688d140abb0",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelUpToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DO_Channel2Up');\nmsg.change = dummy;\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Sonnensegel;\"  +\"Plane;\" +  \"Oben Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" + \"Plane;\" + \"Oben Aus\"   \n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 900,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "4f6af63f88c21c2a",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelUpRCToFileCSV",
+        "func": "var unit = \"Unten\" ;\nvar dummy = global.get('DI_RC_Channel2Up');\nmsg.change = dummy;\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" +\"Sonnensegel;\"  +\"Fernbedienung;\" +  \"Oben Ein\"   \n}\nelse msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" + \"Fernbedienung;\" + \"Oben Aus\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 1060,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "d76094d3b5132d13",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelRainAlarm_Change",
+        "func": "msg.payload = global.get('BV_RainAlarm2');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1120,
+        "wires": [
+            [
+                "0cab94b3b0d39893"
+            ]
+        ]
+    },
+    {
+        "id": "0cab94b3b0d39893",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 690,
+        "y": 1120,
+        "wires": [
+            [
+                "8abe9c6a54d55cf9"
+            ]
+        ]
+    },
+    {
+        "id": "8abe9c6a54d55cf9",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelRainAlarmToFileCSV",
+        "func": "var dummy = global.get('BV_RainAlarm2');\nif (dummy === 0) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" + \"Niederschlagschutz;\" + \"Normal\"\n};\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" +\"Niederschlagschutz;\" +  \"Alarm\"   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 1120,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
+            ]
+        ]
+    },
+    {
+        "id": "dba2663f3c73a6ce",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelWindAlarm_Change",
+        "func": "msg.payload = global.get('BV_WindAlarm2');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1200,
+        "wires": [
+            [
+                "cd4dae8e90ddd1fa"
+            ]
+        ]
+    },
+    {
+        "id": "cd4dae8e90ddd1fa",
+        "type": "rbe",
+        "z": "b58df928500ccc77",
+        "name": "Blockieren bis Werteänderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 690,
+        "y": 1200,
+        "wires": [
+            [
+                "712728a98e200929"
+            ]
+        ]
+    },
+    {
+        "id": "712728a98e200929",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "SonnensegelWindAlarmToFileCSV",
+        "func": "var dummy = global.get('BV_WindAlarm2');\nif (dummy === 0) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" + \"Windschutz;\" + \"Normal\"\n};\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \";\" + \"Sonnensegel;\" +\"Windschutz;\" +  \"Alarm\"   \n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 1200,
+        "wires": [
+            [
+                "6ad56c92b0e23858"
             ]
         ]
     }
