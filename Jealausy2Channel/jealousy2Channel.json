@@ -410,7 +410,7 @@
         "z": "5f4e599e.885b58",
         "name": "yxxx: BO's IMPOTRTANT PROGRAMM INFORMATION",
         "info": "y101:0 DO_Channel1Up\ny102:0 DO_Channel1Down\ny103:0 DO_Channel2Up\ny104:0 DO_Channel2Down\ny105:0 DO_Wind_Led\ny106:0 DO_Rain_Led\n",
-        "x": 320,
+        "x": 220,
         "y": 580,
         "wires": []
     },
@@ -577,7 +577,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 520,
+        "x": 220,
         "y": 860,
         "wires": [
             [
@@ -888,7 +888,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 870,
+        "x": 590,
         "y": 580,
         "wires": [
             [
@@ -908,7 +908,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
+        "x": 580,
         "y": 620,
         "wires": [
             [
@@ -928,11 +928,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 880,
+        "x": 600,
         "y": 660,
         "wires": [
             [
-                "d3674ec9d7249b85"
+                "57bbd8fee4e7b6bd"
             ]
         ]
     },
@@ -948,11 +948,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 890,
+        "x": 610,
         "y": 700,
         "wires": [
             [
-                "226999023a5ba14b"
+                "92f64646c77e8ab8"
             ]
         ]
     },
@@ -1044,7 +1044,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 890,
+        "x": 610,
         "y": 740,
         "wires": [
             [
@@ -1064,7 +1064,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 880,
+        "x": 600,
         "y": 780,
         "wires": [
             [
@@ -1084,11 +1084,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
+        "x": 620,
         "y": 820,
         "wires": [
             [
-                "0d70cbd97eeb9be9"
+                "818c3bd9a01002aa"
             ]
         ]
     },
@@ -1104,11 +1104,11 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
+        "x": 620,
         "y": 860,
         "wires": [
             [
-                "78158e98a64109e4"
+                "a9c1c886cbd98ab5"
             ]
         ]
     },
@@ -1274,16 +1274,6 @@
         "wires": []
     },
     {
-        "id": "8b3f10e7b746ed9a",
-        "type": "comment",
-        "z": "5f4e599e.885b58",
-        "name": "Tabelle aktualisieren",
-        "info": "",
-        "x": 1390,
-        "y": 860,
-        "wires": []
-    },
-    {
         "id": "fbc20bd689c03450",
         "type": "debug",
         "z": "5f4e599e.885b58",
@@ -1299,6 +1289,86 @@
         "x": 950,
         "y": 1080,
         "wires": []
+    },
+    {
+        "id": "57bbd8fee4e7b6bd",
+        "type": "rbe",
+        "z": "5f4e599e.885b58",
+        "name": "Blockieren bis Werteanderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 910,
+        "y": 660,
+        "wires": [
+            [
+                "d3674ec9d7249b85"
+            ]
+        ]
+    },
+    {
+        "id": "92f64646c77e8ab8",
+        "type": "rbe",
+        "z": "5f4e599e.885b58",
+        "name": "Blockieren bis Werteanderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 910,
+        "y": 700,
+        "wires": [
+            [
+                "226999023a5ba14b"
+            ]
+        ]
+    },
+    {
+        "id": "818c3bd9a01002aa",
+        "type": "rbe",
+        "z": "5f4e599e.885b58",
+        "name": "Blockieren bis Werteanderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 930,
+        "y": 820,
+        "wires": [
+            [
+                "0d70cbd97eeb9be9"
+            ]
+        ]
+    },
+    {
+        "id": "a9c1c886cbd98ab5",
+        "type": "rbe",
+        "z": "5f4e599e.885b58",
+        "name": "Blockieren bis Werteanderung",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 930,
+        "y": 860,
+        "wires": [
+            [
+                "78158e98a64109e4"
+            ]
+        ]
     },
     {
         "id": "587e9baa.9f8474",
