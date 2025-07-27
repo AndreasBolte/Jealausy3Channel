@@ -51,15 +51,6 @@
         "responsetimeout": "10"
     },
     {
-        "id": "1e63913.b5e0a6f",
-        "type": "ui_tab",
-        "name": "Übersicht",
-        "icon": "info",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "ed5bac61b671b26e",
         "type": "ui_base",
         "theme": {
@@ -257,15 +248,6 @@
         "className": ""
     },
     {
-        "id": "eaf72d29c27d5532",
-        "type": "ui_tab",
-        "name": "Jalausie",
-        "icon": "dashboard",
-        "order": 2,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "d90c12143c2e28b4",
         "type": "ui_group",
         "name": "Windschutz",
@@ -321,15 +303,6 @@
         "className": ""
     },
     {
-        "id": "ab9dc87bc4361ffa",
-        "type": "ui_tab",
-        "name": "Sonnensegel",
-        "icon": "dashboard",
-        "order": 3,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "922b78cb649e46cb",
         "type": "ui_group",
         "name": "Windschutz",
@@ -374,15 +347,6 @@
         "className": ""
     },
     {
-        "id": "2038a0f4c400756e",
-        "type": "ui_tab",
-        "name": "Debug",
-        "icon": "build",
-        "order": 4,
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "161e9e42bd0768fa",
         "type": "ui_group",
         "name": "Datei log.txt",
@@ -403,6 +367,42 @@
         "width": "6",
         "collapse": false,
         "className": ""
+    },
+    {
+        "id": "1e63913.b5e0a6f",
+        "type": "ui_tab",
+        "name": "Übersicht",
+        "icon": "info",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "eaf72d29c27d5532",
+        "type": "ui_tab",
+        "name": "Jalausie",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ab9dc87bc4361ffa",
+        "type": "ui_tab",
+        "name": "Sonnensegel",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2038a0f4c400756e",
+        "type": "ui_tab",
+        "name": "Debug",
+        "icon": "build",
+        "order": 4,
+        "disabled": false,
+        "hidden": false
     },
     {
         "id": "c765b07b9b16ddfe",
@@ -637,7 +637,7 @@
         "id": "e1a849d983f4286e",
         "type": "function",
         "z": "5f4e599e.885b58",
-        "name": "DI_Rain x005 30 Minuten verzögert",
+        "name": "DI_Rain x005",
         "func": "if (msg.payload.startsWith('x005:1')) {\n    global.set('DI_Rain',1);   \n}\nif (msg.payload.startsWith('x005:0')) {\n    global.set('DI_Rain', 0);\n}\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": "",
@@ -645,7 +645,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
+        "x": 980,
         "y": 280,
         "wires": [
             [
@@ -1134,9 +1134,9 @@
         "id": "587e9baa.9f8474",
         "type": "comment",
         "z": "305c6dd9.7f9612",
-        "name": "Controllino Jealousy2Channel",
+        "name": "Controllino SunShading",
         "info": "user interface for Controllino Jealousy2Channel",
-        "x": 180,
+        "x": 160,
         "y": 40,
         "wires": []
     },
@@ -1908,7 +1908,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "BV_WindMeasureActive",
-        "func": "flow.set('BV_WindMeasureActive', msg.payload, 'file');\nreturn msg;\n\n",
+        "func": "flow.set('BV_WindMeasureActive', msg.payload);\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1967,15 +1967,15 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "AV_RegenwahrscheinlichkeitLimit",
-        "func": "let x = msg.payload;\nflow.set('AV_RegenwahrscheinlichkeitLimit', x,'file');\nmsg.payload = x + \" %\";\nreturn msg;\n\n\n",
+        "func": "flow.set('AV_RegenwahrscheinlichkeitLimit', msg.payload);\nreturn msg;\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1380,
-        "y": 1080,
+        "x": 920,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -2097,12 +2097,11 @@
         "max": "100",
         "step": "5",
         "className": "",
-        "x": 1050,
+        "x": 650,
         "y": 1040,
         "wires": [
             [
-                "ef1b7795.2a4dd8",
-                "871d0107e443882f"
+                "ef1b7795.2a4dd8"
             ]
         ]
     },
@@ -2244,63 +2243,6 @@
         ]
     },
     {
-        "id": "5396b6876e937a82",
-        "type": "file",
-        "z": "951993f4.8206d",
-        "name": "AI_speedHighLimit write file",
-        "filename": "~/.node-red/context/Jalausie/AI_speedHighLimit.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1300,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1e520ce621aa8577",
-        "type": "file in",
-        "z": "951993f4.8206d",
-        "name": "AI_speedHighLimit read file",
-        "filename": "~/.node-red/context/Jalausie/AI_speedHighLimit.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 480,
-        "y": 300,
-        "wires": [
-            [
-                "7893c1f60ad744ce"
-            ]
-        ]
-    },
-    {
-        "id": "4bc9993ac3ad2372",
-        "type": "file in",
-        "z": "951993f4.8206d",
-        "name": "BV_WindMeasureActive read file",
-        "filename": "~/.node-red/context/Jalausie/BV_WindMeasureActive.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 440,
-        "y": 220,
-        "wires": [
-            [
-                "27431193110e4851"
-            ]
-        ]
-    },
-    {
         "id": "c0d9f5aa1b70c1fc",
         "type": "catch",
         "z": "951993f4.8206d",
@@ -2320,97 +2262,6 @@
         "uncaught": false,
         "x": 260,
         "y": 40,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d99ca76273ab0675",
-        "type": "file",
-        "z": "951993f4.8206d",
-        "name": "BV_WindMeasureActive write file",
-        "filename": "~/.node-red/context/Jalausie/BV_WindMeasureActive.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1320,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "98c3295deb403c37",
-        "type": "file in",
-        "z": "951993f4.8206d",
-        "name": "BV_RainActive read file",
-        "filename": "~/.node-red/context/Jalausie/BV_RainActive.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 510,
-        "y": 960,
-        "wires": [
-            [
-                "14b41ce8835d7af2"
-            ]
-        ]
-    },
-    {
-        "id": "e595f826611aedb7",
-        "type": "file",
-        "z": "951993f4.8206d",
-        "name": "BV_RainActive write file",
-        "filename": "~/.node-red/context/Jalausie/BV_RainActive.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1350,
-        "y": 900,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ed0dadfdcd8cfbb8",
-        "type": "file in",
-        "z": "951993f4.8206d",
-        "name": "AV_RegenwahrscheinlichkeitLimit read file",
-        "filename": "~/.node-red/context/Jalausie/AV_RegenwahrscheinlichkeitLimit.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 570,
-        "y": 1040,
-        "wires": [
-            [
-                "9e25c6d2aade8067"
-            ]
-        ]
-    },
-    {
-        "id": "871d0107e443882f",
-        "type": "file",
-        "z": "951993f4.8206d",
-        "name": "AV_RegenwahrscheinlichkeitLimit write file",
-        "filename": "~/.node-red/context/Jalausie/AV_RegenwahrscheinlichkeitLimit.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1410,
-        "y": 1020,
         "wires": [
             []
         ]
@@ -2438,7 +2289,6 @@
         "y": 300,
         "wires": [
             [
-                "5396b6876e937a82",
                 "c17ab526119a92dd"
             ]
         ]
@@ -2448,14 +2298,14 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "BV_RainActive",
-        "func": "flow.set('BV_RainActive', msg.payload, 'file');\nreturn msg;\n\n\n",
+        "func": "flow.set('BV_RainActive', msg.payload);\nreturn msg;\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1320,
+        "x": 880,
         "y": 960,
         "wires": [
             []
@@ -2525,7 +2375,6 @@
         "y": 220,
         "wires": [
             [
-                "d99ca76273ab0675",
                 "bf465e27.4fc6a"
             ]
         ]
@@ -2560,50 +2409,12 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 1010,
+        "x": 670,
         "y": 960,
         "wires": [
             [
-                "53b6edee4ac8d11f",
-                "e595f826611aedb7"
+                "53b6edee4ac8d11f"
             ]
-        ]
-    },
-    {
-        "id": "eaaad8c5e6f1b1ee",
-        "type": "file in",
-        "z": "951993f4.8206d",
-        "name": "BV_ScheduleActive read file",
-        "filename": "~/.node-red/context/Jalausie/BV_ScheduleActive.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 420,
-        "y": 1720,
-        "wires": [
-            [
-                "fed9a2e527260790"
-            ]
-        ]
-    },
-    {
-        "id": "f6e8be35755d3026",
-        "type": "file",
-        "z": "951993f4.8206d",
-        "name": "BV_ScheduleActive write file",
-        "filename": "~/.node-red/context/Jalausie/BV_ScheduleActive.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1300,
-        "y": 1620,
-        "wires": [
-            []
         ]
     },
     {
@@ -2611,14 +2422,14 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "BV_ScheduleActive",
-        "func": "flow.set('BV_ScheduleActive', msg.payload, 'file');\nreturn msg;\n\n\n",
+        "func": "flow.set('BV_ScheduleActive', msg.payload);\nreturn msg;\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1270,
+        "x": 790,
         "y": 1720,
         "wires": [
             []
@@ -2654,12 +2465,11 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 980,
+        "x": 560,
         "y": 1720,
         "wires": [
             [
-                "2c11e35583775d53",
-                "f6e8be35755d3026"
+                "2c11e35583775d53"
             ]
         ]
     },
@@ -2667,16 +2477,16 @@
         "id": "7893c1f60ad744ce",
         "type": "function",
         "z": "951993f4.8206d",
-        "name": "String to number",
-        "func": "flow.set('AI_speedHighLimit', Number(msg.payload));\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('AI_speedHighLimit');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
-        "y": 300,
+        "x": 460,
+        "y": 280,
         "wires": [
             [
                 "b06b5d44.62b0a"
@@ -2687,15 +2497,15 @@
         "id": "27431193110e4851",
         "type": "function",
         "z": "951993f4.8206d",
-        "name": "String to number",
-        "func": "flow.set('BV_WindMeasureActive', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('BV_WindMeasureActive')\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
+        "x": 460,
         "y": 220,
         "wires": [
             [
@@ -2707,15 +2517,15 @@
         "id": "14b41ce8835d7af2",
         "type": "function",
         "z": "951993f4.8206d",
-        "name": "String to number",
-        "func": "flow.set('BV_RainActive', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "\nmsg.payload = flow.get('BV_RainActive');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
+        "x": 480,
         "y": 960,
         "wires": [
             [
@@ -2727,15 +2537,15 @@
         "id": "9e25c6d2aade8067",
         "type": "function",
         "z": "951993f4.8206d",
-        "name": "String to number",
-        "func": "let x = Number(msg.payload);\nflow.set('AV_RegenwahrscheinlichkeitLimit', x, 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('AV_RegenwahrscheinlichkeitLimit');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 870,
+        "x": 480,
         "y": 1040,
         "wires": [
             [
@@ -2747,15 +2557,15 @@
         "id": "fed9a2e527260790",
         "type": "function",
         "z": "951993f4.8206d",
-        "name": "String to number",
-        "func": "flow.set('BV_ScheduleActive', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('BV_ScheduleActive');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
+        "x": 360,
         "y": 1720,
         "wires": [
             [
@@ -2788,8 +2598,8 @@
         "y": 240,
         "wires": [
             [
-                "4bc9993ac3ad2372",
-                "1e520ce621aa8577"
+                "27431193110e4851",
+                "7893c1f60ad744ce"
             ]
         ]
     },
@@ -2818,8 +2628,8 @@
         "y": 1000,
         "wires": [
             [
-                "98c3295deb403c37",
-                "ed0dadfdcd8cfbb8"
+                "14b41ce8835d7af2",
+                "9e25c6d2aade8067"
             ]
         ]
     },
@@ -2848,7 +2658,7 @@
         "y": 1720,
         "wires": [
             [
-                "eaaad8c5e6f1b1ee"
+                "fed9a2e527260790"
             ]
         ]
     },
@@ -3179,23 +2989,6 @@
         "wires": []
     },
     {
-        "id": "0d68e1375ec1c277",
-        "type": "file",
-        "z": "951993f4.8206d",
-        "name": "Schedule write",
-        "filename": "~/.node-red/context/Jalausie/Schedule.txt",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 860,
-        "y": 1820,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "bdf30b33d76bea1b",
         "type": "inject",
         "z": "951993f4.8206d",
@@ -3220,27 +3013,7 @@
         "y": 1840,
         "wires": [
             [
-                "a69e7ed75607024d"
-            ]
-        ]
-    },
-    {
-        "id": "a69e7ed75607024d",
-        "type": "file in",
-        "z": "951993f4.8206d",
-        "name": "Schedule read",
-        "filename": "~/.node-red/context/Jalausie/Schedule.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 420,
-        "y": 1840,
-        "wires": [
-            [
-                "9173686a17c7a506"
+                "b0f2b6a88bba87f7"
             ]
         ]
     },
@@ -3272,7 +3045,7 @@
         "y": 1840,
         "wires": [
             [
-                "0d68e1375ec1c277"
+                "c8f663ba93b43758"
             ],
             [
                 "a2a3e33948f1e9fb"
@@ -3284,7 +3057,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "BO_ScheduleOutDown",
-        "func": "\nif (msg.payload) {\n    flow.set('BO_ScheduleOutDown', 1,'file');\n}\nelse {\n     flow.set('BO_ScheduleOutDown', 0,'file');\n}\nreturn msg;",
+        "func": "\nif (msg.payload) {\n    flow.set('BO_ScheduleOutDown', 1);\n}\nelse {\n     flow.set('BO_ScheduleOutDown', 0);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3571,6 +3344,44 @@
         ]
     },
     {
+        "id": "b0f2b6a88bba87f7",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "flow.get Schedule text",
+        "func": "msg.payload = flow.get('Schedule');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1840,
+        "wires": [
+            [
+                "9173686a17c7a506"
+            ]
+        ]
+    },
+    {
+        "id": "c8f663ba93b43758",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "flow.set Schedule text",
+        "func": "flow.set('Schedule',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "12d61d262137e15c",
         "type": "comment",
         "z": "812b0ff61703e7f7",
@@ -3655,14 +3466,14 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "BV_WindMeasureActive",
-        "func": "flow.set('BV_WindMeasureActive', msg.payload, 'file');\nreturn msg;\n\n",
+        "func": "flow.set('BV_WindMeasureActive', msg.payload);\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1350,
+        "x": 930,
         "y": 220,
         "wires": [
             []
@@ -3714,15 +3525,15 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "AV_RegenwahrscheinlichkeitLimit",
-        "func": "let x = msg.payload;\nflow.set('AV_RegenwahrscheinlichkeitLimit', x,'file');\nmsg.payload = x + \" %\";\nreturn msg;\n\n\n",
+        "func": "flow.set('AV_RegenwahrscheinlichkeitLimit', msg.payload);\nreturn msg;\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1400,
-        "y": 1140,
+        "x": 920,
+        "y": 1080,
         "wires": [
             []
         ]
@@ -3848,12 +3659,11 @@
         "max": "100",
         "step": "5",
         "className": "",
-        "x": 1050,
+        "x": 650,
         "y": 1080,
         "wires": [
             [
-                "0528787dce9e05f1",
-                "c1781a8857e14dab"
+                "0528787dce9e05f1"
             ]
         ]
     },
@@ -3981,74 +3791,17 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "AI_speedHighLimit",
-        "func": "flow.set('AI_speedHighLimit', msg.payload, 'file');\nreturn msg;",
+        "func": "flow.set('AI_speedHighLimit', msg.payload);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1270,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c6295ba5e6d74f42",
-        "type": "file",
-        "z": "812b0ff61703e7f7",
-        "name": "AI_speedHighLimit write file",
-        "filename": "~/.node-red/context/Sonnensegel/AI_speedHighLimit.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1300,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "124c28740d3da1ea",
-        "type": "file in",
-        "z": "812b0ff61703e7f7",
-        "name": "AI_speedHighLimit read file",
-        "filename": "~/.node-red/context/Sonnensegel/AI_speedHighLimit.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 480,
+        "x": 910,
         "y": 300,
         "wires": [
-            [
-                "6db19f43c1ee60cd"
-            ]
-        ]
-    },
-    {
-        "id": "18e64e7304bd2667",
-        "type": "file in",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_WindMeasureActive read file",
-        "filename": "~/.node-red/context/Sonnensegel/BV_WindMeasureActive.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 440,
-        "y": 220,
-        "wires": [
-            [
-                "c96864322c25aa2e"
-            ]
+            []
         ]
     },
     {
@@ -4082,97 +3835,6 @@
         ]
     },
     {
-        "id": "d990e53105d27a36",
-        "type": "file",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_WindMeasureActive write file",
-        "filename": "~/.node-red/context/Sonnensegel/BV_WindMeasureActive.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1320,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "be097f99b00d85d3",
-        "type": "file in",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_RainActive read file",
-        "filename": "~/.node-red/context/Sonnensegel/BV_RainActive.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 510,
-        "y": 1000,
-        "wires": [
-            [
-                "e8c8e64d1a76a3a2"
-            ]
-        ]
-    },
-    {
-        "id": "71e765c8c849c8d1",
-        "type": "file",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_RainActive write file",
-        "filename": "~/.node-red/context/Sonnensegel/BV_RainActive.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1310,
-        "y": 940,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a6784ad74abbbaee",
-        "type": "file in",
-        "z": "812b0ff61703e7f7",
-        "name": "AV_RegenwahrscheinlichkeitLimit read file",
-        "filename": "~/.node-red/context/Sonnensegel/AV_RegenwahrscheinlichkeitLimit.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 570,
-        "y": 1080,
-        "wires": [
-            [
-                "ce49997e320f7472"
-            ]
-        ]
-    },
-    {
-        "id": "c1781a8857e14dab",
-        "type": "file",
-        "z": "812b0ff61703e7f7",
-        "name": "AV_RegenwahrscheinlichkeitLimit write file",
-        "filename": "~/.node-red/context/Sonnensegel/AV_RegenwahrscheinlichkeitLimit.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1430,
-        "y": 1080,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "cdeb6fca7642bb35",
         "type": "ui_slider",
         "z": "812b0ff61703e7f7",
@@ -4191,11 +3853,10 @@
         "max": "70",
         "step": "5",
         "className": "",
-        "x": 990,
+        "x": 690,
         "y": 300,
         "wires": [
             [
-                "c6295ba5e6d74f42",
                 "426e758428571627"
             ]
         ]
@@ -4205,14 +3866,14 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "BV_RainActive",
-        "func": "flow.set('BV_RainActive', msg.payload, 'file');\nreturn msg;\n\n\n",
+        "func": "flow.set('BV_RainActive', msg.payload);\nreturn msg;\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1260,
+        "x": 900,
         "y": 1000,
         "wires": [
             []
@@ -4278,11 +3939,10 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 950,
+        "x": 690,
         "y": 220,
         "wires": [
             [
-                "d990e53105d27a36",
                 "3f649614c111ec21"
             ]
         ]
@@ -4317,12 +3977,11 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 1010,
+        "x": 670,
         "y": 1000,
         "wires": [
             [
-                "0bed1be55ccb7209",
-                "71e765c8c849c8d1"
+                "0bed1be55ccb7209"
             ]
         ]
     },
@@ -4335,61 +3994,6 @@
         "x": 540,
         "y": 1900,
         "wires": []
-    },
-    {
-        "id": "286ba364d509cad8",
-        "type": "file in",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_ScheduleActive read file",
-        "filename": "~/.node-red/context/Sonnensegel/BV_ScheduleActive.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 420,
-        "y": 1720,
-        "wires": [
-            [
-                "e8bab8b80fde58a0"
-            ]
-        ]
-    },
-    {
-        "id": "de93d089163264ee",
-        "type": "file",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_ScheduleActive write file",
-        "filename": "~/.node-red/context/Sonnensegel/BV_ScheduleActive.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1300,
-        "y": 1620,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "574c4e2ba163784c",
-        "type": "function",
-        "z": "812b0ff61703e7f7",
-        "name": "BV_ScheduleActive",
-        "func": "flow.set('BV_ScheduleActive', msg.payload, 'file');\nreturn msg;\n\n\n",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1270,
-        "y": 1720,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "411d90e2987e8c27",
@@ -4421,12 +4025,11 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 980,
+        "x": 600,
         "y": 1720,
         "wires": [
             [
-                "574c4e2ba163784c",
-                "de93d089163264ee"
+                "1566cf80f76e5430"
             ]
         ]
     },
@@ -4434,15 +4037,15 @@
         "id": "6db19f43c1ee60cd",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "String to number",
-        "func": "flow.set('AI_speedHighLimit', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('AI_speedHighLimit');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
+        "x": 480,
         "y": 300,
         "wires": [
             [
@@ -4454,15 +4057,15 @@
         "id": "c96864322c25aa2e",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "String to number",
-        "func": "flow.set('BV_WindMeasureActive', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('BV_WindMeasureActive');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 730,
+        "x": 480,
         "y": 220,
         "wires": [
             [
@@ -4474,15 +4077,15 @@
         "id": "e8c8e64d1a76a3a2",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "String to number",
-        "func": "flow.set('BV_RainActive', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('BV_RainActive');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
+        "x": 480,
         "y": 1000,
         "wires": [
             [
@@ -4494,15 +4097,15 @@
         "id": "ce49997e320f7472",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "String to number",
-        "func": "let x = Number(msg.payload);\nflow.set('AV_RegenwahrscheinlichkeitLimit', x, 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('AV_RegenwahrscheinlichkeitLimit');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 870,
+        "x": 460,
         "y": 1080,
         "wires": [
             [
@@ -4514,15 +4117,15 @@
         "id": "e8bab8b80fde58a0",
         "type": "function",
         "z": "812b0ff61703e7f7",
-        "name": "String to number",
-        "func": "flow.set('BV_ScheduleActive', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "flow.get",
+        "func": "msg.payload = flow.get('BV_ScheduleActive');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 710,
+        "x": 400,
         "y": 1720,
         "wires": [
             [
@@ -4555,8 +4158,8 @@
         "y": 240,
         "wires": [
             [
-                "18e64e7304bd2667",
-                "124c28740d3da1ea"
+                "c96864322c25aa2e",
+                "6db19f43c1ee60cd"
             ]
         ]
     },
@@ -4585,8 +4188,8 @@
         "y": 1040,
         "wires": [
             [
-                "be097f99b00d85d3",
-                "a6784ad74abbbaee"
+                "e8c8e64d1a76a3a2",
+                "ce49997e320f7472"
             ]
         ]
     },
@@ -4611,7 +4214,7 @@
         "y": 1720,
         "wires": [
             [
-                "286ba364d509cad8"
+                "e8bab8b80fde58a0"
             ]
         ]
     },
@@ -5011,23 +4614,6 @@
         "wires": []
     },
     {
-        "id": "b90b7287760cbaa8",
-        "type": "file",
-        "z": "812b0ff61703e7f7",
-        "name": "Schedule write",
-        "filename": "~/.node-red/context/Sonnensegel/Schedule.txt",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 980,
-        "y": 1820,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "dc49ffa8edab599f",
         "type": "inject",
         "z": "812b0ff61703e7f7",
@@ -5052,27 +4638,7 @@
         "y": 1840,
         "wires": [
             [
-                "3f17dfc09904ac91"
-            ]
-        ]
-    },
-    {
-        "id": "3f17dfc09904ac91",
-        "type": "file in",
-        "z": "812b0ff61703e7f7",
-        "name": "Schedule read",
-        "filename": "~/.node-red/context/Sonnensegel/Schedule.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 540,
-        "y": 1840,
-        "wires": [
-            [
-                "2c4eda748a6fbcdf"
+                "cc95d9d99a1de334"
             ]
         ]
     },
@@ -5104,7 +4670,7 @@
         "y": 1840,
         "wires": [
             [
-                "b90b7287760cbaa8"
+                "68800584e0a72b76"
             ],
             [
                 "4dcd1850a83c3c52"
@@ -5146,7 +4712,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "BO_ScheduleOutDown",
-        "func": "\nif (msg.payload) {\n    flow.set('BO_ScheduleOutDown', 1,'file');\n}\nelse {\n     flow.set('BO_ScheduleOutDown', 0,'file');\n}\nreturn msg;",
+        "func": "\nif (msg.payload) {\n    flow.set('BO_ScheduleOutDown', 1);\n}\nelse {\n     flow.set('BO_ScheduleOutDown', 0);\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5321,6 +4887,62 @@
             [
                 "b123d863ba558455"
             ]
+        ]
+    },
+    {
+        "id": "cc95d9d99a1de334",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "flow.get Schedule text",
+        "func": "msg.payload = flow.get('Schedule');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 1840,
+        "wires": [
+            [
+                "2c4eda748a6fbcdf"
+            ]
+        ]
+    },
+    {
+        "id": "1566cf80f76e5430",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "BV_ScheduleActive",
+        "func": "flow.set('BV_ScheduleActive', msg.payload);\nreturn msg;\n\n\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1010,
+        "y": 1720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "68800584e0a72b76",
+        "type": "function",
+        "z": "812b0ff61703e7f7",
+        "name": "flow.set Schedule text",
+        "func": "flow.set('Schedule',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 1820,
+        "wires": [
+            []
         ]
     },
     {
@@ -5578,43 +5200,6 @@
         ]
     },
     {
-        "id": "9da43c015a6f7328",
-        "type": "file in",
-        "z": "b58df928500ccc77",
-        "name": "Testbetrieb",
-        "filename": "~/.node-red/context/Testbetrieb.txt",
-        "filenameType": "str",
-        "format": "utf8",
-        "chunk": false,
-        "sendError": false,
-        "encoding": "none",
-        "allProps": false,
-        "x": 310,
-        "y": 240,
-        "wires": [
-            [
-                "7fef823558603bc3"
-            ]
-        ]
-    },
-    {
-        "id": "76caaf18389cba3a",
-        "type": "file",
-        "z": "b58df928500ccc77",
-        "name": "Testbetrieb",
-        "filename": "~/.node-red/context/Testbetrieb.txt",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "none",
-        "x": 1010,
-        "y": 180,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "59bdc49e8673112b",
         "type": "function",
         "z": "b58df928500ccc77",
@@ -5667,7 +5252,6 @@
         "wires": [
             [
                 "59bdc49e8673112b",
-                "76caaf18389cba3a",
                 "8ac2e49185241835"
             ]
         ]
@@ -5676,15 +5260,15 @@
         "id": "7fef823558603bc3",
         "type": "function",
         "z": "b58df928500ccc77",
-        "name": "String to number",
-        "func": "global.set('Testbetrieb', Number(msg.payload), 'file');\nmsg.payload = Number(msg.payload);\nreturn msg;",
+        "name": "global.get",
+        "func": "msg.payload = global.get('Testbetrieb');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 510,
+        "x": 490,
         "y": 240,
         "wires": [
             [
@@ -5717,7 +5301,7 @@
         "y": 240,
         "wires": [
             [
-                "9da43c015a6f7328"
+                "7fef823558603bc3"
             ]
         ]
     },
