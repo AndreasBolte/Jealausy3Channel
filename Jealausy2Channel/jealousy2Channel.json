@@ -583,9 +583,6 @@
             [
                 "733cfb5a2e33a914",
                 "fa2de90dba6775b9",
-                "91de4688d140abb0",
-                "64c29e02eb9d1d4c",
-                "03ceb9aef4f1069a",
                 "52e52073a5f40e52"
             ]
         ]
@@ -678,7 +675,7 @@
         "type": "debug",
         "z": "5f4e599e.885b58",
         "name": "serial in",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -876,8 +873,8 @@
         "id": "52e52073a5f40e52",
         "type": "function",
         "z": "5f4e599e.885b58",
-        "name": "JalausieDownToFileCSV",
-        "func": "var unit = \"Unten\" ;\nvar dummy = Number(global.get('DO_Channel1Down'));\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" +\"Jalausie,\"  +\"Unten,\" +  \"Ein\" ;\n  return msg; \n}\n\n",
+        "name": "UpAndDownToFileCSV",
+        "func": "\nif (msg.payload.startsWith('y101:1')) {\n  //global.set('DO_Channel1Up', 1);\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Oben,\" + \"Ein\";\n}\nif (msg.payload.startsWith('y102:1')) {\n  //global.set('DO_Channel1Down', 1);\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Unten,\" + \"Ein\";\n}\nif (msg.payload.startsWith('y103:1')) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Oben,\" + \"Ein\";\n  //global.set('DO_Channel2Up', 1);\n}\nif (msg.payload.startsWith('y104:1')) {\n  //global.set('DO_Channel2Down', 1);\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Unten,\" + \"Ein\";  \n}\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -885,30 +882,10 @@
         "finalize": "",
         "libs": [],
         "x": 590,
-        "y": 580,
+        "y": 780,
         "wires": [
             [
                 "f6bd87f94eff3040"
-            ]
-        ]
-    },
-    {
-        "id": "03ceb9aef4f1069a",
-        "type": "function",
-        "z": "5f4e599e.885b58",
-        "name": "JalausieUpToFileCSV",
-        "func": "var unit = \"Unten\" ;\nvar dummy = Number(global.get('DO_Channel1Up'));\nmsg.change = dummy;\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" +\"Jalausie,\"  +\"Oben,\" +  \"Ein\";\n  return msg;   \n}",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 580,
-        "y": 620,
-        "wires": [
-            [
-                "a54f2d227af2b748"
             ]
         ]
     },
@@ -923,104 +900,7 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 1170,
-        "y": 580,
-        "wires": [
-            [
-                "99f550abf36e84d3"
-            ]
-        ]
-    },
-    {
-        "id": "a54f2d227af2b748",
-        "type": "file",
-        "z": "5f4e599e.885b58",
-        "name": "Log write file",
-        "filename": "/home/pi/.node-red/context/Log.txt",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1170,
-        "y": 620,
-        "wires": [
-            [
-                "99f550abf36e84d3"
-            ]
-        ]
-    },
-    {
-        "id": "64c29e02eb9d1d4c",
-        "type": "function",
-        "z": "5f4e599e.885b58",
-        "name": "SonnensegelDownToFileCSV",
-        "func": "var unit = \"Unten\" ;\nvar dummy = Number(global.get('DO_Channel2Down'));\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" +\"Sonnensegel,\"  +\"Unten,\" +  \"Ein\" \n  return msg;  \n}",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 610,
-        "y": 740,
-        "wires": [
-            [
-                "2503323418a7940c"
-            ]
-        ]
-    },
-    {
-        "id": "91de4688d140abb0",
-        "type": "function",
-        "z": "5f4e599e.885b58",
-        "name": "SonnensegelUpToFileCSV",
-        "func": "var dummy = Number(global.get('DO_Channel2Up'));\nmsg.change = dummy;\nif (dummy === 1 ) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" +\"Sonnensegel,\"  +\"Oben,\" +  \"Ein\";\n  return msg;   \n}",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 780,
-        "wires": [
-            [
-                "95cc5725f0a717b9"
-            ]
-        ]
-    },
-    {
-        "id": "2503323418a7940c",
-        "type": "file",
-        "z": "5f4e599e.885b58",
-        "name": "Log write file",
-        "filename": "/home/pi/.node-red/context/Log.txt",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1170,
-        "y": 740,
-        "wires": [
-            [
-                "99f550abf36e84d3"
-            ]
-        ]
-    },
-    {
-        "id": "95cc5725f0a717b9",
-        "type": "file",
-        "z": "5f4e599e.885b58",
-        "name": "Log write file",
-        "filename": "/home/pi/.node-red/context/Log.txt",
-        "filenameType": "str",
-        "appendNewline": true,
-        "createDir": true,
-        "overwriteFile": "false",
-        "encoding": "none",
-        "x": 1170,
+        "x": 990,
         "y": 780,
         "wires": [
             [
@@ -1109,8 +989,8 @@
         "links": [
             "232bd278fb580272"
         ],
-        "x": 1385,
-        "y": 720,
+        "x": 1285,
+        "y": 780,
         "wires": []
     },
     {
@@ -4955,8 +4835,8 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "label": "Datei log.txt löschen",
-        "tooltip": "Datei log.txt löschen",
+        "label": "Datei log.txt archivieren",
+        "tooltip": "Datei log.txt archivieren",
         "color": "",
         "bgcolor": "",
         "className": "",
@@ -4965,11 +4845,11 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 93.00001525878906,
-        "y": 968.0000219345093,
+        "x": 225,
+        "y": 1080,
         "wires": [
             [
-                "3de568dd7afef0f0"
+                "04c938348c460216"
             ]
         ],
         "l": false
@@ -5061,7 +4941,7 @@
         "type": "function",
         "z": "b58df928500ccc77",
         "name": "Delete Log file",
-        "func": "msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Allgemein,\" + \"Datei log.txt,\" + \"Gelöscht\";\nreturn msg;",
+        "func": "msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Allgemein,\" + \"Datei Log.txt,\" + \"Archiviert\";\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -5106,8 +4986,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 258.00001525878906,
-        "y": 968.0000219345093,
+        "x": 280,
+        "y": 980,
         "wires": [
             [
                 "d0dcfd20440c467e"
@@ -5164,31 +5044,7 @@
         "z": "b58df928500ccc77",
         "name": "read file catches",
         "scope": [
-            "4856bd2b53bb53fc",
-            "52e52073a5f40e52",
-            "03ceb9aef4f1069a",
-            "65ed2acb1d06d43d",
-            "372d1ff2e5ed8402",
-            "0101157946d270bc",
             "d0dcfd20440c467e",
-            "19c271e08bdb3aef",
-            "64c29e02eb9d1d4c",
-            "91de4688d140abb0",
-            "4f6af63f88c21c2a",
-            "8abe9c6a54d55cf9",
-            "712728a98e200929",
-            "f6bd87f94eff3040",
-            "a54f2d227af2b748",
-            "696d0f785de498ac",
-            "fa92c9c2746155df",
-            "d3674ec9d7249b85",
-            "226999023a5ba14b",
-            "2503323418a7940c",
-            "95cc5725f0a717b9",
-            "c5a076542c2bb835",
-            "6be0b11bd5d7de9f",
-            "0d70cbd97eeb9be9",
-            "78158e98a64109e4",
             "aaf8419c95de41dd",
             "ef6dcfccf011f1eb"
         ],
@@ -5389,5 +5245,137 @@
             ]
         ],
         "l": false
+    },
+    {
+        "id": "5f6b5c0a93c88cb9",
+        "type": "inject",
+        "z": "b58df928500ccc77",
+        "name": "Every day 00:00",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "00 00 * * *",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "\"test.txt\"",
+        "payloadType": "str",
+        "x": 190,
+        "y": 1160,
+        "wires": [
+            [
+                "04c938348c460216"
+            ]
+        ]
+    },
+    {
+        "id": "04c938348c460216",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "Archiv Log file",
+        "func": "var x = \"text\";\nvar xOld = \"text\";\nx  = global.get('date').substring(0, 4) + global.get('date').substring(5, 7) + global.get('timeShort').substring(0, 2) + global.get('timeShort').substring(3, 5);\nflow.set('YYYY', global.get('date').substring(0, 4));\nflow.set('YYYYMMDDHHMM', x);\nxOld = flow.get('YYYYMMDDHHMMOld');\n\nif (!x.startsWith('xOld'.substring(0, 10))){   \n    flow.set('YYYYMMDDHHMMOld',x);\n    msg.payload = x + 'Log.txt';\n    return msg;\n}\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 1080,
+        "wires": [
+            [
+                "6f98b193cc75caa7"
+            ]
+        ]
+    },
+    {
+        "id": "776fa743fbf8ae2f",
+        "type": "inject",
+        "z": "b58df928500ccc77",
+        "name": "once",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "d1584ebda1379968"
+            ]
+        ]
+    },
+    {
+        "id": "d1584ebda1379968",
+        "type": "function",
+        "z": "b58df928500ccc77",
+        "name": "init flow Contex",
+        "func": "flow.set('YYYYMMDDHHMMOld', global.get('date').substring(0, 4) + global.get('date').substring(5, 7) + global.get('timeShort').substring(0, 2) + global.get('timeShort').substring(3, 5)) ;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "42b3e08689cf1dad",
+        "type": "fs-ops-copy",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "sourcePath": "~/.node-red/context/",
+        "sourcePathType": "str",
+        "sourceFilename": "Log.txt",
+        "sourceFilenameType": "str",
+        "destPath": "directory",
+        "destPathType": "flow",
+        "destFilename": "payload",
+        "destFilenameType": "msg",
+        "link": false,
+        "overwrite": false,
+        "x": 800,
+        "y": 1080,
+        "wires": [
+            [
+                "3de568dd7afef0f0"
+            ]
+        ]
+    },
+    {
+        "id": "6f98b193cc75caa7",
+        "type": "fs-ops-mkdir",
+        "z": "b58df928500ccc77",
+        "name": "",
+        "path": "~/.node-red/context/",
+        "pathType": "str",
+        "dirname": "YYYY",
+        "dirnameType": "flow",
+        "recursive": false,
+        "mode": "777",
+        "fullpath": "directory",
+        "fullpathType": "flow",
+        "x": 620,
+        "y": 1080,
+        "wires": [
+            [
+                "42b3e08689cf1dad"
+            ]
+        ]
     }
 ]
