@@ -420,15 +420,16 @@
         "z": "5f4e599e.885b58",
         "name": "link in Jalausie",
         "links": [
-            "3f0426ec96d0473c",
-            "751ce24b8f19b37a",
-            "5e70d0d8da91504f"
+            "5e70d0d8da91504f",
+            "751ce24b8f19b37a"
         ],
         "x": 55,
         "y": 860,
         "wires": [
             [
-                "f9a585449ada58ed"
+                "fa2de90dba6775b9",
+                "733cfb5a2e33a914",
+                "52e52073a5f40e52"
             ]
         ]
     },
@@ -566,28 +567,6 @@
         ]
     },
     {
-        "id": "f9a585449ada58ed",
-        "type": "function",
-        "z": "5f4e599e.885b58",
-        "name": "DO_ChannelX Up and Down",
-        "func": "if (msg.payload.startsWith('y101:0')) {\n    global.set('DO_Channel1Up', 0);\n} \nif (msg.payload.startsWith('y101:1')) {\n    global.set('DO_Channel1Up', 1);\n} \nif (msg.payload.startsWith('y102:0')) {\n    global.set('DO_Channel1Down', 0);\n}\nif (msg.payload.startsWith('y102:1')) {\n    global.set('DO_Channel1Down', 1);\n} \nif (msg.payload.startsWith('y103:0')) {\n    global.set('DO_Channel2Up', 0);\n}\nif (msg.payload.startsWith('y103:1')) {\n    global.set('DO_Channel2Up', 1);\n}\nif (msg.payload.startsWith('y104:0')) {\n    global.set('DO_Channel2Down', 0);\n}\nif (msg.payload.startsWith('y104:1')) {\n    global.set('DO_Channel2Down', 1);\n} \nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 220,
-        "y": 860,
-        "wires": [
-            [
-                "733cfb5a2e33a914",
-                "fa2de90dba6775b9",
-                "52e52073a5f40e52"
-            ]
-        ]
-    },
-    {
         "id": "4f46736105c5ebed",
         "type": "inject",
         "z": "5f4e599e.885b58",
@@ -600,7 +579,7 @@
         "repeat": "",
         "crontab": "",
         "once": true,
-        "onceDelay": "5",
+        "onceDelay": "0",
         "topic": "",
         "payload": "",
         "payloadType": "date",
@@ -617,7 +596,7 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "init global Contex",
-        "func": "global.set('DI_Rain',0);\nglobal.set('AI_Wind',0);\nglobal.set('DO_Channel1Up', 0);\nglobal.set('DO_Channel1Down', 0);\nglobal.set('DO_Channel2Up', 0);\nglobal.set('DO_Channel2Down', 0);\nglobal.set('BV_RainAlarm1', 0);\nglobal.set('BV_RainAlarm2', 0);\nglobal.set('BV_WindAlarm1', 0);\nglobal.set('BV_WindAlarm2', 0);\n\nreturn msg;",
+        "func": "global.set('DI_Rain',0);\nglobal.set('AI_Wind',0);\nglobal.set('BV_RainAlarm1', 0);\nglobal.set('BV_RainAlarm2', 0);\nglobal.set('BV_WindAlarm1', 0);\nglobal.set('BV_WindAlarm2', 0);\nglobal.set('Up1', 0);\nglobal.set('Down1', 0);\nglobal.set('Up2', 0);\nglobal.set('Down2', 0);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -663,7 +642,7 @@
         "finalize": "",
         "libs": [],
         "x": 1040,
-        "y": 200,
+        "y": 180,
         "wires": [
             [
                 "aa2a3e481fc0015e"
@@ -840,7 +819,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 400,
+        "x": 360,
         "y": 180,
         "wires": [
             [
@@ -874,18 +853,19 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "UpAndDownToFileCSV",
-        "func": "\nif (msg.payload.startsWith('y101:1')) {\n  //global.set('DO_Channel1Up', 1);\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Oben,\" + \"Ein\";\n}\nif (msg.payload.startsWith('y102:1')) {\n  //global.set('DO_Channel1Down', 1);\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Unten,\" + \"Ein\";\n}\nif (msg.payload.startsWith('y103:1')) {\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Oben,\" + \"Ein\";\n  //global.set('DO_Channel2Up', 1);\n}\nif (msg.payload.startsWith('y104:1')) {\n  //global.set('DO_Channel2Down', 1);\n  msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Unten,\" + \"Ein\";  \n}\nreturn msg;\n\n",
+        "func": "\n\n\nif (msg.payload.startsWith('y101:1') && global.get('Up1') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Oben,\" + \"Ein\"; \n   global.set('Up1', 1);\n   return msg;\n}\nif (msg.payload.startsWith('y102:1') && global.get('Down1') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Unten,\" + \"Ein\";\n   global.set('Down1', 1);\n   return msg;\n}\nif (msg.payload.startsWith('y103:1') && global.get('Up2') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Oben,\" + \"Ein\";\n   global.set('Up2', 1);\n   return msg;\n}\nif (msg.payload.startsWith('y104:1') && global.get('Down2') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Unten,\" + \"Ein\";\n   global.set('Down2', 1);\n   return msg;\n} \n\n\n\n\n\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
+        "x": 650,
         "y": 780,
         "wires": [
             [
-                "f6bd87f94eff3040"
+                "f6bd87f94eff3040",
+                "2af7de3ec7879198"
             ]
         ]
     },
@@ -894,7 +874,7 @@
         "type": "file",
         "z": "5f4e599e.885b58",
         "name": "Log write file",
-        "filename": "/home/pi/.node-red/context/Log.txt",
+        "filename": "~/.node-red/context/Log.txt",
         "filenameType": "str",
         "appendNewline": true,
         "createDir": true,
@@ -994,6 +974,23 @@
         "wires": []
     },
     {
+        "id": "2af7de3ec7879198",
+        "type": "debug",
+        "z": "5f4e599e.885b58",
+        "name": "Log",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 700,
+        "wires": []
+    },
+    {
         "id": "fbc20bd689c03450",
         "type": "debug",
         "z": "5f4e599e.885b58",
@@ -1006,7 +1003,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 950,
+        "x": 990,
         "y": 1080,
         "wires": []
     },
@@ -1806,7 +1803,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "Calculate BV_WindAlarn",
-        "func": "var x = 0;\nvar active = flow.get('BV_WindMeasureActive', 'file');\nif (active === 1 && Number(global.get('AV_WindMax')) <= Number(flow.get('AI_speedHighLimit'))) {\n    x = 0;\n}\nif (active === 1 && Number(global.get('AV_WindMax')) >= Number(flow.get('AI_speedHighLimit'))) {\n    x = 1;\n}\nelse {\n    x = 0;\n}\n\nif (x === 1) {\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n    global.set('BV_WindAlarm1', 1, 'file');\n}\nif (x === 0) {\n    msg.payload = '<font size = 16><font color = green>' + 'Kein Alarm';\n    global.set('BV_WindAlarm1', 0, 'file');\n}\nif (active === 0) {\n    msg.payload = 'Funktion nicht aktiv!';\n    global.set('BV_WindAlarm1', 0, 'file');\n}\nflow.set('BV_WindAlarm', x, 'file');\nglobal.set('BV_RainAlarm1', x);\nreturn msg;",
+        "func": "var x = 0;\nvar active = flow.get('BV_WindMeasureActive');\nif (active === 1 && Number(global.get('AV_WindMax')) <= Number(flow.get('AI_speedHighLimit'))) {\n    x = 0;\n}\nif (active === 1 && Number(global.get('AV_WindMax')) >= Number(flow.get('AI_speedHighLimit'))) {\n    x = 1;\n}\n\nif (x === 1) {\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n    global.set('BV_WindAlarm1', 1);\n}\nif (x === 0) {\n    msg.payload = '<font size = 16><font color = green>' + 'Kein Alarm';\n    global.set('BV_WindAlarm1', 0);\n}\nif (active === 0) {\n    msg.payload = 'Funktion nicht aktiv!';\n    global.set('BV_WindAlarm1', 0);\n    x = 3;  //undefined \n}\nflow.set('BV_WindAlarm', x);\nglobal.set('BV_WindAlarm1', x);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1942,7 +1939,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "Calculate BV_RainAlarm",
-        "func": "var rain = Number(global.get('DI_Rain'));\nvar active = Number(flow.get('BV_RainActive'));\nvar x = 0;\n\n// rain alarm\nif (active === 1 && (Number(global.get('AI_Regenwahrscheinlichkeit')) >= Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) || rain === 1)) {\n    x = 1;\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n}\n// no rain alarm\nif (active === 1 && Number(global.get('AI_Regenwahrscheinlichkeit')) < Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) && rain === 0) {\n    x = 0;\n    msg.payload = '<font size = 16><font color = green>' + 'Kein Alarm';\n}\n// not active\nif (active === 0) {\n    x = 0;\n    msg.payload = 'Funktion nicht aktiv!';\n}\nflow.set('BV_RainAlarm', x);\nglobal.set('BV_RainAlarm2', x);\n\nreturn msg;",
+        "func": "var rain = Number(global.get('DI_Rain'));\nvar active = Number(flow.get('BV_RainActive'));\nvar x = 0;\n\n// rain alarm\nif (active === 1 && (Number(global.get('AI_Regenwahrscheinlichkeit')) >= Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) || rain === 1)) {\n    x = 1;\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n}\n// no rain alarm\nif (active === 1 && Number(global.get('AI_Regenwahrscheinlichkeit')) < Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) && rain === 0) {\n    x = 0;\n    msg.payload = '<font size = 16><font color = green>' + 'Kein Alarm';\n}\n// not active\nif (active === 0) {\n    x = 3;  //undefined \n    msg.payload = 'Funktion nicht aktiv!';\n}\nflow.set('BV_RainAlarm', x);\nglobal.set('BV_RainAlarm1', x);\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2576,7 +2573,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "Calculate' BV_Schedule",
-        "func": "var y = 0;\nvar x = Number(flow.get('BO_ScheduleOutDown', 'file'));;\nvar active = Number(flow.get('BV_ScheduleActive','file'));\n\n// Schedule calcuculate\nif (x == 1 && active === 1) {\n    y = 1;\n    msg.payload ='<font size = 16><font color = blue>' + 'Unten';    \n} \nif (x == 0 && active === 1) {\n    msg.payload ='<font size = 16><font color = blue>' + 'Oben'; \n} \n// not active\nif (active === 0) {\n    msg.payload ='Funktion nicht aktiv!'; \n}\nflow.set('BV_Schedule', y, 'file');\nreturn msg;",
+        "func": "var y = 0;\nvar x = Number(flow.get('BO_ScheduleOutDown', 'file'));;\nvar active = Number(flow.get('BV_ScheduleActive','file'));\n\n// Schedule calcuculate\nif (x == 1 && active === 1) {\n    y = 1;\n    msg.payload ='<font size = 16><font color = blue>' + 'Unten';    \n} \nif (x == 0 && active === 1) {\n    y = 0;\n    msg.payload ='<font size = 16><font color = blue>' + 'Oben'; \n} \n// not active\nif (active === 0) {\n    y = 3;  //undefined \n    msg.payload ='Funktion nicht aktiv!'; \n}\nflow.set('BV_Schedule', y, 'file');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2974,13 +2971,13 @@
         "id": "eddf23553aaf616a",
         "type": "inject",
         "z": "951993f4.8206d",
-        "name": "2s string",
+        "name": "5s string",
         "props": [
             {
                 "p": "payload"
             }
         ],
-        "repeat": "2",
+        "repeat": "5",
         "crontab": "",
         "once": true,
         "onceDelay": "2",
@@ -2991,7 +2988,7 @@
         "y": 3900,
         "wires": [
             [
-                "3bfa56edfc3a0d2b"
+                "d284cf309b29ad04"
             ]
         ]
     },
@@ -3015,8 +3012,8 @@
         "z": "951993f4.8206d",
         "name": "y101:1 DO_Channel2Up",
         "info": "",
-        "x": 617.1990966796875,
-        "y": 3646.335205078125,
+        "x": 550,
+        "y": 3640,
         "wires": []
     },
     {
@@ -3038,73 +3035,6 @@
         "x": 737.1990966796875,
         "y": 3786.335205078125,
         "wires": []
-    },
-    {
-        "id": "3bfa56edfc3a0d2b",
-        "type": "function",
-        "z": "951993f4.8206d",
-        "name": "y101/y102 Up and Down",
-        "func": "// y101->Up\n// y102 -> Down\nvar oldPayload = flow.get('OldPayload');\nvar order = 0;\n\n// alarm\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  function\nvar x = Number(flow.get('BV_Schedule'));\n\n// Down\nif ( x === 1 && alarm1 == 0 && alarm2 == 0 ) {\n     order = 1;\n}\nelse{\n//Up\n     order = 0;\n}\n\nvar Stamp1Down = 0;\nvar Duration1Down = 0;\nvar Stamp1Up = 0;\nvar Duration1Up = 0;\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 72000000; // ms 2 hours\n\n\nif(order === 1)          // Down\n{\n     flow.set('Stamp1Up', Date.now());\n     // wait 10s\n     Stamp1Down = flow.get('Stamp1Down');\n     Duration1Down = Date.now() - Stamp1Down; \n     flow.set('Duration1Down', Duration1Down);\n\n     if (Duration1Down < time1){\n          msg.payload = \"y101:0\";\n     }\n     if (Duration1Down < time2 && Duration1Down > time1) {\n          msg.payload = \"y102:1\";\n     }\n     if (Duration1Down < time3 && Duration1Down > time2) {\n          msg.payload = \"y102:0\";\n     }     \n}\n\nif (order === 0)       // Up\n{\n     flow.set('Stamp1Down', Date.now());\n     //wait 10s\n     Stamp1Up = Number(flow.get('Stamp1Up'));\n     Duration1Up = Date.now() - Stamp1Up;\n     flow.set('Duration1Up', Duration1Up);\n     if (Duration1Up < time1) {\n          msg.payload = \"y102:0\";\n     }\n     if (Duration1Up < time2 && Duration1Up > time1) {\n          msg.payload = \"y101:1\";\n     }\n     // wait 60s Motorlaufzeit\n     if (Duration1Up < time3 && Duration1Up > time2 ) {\n          msg.payload = \"y101:0\";          \n     }\n     // wait 1h repeat alarm\n     if (Duration1Up > time3 &&(alarm1 == 1 || alarm2 == 1)) {\n       flow.set('Stamp1Down', Date.now());  \n       flow.set('Stamp1Up', Date.now());\n     }\n}\nif (oldPayload !== msg.payload) {\n     flow.set('OldPayload', msg.payload);\n     return msg;\n}\n\n\n\n\n\n\n\n",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 490,
-        "y": 3900,
-        "wires": [
-            [
-                "5e70d0d8da91504f"
-            ]
-        ]
-    },
-    {
-        "id": "d856ddc87994887c",
-        "type": "inject",
-        "z": "951993f4.8206d",
-        "name": "Once a time string",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "str",
-        "x": 197.1990966796875,
-        "y": 3846.335205078125,
-        "wires": [
-            [
-                "c3d4887f5b8ca537"
-            ]
-        ]
-    },
-    {
-        "id": "c3d4887f5b8ca537",
-        "type": "function",
-        "z": "951993f4.8206d",
-        "name": "init Kontex",
-        "func": "flow.set('Stamp1Down', Date.now());\nflow.set('Stamp1Up', Date.now());\nflow.set('Duration1Down', Date.now());\nflow.set('Duration1Up', Date.now());\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 452.398193359375,
-        "y": 3846.67041015625,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "557e11018b4ef596",
@@ -3201,26 +3131,8 @@
         "y": 140,
         "wires": [
             [
-                "3a8f9502a540a377"
+                "4ba9a9524f485de9"
             ]
-        ]
-    },
-    {
-        "id": "3a8f9502a540a377",
-        "type": "function",
-        "z": "951993f4.8206d",
-        "name": "init flow Contex",
-        "func": "flow.set('BV_RainAlarmOld',0);\nflow.set('BV_WindAlarmOld',0);\n\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 320,
-        "y": 140,
-        "wires": [
-            []
         ]
     },
     {
@@ -3259,6 +3171,44 @@
         "y": 1820,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "4ba9a9524f485de9",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "init flow Contex",
+        "func": "flow.set('BV_RainAlarmOld',0);\nflow.set('BV_WindAlarmOld',0);\n\nflow.set('StampDown', Date.now());\nflow.set('StampUp', Date.now());\nflow.set('DurationDown', Date.now());\nflow.set('DurationUp', Date.now());\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d284cf309b29ad04",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "y101/y102 Up and Down",
+        "func": "// y101->Up\n// y101 -> Down\n\nvar stampUp = flow.get('StampUp');\nvar stampDown = flow.get('StampDown');\nvar durationDown = Date.now() - stampDown;\nflow.set('DurationDown', durationDown);           //Flow variable for debuging\nvar durationUp = Date.now() - stampUp;\nflow.set('DurationUp', durationUp);               //Flow variable for debuging\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n// alarm expression\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  expression\nvar x = Number(flow.get('BV_Schedule'));\n\n\n\n// Undefined function\nif (x === 3 && (alarm1 === 3 || alarm1 === 0) && (alarm2 === 3 || alarm2 === 0)) {\n     flow.set('StampDown', Date.now()); // Timestamp for down\n     flow.set('StampUp', Date.now());   // Timestamp for up\n     global.set('Up1', 0);         //reset when undefined\n     global.set('Down1', 0);         //reset when undefined\n}\n\n// Down function\nif ( x === 1 &&  (alarm1 === 0 || alarm1 === 3) &&  (alarm2 === 0 || alarm2 === 3) ) {\n     flow.set('StampUp', Date.now()); // Timestamp for up !!!!\n     // wait 10s\n     stampDown = flow.get('StampDown');\n     \n     if (durationDown < time1) {\n          msg.payload = \"y101:0\";\n     }\n     if (durationDown < time2 && durationDown > time1) {\n          msg.payload = \"y102:1\";\n     }\n     if (durationDown < time3 && durationDown > time2) {\n          msg.payload = \"y102:0\";\n     }  \n     return msg;  \n}\n//Up function\nif (alarm1 === 1 || alarm2 === 1) {\n     flow.set('StampDown', Date.now()); // Timestamp for down !!!!\n      //wait 10s\n     stampUp = Number(flow.get('StampUp'));\n     if (durationUp < time1) {\n          msg.payload = \"y102:0\";\n     }\n     if (durationUp < time2 && durationUp > time1) {\n          msg.payload = \"y101:1\";\n     }\n     // wait 60s Motorlaufzeit\n     if (durationUp < time3 && durationUp > time2) {\n          msg.payload = \"y101:0\";\n\n     }\n     // wait 2h repeat alarm\n     if (durationUp > time3 && (alarm1 === 1 || alarm2 === 1)) {\n         flow.set('StampUp', Date.now());\n          global.set('Up1', 0);         //repeat in Log-File\n     }\n     return msg;\n}",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 3900,
+        "wires": [
+            [
+                "5e70d0d8da91504f"
+            ]
         ]
     },
     {
@@ -3364,7 +3314,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "Calculate BV_WindAlarn",
-        "func": "var x = 0; \nvar active = Number(flow.get('BV_WindMeasureActive','file'));\nif (active === 1 && Number(global.get('AV_WindMax')) <= Number(flow.get('AI_speedHighLimit' ))){\n   x = 0; \n}\nif (active === 1 && Number(global.get('AV_WindMax')) >= Number(flow.get('AI_speedHighLimit' ))){\n   x = 1; \n}\nelse {\n   x = 0; \n}\n\nif (x === 1){\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm'; \n    global.set('BV_WindAlarm2', 1, 'file');  \n}\nif (x === 0) {\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm'; \n    global.set('BV_WindAlarm2', 0, 'file');\n}\nif (active === 0) {\n    msg.payload ='Funktion nicht aktiv!';  \n    global.set('BV_WindAlarm2', 0, 'file');  \n}\nflow.set('BV_WindAlarm', x,'file');\nreturn msg;",
+        "func": "var x = 0; \nvar active = Number(flow.get('BV_WindMeasureActive'));\nif (active === 1 && Number(global.get('AV_WindMax')) <= Number(flow.get('AI_speedHighLimit' ))){\n   x = 0; \n}\nif (active === 1 && Number(global.get('AV_WindMax')) >= Number(flow.get('AI_speedHighLimit' ))){\n   x = 1; \n}\n\nif (x === 1){\n    msg.payload ='<font size = 16><font color = red>' + 'Alarm'; \n    global.set('BV_WindAlarm2', 1);  \n}\nif (x === 0) {\n    msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm'; \n    global.set('BV_WindAlarm2', 0);\n}\nif (active === 0) {\n    x = 3;  //undefined \n    msg.payload ='Funktion nicht aktiv!';  \n    global.set('BV_WindAlarm2', 0);  \n}\nflow.set('BV_WindAlarm', x);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3504,7 +3454,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "Calculate BV_RainAlarm",
-        "func": "var rain = Number(global.get('DI_Rain'));\nvar active = Number(flow.get('BV_RainActive'));\nvar x = 0;\n\n// rain alarm\nif (active === 1 && (Number(global.get('AI_Regenwahrscheinlichkeit')) >= Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) || rain === 1)) \n{\n    x = 1;\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n}\n// no rain alarm\nif (active === 1 && Number(global.get('AI_Regenwahrscheinlichkeit')) < Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) && rain === 0) {\n    x = 0;\n   msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm';   \n}\n// not active\nif (active === 0) {\n    x = 0;\n    msg.payload ='Funktion nicht aktiv!';     \n}\nflow.set('BV_RainAlarm', x);\nglobal.set('BV_RainAlarm2', x);\n\nreturn msg;",
+        "func": "var rain = Number(global.get('DI_Rain'));\nvar active = Number(flow.get('BV_RainActive'));\nvar x = 0;\n\n// rain alarm\nif (active === 1 && (Number(global.get('AI_Regenwahrscheinlichkeit')) >= Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) || rain === 1)) \n{\n    x = 1;\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n}\n// no rain alarm\nif (active === 1 && Number(global.get('AI_Regenwahrscheinlichkeit')) < Number(flow.get('AV_RegenwahrscheinlichkeitLimit')) && rain === 0) {\n    x = 0;\n   msg.payload ='<font size = 16><font color = green>' + 'Kein Alarm';   \n}\n// not active\nif (active === 0) {\n    x = 3;  //undefined \n    msg.payload ='Funktion nicht aktiv!';     \n}\nflow.set('BV_RainAlarm', x);\nglobal.set('BV_RainAlarm2', x);\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -4132,7 +4082,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "Calculate' BV_Schedule",
-        "func": "var y = 0;\nvar x = Number(flow.get('BO_ScheduleOutDown', 'file'));\nvar active = Number(flow.get('BV_ScheduleActive','file'));\n\n// Schedule calcuculate\nif (x == 1 && active === 1) {\n    y = 1;\n    msg.payload ='<font size = 16><font color = blue>' + 'Unten';    \n} \nif (x == 0 && active === 1) {\n    msg.payload ='<font size = 16><font color = blue>' + 'Oben'; \n} \n// not active\nif (active === 0) {\n    msg.payload ='Funktion nicht aktiv!'; \n}\nflow.set('BV_Schedule', y, 'file');\nreturn msg;",
+        "func": "var y = 0;\nvar x = Number(flow.get('BO_ScheduleOutDown', 'file'));\nvar active = Number(flow.get('BV_ScheduleActive','file'));\n\n// Schedule calcuculate\nif (x == 1 && active === 1) {\n    y = 1;\n    msg.payload ='<font size = 16><font color = blue>' + 'Unten';    \n} \nif (x == 0 && active === 1) {\n    y = 0;\n    msg.payload ='<font size = 16><font color = blue>' + 'Oben'; \n} \n// not active\nif (active === 0) {\n    y = 3; //undefined\n    msg.payload ='Funktion nicht aktiv!'; \n}\nflow.set('BV_Schedule', y, 'file');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -4428,16 +4378,16 @@
         "id": "7b087d10ac166a5f",
         "type": "inject",
         "z": "812b0ff61703e7f7",
-        "name": "2s string",
+        "name": "5s string",
         "props": [
             {
                 "p": "payload"
             }
         ],
-        "repeat": "2",
+        "repeat": "5",
         "crontab": "",
         "once": true,
-        "onceDelay": "2",
+        "onceDelay": "4",
         "topic": "",
         "payload": "empty",
         "payloadType": "str",
@@ -4456,8 +4406,7 @@
         "name": "y102",
         "mode": "link",
         "links": [
-            "b0442d5beac8adae",
-            "55eae88563746e35"
+            "b0442d5beac8adae"
         ],
         "x": 655,
         "y": 3760,
@@ -4572,14 +4521,14 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "y103/y104 Up and Down",
-        "func": "// y103->Up\n// y104 -> Down\nvar oldPayload = flow.get('OldPayload');\nvar order = 0;\n\n// alarm\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  function\nvar x = Number(flow.get('BV_Schedule'));\n\n// Down\nif ( x === 1 && alarm1 == 0 && alarm2 == 0 ) {\n     order = 1;\n}\nelse{\n//Up\n     order = 0;\n}\n\nvar Stamp1Down = 0;\nvar Duration1Down = 0;\nvar Stamp1Up = 0;\nvar Duration1Up = 0;\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n\nif(order === 1)          // Down\n{\n     flow.set('Stamp1Up', Date.now());\n     // wait 10s\n     Stamp1Down = flow.get('Stamp1Down');\n     Duration1Down = Date.now() - Stamp1Down; \n     flow.set('Duration1Down', Duration1Down);\n\n     if (Duration1Down < time1){\n          msg.payload = \"y103:0\";\n     }\n     if (Duration1Down < time2 && Duration1Down > time1) {\n          msg.payload = \"y104:1\";\n     }\n     if (Duration1Down < time3 && Duration1Down > time2) {\n          msg.payload = \"y104:0\";\n     }\n}\n\nif (order === 0)       // Up\n{\n     flow.set('Stamp1Down', Date.now());\n     //wait 10s\n     Stamp1Up = Number(flow.get('Stamp1Up'));\n     Duration1Up = Date.now() - Stamp1Up;\n     flow.set('Duration1Up', Duration1Up);\n     if (Duration1Up < time1) {\n          msg.payload = \"y104:0\";\n     }\n     if (Duration1Up < time2 && Duration1Up > time1) {\n          msg.payload = \"y103:1\";\n     }\n     // wait 60s Motorlaufzeit\n     if (Duration1Up < time3 && Duration1Up > time2 ) {\n          msg.payload = \"y103:0\";\n          \n     }\n     // wait 1h repeat alarm\n     if (Duration1Up > time3 &&(alarm1 == 1 || alarm2 == 1)) {\n       flow.set('Stamp1Down', Date.now());  \n       flow.set('Stamp1Up', Date.now());\n     }\n}\nif (oldPayload !== msg.payload) {\n     flow.set('OldPayload', msg.payload);\n     return msg;\n}\n\n\n\n\n\n\n\n",
+        "func": "// y103->Up\n// y104 -> Down\n\nvar stampUp = flow.get('StampUp');\nvar stampDown = flow.get('StampDown');\nvar durationDown = Date.now() - stampDown;\nflow.set('DurationDown', durationDown);           //Flow variable for debuging\nvar durationUp = Date.now() - stampUp;\nflow.set('DurationUp', durationUp);               //Flow variable for debuging\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n// alarm expression\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  expression\nvar x = Number(flow.get('BV_Schedule'));\n\n\n\n// Undefined function\nif (x === 3 && (alarm1 === 3 || alarm1 === 0) && (alarm2 === 3 || alarm2 === 0)) {\n     flow.set('StampDown', Date.now()); // Timestamp for down\n     flow.set('StampUp', Date.now());   // Timestamp for up\n     global.set('Up2', 0);         //reset when undefined\n     global.set('Down2', 0);         //reset when undefined\n}\n\n// Down function\nif ( x === 1 &&  (alarm1 === 0 || alarm1 === 3) &&  (alarm2 === 0 || alarm2 === 3) ) {\n     flow.set('StampUp', Date.now()); // Timestamp for up !!!!\n     // wait 10s\n     stampDown = flow.get('StampDown');\n     \n     if (durationDown < time1) {\n          msg.payload = \"y103:0\";\n     }\n     if (durationDown < time2 && durationDown > time1) {\n          msg.payload = \"y104:1\";\n     }\n     if (durationDown < time3 && durationDown > time2) {\n          msg.payload = \"y104:0\";\n     }   \n     return msg; \n}\n//Up function\nif (alarm1 === 1 || alarm2 === 1) {\n     flow.set('StampDown', Date.now()); // Timestamp for down !!!!\n      //wait 10s\n     stampUp = Number(flow.get('StampUp'));\n     if (durationUp < time1) {\n          msg.payload = \"y104:0\";\n     }\n     if (durationUp < time2 && durationUp > time1) {\n          msg.payload = \"y103:1\";\n     }\n     // wait 60s Motorlaufzeit\n     if (durationUp < time3 && durationUp > time2) {\n          msg.payload = \"y103:0\";\n\n     }\n     // wait 2h repeat alarm\n     if (durationUp > time3 && (alarm1 === 1 || alarm2 === 1)) {\n         flow.set('StampUp', Date.now());\n          global.set('Up2', 0);         //repeat in Log-File\n     }\n     return msg;\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 450,
+        "x": 410,
         "y": 3760,
         "wires": [
             [
@@ -4601,53 +4550,6 @@
         "libs": [],
         "x": 1050,
         "y": 1920,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "537adba896956c7d",
-        "type": "inject",
-        "z": "812b0ff61703e7f7",
-        "name": "Once a time string",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "str",
-        "x": 150,
-        "y": 3700,
-        "wires": [
-            [
-                "a09af9601db9ec53"
-            ]
-        ]
-    },
-    {
-        "id": "a09af9601db9ec53",
-        "type": "function",
-        "z": "812b0ff61703e7f7",
-        "name": "init Kontex",
-        "func": "flow.set('Stamp1Down', Date.now());\nflow.set('Stamp1Up', Date.now());\nflow.set('Duration1Down', Date.now());\nflow.set('Duration1Up', Date.now());\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 425.1990966796875,
-        "y": 3700.335205078125,
         "wires": [
             []
         ]
@@ -4731,7 +4633,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "init flow Contex",
-        "func": "flow.set('BV_RainAlarmOld',0);\nflow.set('BV_WindAlarmOld',0);\n\n\nreturn msg;",
+        "func": "flow.set('BV_RainAlarmOld',0);\nflow.set('BV_WindAlarmOld',0);\n\nflow.set('StampDown', Date.now());\nflow.set('StampUp', Date.now());\nflow.set('DurationDown', Date.now());\nflow.set('DurationUp', Date.now());\n\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
