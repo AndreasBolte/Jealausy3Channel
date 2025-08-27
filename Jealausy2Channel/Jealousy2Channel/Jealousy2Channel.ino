@@ -143,6 +143,15 @@ void loop() {
 
   //send by polling time
   i = i + 1;
+  if (DO_Channel1Up == 1 && i == i0) Serial.println("x101:1");
+  if (DO_Channel1Up == 0 && i == i0) Serial.println("x101:0");
+  if (DO_Channel1Down == 1 && i == i1) Serial.println("x102:1");
+  if (DO_Channel1Down == 0 && i == i1) Serial.println("x102:0");
+  if (DO_Channel2Up == 1 && i == i2) Serial.println("103:1");
+  if (DO_Channel2Up == 0 && i == i2) Serial.println("x103:0");
+  if (DO_Channel2Down == 1 && i == i3) Serial.println("x104:1");
+  if (DO_Channel2Down == 0 && i == i3) Serial.println("x104:0");
+
   if (DI_RC_Channel1Up == 1 && i == i0) Serial.println("x001:1");
   if (DI_RC_Channel1Up == 0 && i == i0) Serial.println("x001:0");
   if (DI_RC_Channel1Down == 1 && i == i1) Serial.println("x002:1");
