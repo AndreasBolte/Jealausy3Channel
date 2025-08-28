@@ -1,0 +1,8 @@
+Wind LED
+Regen LED
+Hardware OBEN UNTEN testen
+RX und TX LED
+Alarm wenn USB falsch angeschlossen ist
+Dashboard ändern auf 2
+Entwickeln auf STAR
+Kommunikation über Modbus ändern
