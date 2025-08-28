@@ -3,7 +3,7 @@
 
 
 // board: Controllino Mini
-// Date: 04.06.2025
+// Date: 28.08.2025
 // Andreas Bolte
 // info@colmuspro.de
 
@@ -12,7 +12,7 @@ const int DO_CHANNEL1UP = CONTROLLINO_D0;    //DO: Digital output CHANNEL 1 UP
 const int DO_CHANNEL1DOWN = CONTROLLINO_D1;  //D1: Digital output CHANNEL 1 DOWN
 const int DO_CHANNEL2UP = CONTROLLINO_D2;    //D2: Digital output CHANNEL 2 UP
 const int DO_CHANNEL2DOWN = CONTROLLINO_D3;  //D3: Digital output CHANNEL 2 DOWN
-const int DO_WIND_LED = CONTROLLINO_D4;      //D5: Digital output LED WIND
+const int DO_WIND_LED = CONTROLLINO_D4;      //D4: Digital output LED WIND
 const int DO_RAIN_LED = CONTROLLINO_D5;      //D5: Digital output LED RAIN
 
 // Integer constants for digital/analog  inputs
@@ -63,9 +63,24 @@ const float SPEED_PRO_IMPULS = 1.2;  // from the description Vron other sensor 1
 long int j = 0;                           // Loop counter ca 120 s
 long int jMax = 100000;
 
+String inputString = "";
+bool stringComplete = false;
+
 void windCount() {
   // increment the counter
   ++windCounter;
+}
+
+void serialEvent() {
+  while (Serial.available()) {
+    char inChar = (char)Serial.read();
+    if (inChar == '\n') {
+      stringComplete = true;
+      break;
+    } else {
+      inputString += inChar;
+    }
+  }
 }
 
 
@@ -78,8 +93,8 @@ void setup() {
   pinMode(CONTROLLINO_D1, OUTPUT);
   pinMode(CONTROLLINO_D2, OUTPUT);
   pinMode(CONTROLLINO_D3, OUTPUT);
+  pinMode(CONTROLLINO_D4, OUTPUT);
   pinMode(CONTROLLINO_D5, OUTPUT);
-  pinMode(CONTROLLINO_D6, OUTPUT);
 
   // initialize necessary pin as input pin
   pinMode(CONTROLLINO_A0, INPUT);
@@ -93,48 +108,31 @@ void setup() {
   pinMode(DI_INTERRUPT_RAIN, INPUT);
 
 
-  // initialize serial communication at 38400 bits per second:
+  // initialize serial communication at 57600 bits per second:
   Serial.begin(57600);
 
 }  //End void setup()
 
 void loop() {
 
-  // send data only when available:
-  if (Serial.available() > 0) {
-    //serialAvailable();  // UserInterface.h
-    String sdata = "";  // Initialised to nothing.
-    String str = "y003:65.43";
-    String strVal = "0";
-    int valInt = 0;
-    float valFloat = 0;
-    unsigned long valUnsignedLong = 0;
-   
-    // read the incoming String:
-    sdata = Serial.readStringUntil(' ');
-    sdata.trim();
-    str = sdata.substring(0, 4);
-    strVal = sdata.substring(5);
-    valInt = strVal.toInt();
-    for (unsigned int i = 0; i < strVal.length(); i++) {
-      char c = strVal.charAt(i);
-      if (c < '0' || c > '9') break;
-      valUnsignedLong *= 10;
-      valUnsignedLong += (c - '0');
-    }
-
-    valFloat = strVal.toFloat();
-
-    if (str.equals(String("y101"))) DO_Channel1Up = valInt;
-    if (str.equals(String("y102"))) DO_Channel1Down = valInt;
-    if (str.equals(String("y103"))) DO_Channel2Up = valInt;
-    if (str.equals(String("y104"))) DO_Channel2Down = valInt;
-    if (str.equals(String("y105"))) DO_Wind_Led = valInt;
-    if (str.equals(String("y106"))) DO_Rain_Led = valInt;
+if (stringComplete) {
+    if (inputString.equals(String("y101:0"))) DO_Channel1Up = 0;
+    if (inputString.equals(String("y101:1"))) DO_Channel1Up = 1;
+    if (inputString.equals(String("y102:0"))) DO_Channel1Down = 0;
+    if (inputString.equals(String("y102:1"))) DO_Channel1Down = 1;
+    if (inputString.equals(String("y103:0"))) DO_Channel2Up = 0;
+    if (inputString.equals(String("y103:1"))) DO_Channel2Up = 1;
+    if (inputString.equals(String("y104:0"))) DO_Channel2Down = 0;
+    if (inputString.equals(String("y104:1"))) DO_Channel2Down = 1;
+    if (inputString.equals(String("y105:0"))) DO_Wind_Led = 0;
+    if (inputString.equals(String("y105:1"))) DO_Wind_Led = 1;
+    if (inputString.equals(String("y106:0"))) DO_Rain_Led =0;
+    if (inputString.equals(String("y106:1"))) DO_Rain_Led =1;
+    inputString = "";
+    stringComplete = false;
+  }
     
-  }                                            // End if (Serial.available() > 0)
-
-  // read all inputs
+   // read all inputs
   DI_RC_Channel1Up = digitalRead(DI_CHANNEL1UP_RC);
   DI_RC_Channel1Down = digitalRead(DI_CHANNEL1DOWN_RC);
   DI_RC_Channel2Up = digitalRead(DI_CHANNEL2UP_RC);
