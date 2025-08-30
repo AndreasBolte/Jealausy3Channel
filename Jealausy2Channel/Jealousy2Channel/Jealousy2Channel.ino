@@ -1,6 +1,7 @@
 #include <Controllino.h>
 #include <SoftwareSerial.h>
 #include <ModbusRTUSlave.h>
+#include "ConvertFloatToUint16_t.h"
 
 // board: Controllino Mini
 // Date: 28.08.2025
@@ -25,6 +26,12 @@ bool discreteInputs[numDiscreteInputs];
 // uint16_t Unsigned: 0 to +65,535
 uint16_t holdingRegisters[numHoldingRegisters];
 uint16_t inputRegisters[numInputRegisters];
+
+// Test holding Registers with float
+float x1 = -6543.234;
+float x2 = 22.34;
+float x3 = 789543.12;
+float x4 = 0.065;
 
 
 
@@ -127,17 +134,19 @@ void setup() {
 
 void loop() {
 
-  holdingRegisters[0] = uint16_t(17.43)>>16;
-  holdingRegisters[1] = uint16_t(17.43f);
-  holdingRegisters[2] = uint16_t(45.765f * 10.0f);
-  holdingRegisters[3] = uint16_t(23.8f * 10.0f);
-  holdingRegisters[4] = uint16_t(98.21876f * 10.0f);
-  holdingRegisters[5] = uint16_t(22.765f * 10.0f);
-  holdingRegisters[6] = uint16_t(76.0f * 10.0f);
-  holdingRegisters[7] = uint16_t(76.0f * 10.0f);
-  holdingRegisters[8] = uint16_t(0.0f);
-  holdingRegisters[9] = uint16_t(1.0f * 100.0f);
-  
+  windSpeed = 17.43f;
+
+  holdingRegisters[0] = f_2uint_int2(windSpeed);  // split the float into 2 unsigned integers
+  holdingRegisters[1] = f_2uint_int1(windSpeed);
+  holdingRegisters[2] = f_2uint_int2(x1);  // Test
+  holdingRegisters[3] = f_2uint_int1(x1);
+  holdingRegisters[4] = f_2uint_int2(x2);  // Test
+  holdingRegisters[5] = f_2uint_int1(x2);
+  holdingRegisters[6] = f_2uint_int2(x3);  // Test
+  holdingRegisters[7] = f_2uint_int1(x3);
+  holdingRegisters[8] = f_2uint_int2(x4);  // Test
+  holdingRegisters[9] = f_2uint_int1(x4);
+
 
   // read all inputs
   DI_RC_Channel1Up = digitalRead(DI_CHANNEL1UP_RC);
@@ -157,15 +166,6 @@ void loop() {
   DO_Rain_Led = coils[5];      //D5: Digital output LED RAIN
 
 
-
-  discreteInputs[3] = LOW;
-  discreteInputs[4] = HIGH;
-  discreteInputs[5] = LOW;
-  discreteInputs[6] = HIGH;
-  discreteInputs[7] = LOW;
-  discreteInputs[8] = LOW;
-  discreteInputs[9] = HIGH;
- 
   if (DI_RC_Channel1Up == 1 && i == i0) discreteInputs[0] = HIGH;
   if (DI_RC_Channel1Up == 0 && i == i0) discreteInputs[0] = LOW;
   if (DI_RC_Channel1Down == 1 && i == i1) discreteInputs[1] = HIGH;
@@ -174,8 +174,13 @@ void loop() {
   if (DI_RC_Channel2Up == 0 && i == i2) discreteInputs[2] = LOW;
   if (DI_RC_Channel2Down == 1 && i == i3) discreteInputs[3] = HIGH;
   if (DI_RC_Channel2Down == 0 && i == i3) discreteInputs[3] = LOW;
-  if (DI_Rain == 0 && i == i4) discreteInputs[4] = HIGH;
-  if (DI_Rain == 1 && i == i5) discreteInputs[4] = LOW;
+  if (DI_Rain == 0 && i == i4) discreteInputs[4] = LOW;
+  if (DI_Rain == 1 && i == i4) discreteInputs[4] = HIGH;
+  discreteInputs[5] = LOW;    // TEST
+  discreteInputs[6] = HIGH;   // TEST
+  discreteInputs[7] = LOW;    // TEST
+  discreteInputs[8] = HIGH;   // TEST
+  discreteInputs[9] = LOW;    // TEST
   modbus.poll();
 
   if (i == i6) {

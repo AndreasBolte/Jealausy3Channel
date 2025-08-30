@@ -115,7 +115,7 @@
             }
         },
         "site": {
-            "name": "Sun",
+            "name": "Star",
             "hideToolbar": "false",
             "allowSwipe": "false",
             "lockMenu": "false",
@@ -390,139 +390,158 @@
         "hidden": false
     },
     {
-        "id": "94c2bed37f7b8070",
-        "type": "serial-port",
-        "name": "/dev/ttyACM3",
-        "serialport": "/dev/ttyACM3",
-        "serialbaud": "57600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
         "id": "76249244aeb2b0dd",
         "type": "global-config",
         "env": []
     },
     {
-        "id": "9ce68eba8f076d45",
+        "id": "af45b270d2a3dee9",
+        "type": "ui-base",
+        "name": "Datum",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": "1",
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "d897f53905cf149d",
+        "type": "ui-page",
+        "name": "Übersicht",
+        "ui": "af45b270d2a3dee9",
+        "path": "",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "335b1f2c0907c645",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "335b1f2c0907c645",
+        "type": "ui-theme",
+        "name": "ui-base.label.green",
+        "colors": {
+            "surface": "#a9df9c",
+            "primary": "#e3f5de",
+            "bgPage": "#e3f5de",
+            "groupBg": "#a9df9c",
+            "groupOutline": "#e3f5de"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "d5cfa710c3fdada2",
+        "type": "ui-page",
+        "name": "Jalausie",
+        "ui": "af45b270d2a3dee9",
+        "path": "/page2",
+        "icon": "blinds-horizontal-closed",
+        "layout": "grid",
+        "theme": "335b1f2c0907c645",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "73facf39de5e6333",
         "type": "modbus-client",
-        "name": "",
-        "clienttype": "serial",
+        "name": "Arduino",
+        "clienttype": "simpleser",
         "bufferCommands": true,
-        "stateLogEnabled": true,
+        "stateLogEnabled": false,
         "queueLogEnabled": false,
         "failureLogEnabled": true,
         "tcpHost": "127.0.0.1",
         "tcpPort": "502",
         "tcpType": "DEFAULT",
-        "serialPort": "/dev/ttyACM1",
-        "serialType": "RTU",
-        "serialBaudrate": "9600",
+        "serialPort": "/dev/ttyACM0",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "57600",
         "serialDatabits": "8",
         "serialStopbits": "1",
         "serialParity": "none",
         "serialConnectionDelay": "100",
-        "serialAsciiResponseStartDelimiter": "",
-        "unit_id": "1",
-        "commandDelay": "1",
-        "clientTimeout": "1000",
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 10,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
         "reconnectOnTimeout": true,
-        "reconnectTimeout": "2000",
+        "reconnectTimeout": 2000,
         "parallelUnitIdsAllowed": true,
-        "showErrors": true,
+        "showErrors": false,
         "showWarnings": true,
         "showLogs": true
     },
     {
-        "id": "8e3b784ae8e87f78",
-        "type": "serial-port",
-        "name": "/dev/ttyACM0",
-        "serialport": "/dev/ttyACM0",
-        "serialbaud": "57600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
-        "id": "79fecd1cb8adf358",
-        "type": "serial-port",
-        "name": "/dev/ttyACM2",
-        "serialport": "/dev/ttyACM2",
-        "serialbaud": "57600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
-        "id": "5e807d6983e05749",
-        "type": "serial-port",
-        "name": "/dev/ttyACM1",
-        "serialport": "/dev/ttyACM1",
-        "serialbaud": "57600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
-        "id": "bbf17eda7178796a",
-        "type": "serial-port",
-        "name": "/dev/ttyACM4",
-        "serialport": "/dev/ttyACM4",
-        "serialbaud": "57600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "dtr": "none",
-        "rts": "none",
-        "cts": "none",
-        "dsr": "none",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
+        "id": "fcaccc877367d30e",
+        "type": "ui_tab",
+        "name": "Zeitprogramm1",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
     },
     {
         "id": "c765b07b9b16ddfe",
@@ -575,7 +594,7 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "y105:x DO_Wind_Led",
-        "func": "// alarm\nvar alarm1 = Number(global.get('BV_WindAlarm1'));\nvar alarm2 = Number(global.get('BV_WindAlarm2'));\n\n\nif (alarm1 + alarm2 > 0) {\n     msg.payload = 'y105:1';\n}\nelse {\n     msg.payload = 'y105:0';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = Number(global.get('BV_WindAlarm1'));\nvar alarm2 = Number(global.get('BV_WindAlarm2'));\n\n\nif (alarm1 === 1 ||alarm2 === 1) {\n     global.set('Address', 4);         //Address for single write\n     //msg.payload = 'y105:1';\n     msg.payload = true;\n}\nelse {\n     global.set('Address', 4);         //Address for single write\n     //msg.payload = 'y105:0';\n     msg.payload = false;\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -596,7 +615,7 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "y106:1 DO_Rain_Led",
-        "func": "// alarm\nvar alarm1 = Number(global.get('BV_RainAlarm1'));\nvar alarm2 = Number(global.get('BV_RainAlarm2'));\n\n\nif (alarm1 + alarm2 > 0) {\n     msg.payload = 'y106:1';\n}\nelse {\n     msg.payload = 'y106:0';\n}\nreturn msg;",
+        "func": "// alarm\nvar alarm1 = Number(global.get('BV_RainAlarm1'));\nvar alarm2 = Number(global.get('BV_RainAlarm2'));\n\n\nif (alarm1 === 1 || alarm2 === 1) {\n     global.set('Address', 5);         //Address for single write\n     //msg.payload = 'y106:1';\n     msg.payload = true;\n}\nelse {\n     global.set('Address', 5);         //Address for single write\n     //msg.payload = 'y106:0';\n     msg.payload = false;\n}\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -710,17 +729,19 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "DI_Rain x005",
-        "func": "if (msg.payload.startsWith('x005:1')) {\n    global.set('DI_Rain',1);   \n}\nif (msg.payload.startsWith('x005:0')) {\n    global.set('DI_Rain', 0);\n}\nreturn msg;\n\n",
+        "func": "if (msg.payload[0] === true || msg.payload === true) {\n    global.set('DI_Rain',1);   \n}\nif (msg.payload[0] === false || msg.payload === false) {\n    global.set('DI_Rain', 0);\n}\nreturn msg;\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 980,
+        "x": 1080,
         "y": 480,
         "wires": [
-            []
+            [
+                "5181c5b0eb586da5"
+            ]
         ]
     },
     {
@@ -728,7 +749,7 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "AI_Wind x006",
-        "func": "if (msg.payload.startsWith('x006:')) {\n    var result = msg.payload;\n    var resultPart = result.substr(5);\n    var  windspeed = parseFloat(resultPart);\n    global.set('AI_Wind',windspeed);\n    return msg;\n   \n} \nelse{\n}\n\n",
+        "func": "\n    global.set('AI_Wind',msg.payload);\n ",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -757,7 +778,8 @@
         "y": 1080,
         "wires": [
             [
-                "3789304c443c2e38"
+                "3789304c443c2e38",
+                "d284fdc54be0f3d5"
             ]
         ]
     },
@@ -788,7 +810,9 @@
         "name": "Regen x005:0",
         "props": [
             {
-                "p": "payload"
+                "p": "payload[0]",
+                "v": "false",
+                "vt": "bool"
             }
         ],
         "repeat": "",
@@ -796,8 +820,6 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "x005:0",
-        "payloadType": "str",
         "x": 150,
         "y": 480,
         "wires": [
@@ -813,7 +835,9 @@
         "name": "Regen x005:1",
         "props": [
             {
-                "p": "payload"
+                "p": "payload[0]",
+                "v": "true",
+                "vt": "bool"
             }
         ],
         "repeat": "",
@@ -821,8 +845,6 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "x005:1",
-        "payloadType": "str",
         "x": 150,
         "y": 520,
         "wires": [
@@ -846,8 +868,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "x006:10.0",
-        "payloadType": "str",
+        "payload": "10",
+        "payloadType": "num",
         "x": 170,
         "y": 560,
         "wires": [
@@ -871,8 +893,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "x006:40.0",
-        "payloadType": "str",
+        "payload": "40",
+        "payloadType": "num",
         "x": 170,
         "y": 600,
         "wires": [
@@ -927,7 +949,7 @@
         "type": "function",
         "z": "5f4e599e.885b58",
         "name": "UpAndDownToFileCSV",
-        "func": "\n\n\nif (msg.payload.startsWith('y101:1') && global.get('Up1') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Oben,\" + \"Ein\"; \n   global.set('Up1', 1);\n   return msg;\n}\nif (msg.payload.startsWith('y102:1') && global.get('Down1') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Unten,\" + \"Ein\";\n   global.set('Down1', 1);\n   return msg;\n}\nif (msg.payload.startsWith('y103:1') && global.get('Up2') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Oben,\" + \"Ein\";\n   global.set('Up2', 1);\n   return msg;\n}\nif (msg.payload.startsWith('y104:1') && global.get('Down2') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Unten,\" + \"Ein\";\n   global.set('Down2', 1);\n   return msg;\n} \n\n\n\n\n\n\n\n",
+        "func": "var adr = global.get('Address');         //Address for single write\n\n\nif (adr === 0 && global.get('Up1') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Oben,\" + \"Ein\"; \n   global.set('Up1', 1);\n   return msg;\n}\nif (adr === 1 && global.get('Down1') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Jalausie,\" + \"Unten,\" + \"Ein\";\n   global.set('Down1', 1);\n   return msg;\n}\nif (adr === 2 && global.get('Up2') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Oben,\" + \"Ein\";\n   global.set('Up2', 1);\n   return msg;\n}\nif (adr === 3 && global.get('Down2') !== 1) {\n   msg.payload = global.get('date') + \" \" + global.get('time') + \",\" + \"Sonnensegel,\" + \"Unten,\" + \"Ein\";\n   global.set('Down2', 1);\n   return msg;\n} \n\n\n\n\n\n\n\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -939,12 +961,7 @@
         "wires": [
             [
                 "f6bd87f94eff3040",
-                "2af7de3ec7879198",
-                "8364cb8d98fffcde",
-                "3e117c842b204fd3",
-                "170203f077e2cc68",
-                "f629b66db9657df0",
-                "aa1cf9f1dbb35f34"
+                "2af7de3ec7879198"
             ]
         ]
     },
@@ -1099,178 +1116,172 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 660,
-        "y": 180,
+        "x": 1280,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "2523699a74fc3358",
-        "type": "serial in",
+        "id": "a011af2b2f0929ae",
+        "type": "modbus-flex-write",
         "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "5e807d6983e05749",
-        "x": 310,
-        "y": 220,
+        "name": "Modbus Flex Write",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "server": "73facf39de5e6333",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 1310,
+        "y": 1000,
         "wires": [
-            [
-                "5181c5b0eb586da5",
-                "a187c5fb0a52afcc"
-            ]
-        ]
-    },
-    {
-        "id": "070d727050501c42",
-        "type": "serial in",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "8e3b784ae8e87f78",
-        "x": 310,
-        "y": 160,
-        "wires": [
-            [
-                "5181c5b0eb586da5",
-                "a187c5fb0a52afcc"
-            ]
-        ]
-    },
-    {
-        "id": "71fad2c7a49a0481",
-        "type": "serial in",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "79fecd1cb8adf358",
-        "x": 310,
-        "y": 280,
-        "wires": [
-            [
-                "5181c5b0eb586da5",
-                "a187c5fb0a52afcc"
-            ]
-        ]
-    },
-    {
-        "id": "19a8fe1096c12519",
-        "type": "serial in",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "94c2bed37f7b8070",
-        "x": 310,
-        "y": 340,
-        "wires": [
-            [
-                "5181c5b0eb586da5",
-                "a187c5fb0a52afcc"
-            ]
-        ]
-    },
-    {
-        "id": "815e4857459f0175",
-        "type": "catch",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "scope": [
-            "2523699a74fc3358",
-            "070d727050501c42",
-            "71fad2c7a49a0481",
-            "19a8fe1096c12519",
-            "b3368a1da22d2dab",
-            "aa1cf9f1dbb35f34",
-            "f629b66db9657df0",
-            "170203f077e2cc68",
-            "3e117c842b204fd3",
-            "8364cb8d98fffcde"
-        ],
-        "uncaught": false,
-        "x": 120,
-        "y": 60,
-        "wires": [
+            [],
             []
         ]
     },
     {
-        "id": "b3368a1da22d2dab",
-        "type": "serial in",
+        "id": "d284fdc54be0f3d5",
+        "type": "function",
         "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "bbf17eda7178796a",
-        "x": 310,
-        "y": 400,
+        "name": "function 1",
+        "func": "var x = global.get('Address');\nmsg.payload = { value: msg.payload, 'fc': 5, 'unitid': 10, 'address': x, 'quantity': 1 };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 980,
+        "y": 1000,
         "wires": [
             [
-                "5181c5b0eb586da5",
+                "a011af2b2f0929ae",
+                "bb804f22a91879eb"
+            ]
+        ]
+    },
+    {
+        "id": "bb804f22a91879eb",
+        "type": "debug",
+        "z": "5f4e599e.885b58",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5eca4b4b2b049410",
+        "type": "modbus-read",
+        "z": "5f4e599e.885b58",
+        "name": "Modbus-Read Wind",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "10",
+        "dataType": "HoldingRegister",
+        "adr": "2",
+        "quantity": "2",
+        "rate": "20",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "73facf39de5e6333",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "8c36d2c998fc9fa4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8c36d2c998fc9fa4",
+        "type": "buffer-parser",
+        "z": "5f4e599e.885b58",
+        "name": "",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "floatbe",
+                "name": "Windgeschwindigkeit",
+                "offset": 0,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "keyvalue",
+        "resultTypeType": "return",
+        "multipleResult": false,
+        "fanOutMultipleResult": false,
+        "setTopic": true,
+        "outputs": 1,
+        "x": 430,
+        "y": 260,
+        "wires": [
+            [
                 "a187c5fb0a52afcc"
             ]
         ]
     },
     {
-        "id": "aa1cf9f1dbb35f34",
-        "type": "serial out",
+        "id": "f0e6c63956cd943a",
+        "type": "modbus-read",
         "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "8e3b784ae8e87f78",
-        "x": 980,
-        "y": 560,
-        "wires": []
-    },
-    {
-        "id": "f629b66db9657df0",
-        "type": "serial out",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "5e807d6983e05749",
-        "x": 980,
-        "y": 620,
-        "wires": []
-    },
-    {
-        "id": "170203f077e2cc68",
-        "type": "serial out",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "79fecd1cb8adf358",
-        "x": 980,
-        "y": 680,
-        "wires": []
-    },
-    {
-        "id": "3e117c842b204fd3",
-        "type": "serial out",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "94c2bed37f7b8070",
-        "x": 980,
-        "y": 740,
-        "wires": []
-    },
-    {
-        "id": "8364cb8d98fffcde",
-        "type": "serial out",
-        "z": "5f4e599e.885b58",
-        "name": "",
-        "serial": "bbf17eda7178796a",
-        "x": 980,
-        "y": 800,
-        "wires": []
-    },
-    {
-        "id": "984d4e069a40ff58",
-        "type": "comment",
-        "z": "5f4e599e.885b58",
-        "name": "auto find USB",
-        "info": "",
-        "x": 130,
-        "y": 240,
-        "wires": []
-    },
-    {
-        "id": "4f8ce733c830f6d2",
-        "type": "comment",
-        "z": "5f4e599e.885b58",
-        "name": "auto find USB",
-        "info": "",
-        "x": 1203.1990966796875,
-        "y": 619.2061157226562,
-        "wires": []
+        "name": "Modbus-Read-Rain",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "unitid": "10",
+        "dataType": "Input",
+        "adr": "4",
+        "quantity": "1",
+        "rate": "20",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "73facf39de5e6333",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 330,
+        "y": 360,
+        "wires": [
+            [
+                "a187c5fb0a52afcc"
+            ],
+            []
+        ]
     },
     {
         "id": "587e9baa.9f8474",
@@ -1530,7 +1541,7 @@
         "finalize": "",
         "libs": [],
         "x": 1280,
-        "y": 520,
+        "y": 480,
         "wires": [
             [
                 "7959aa56.013ee4"
@@ -1570,7 +1581,7 @@
         "finalize": "",
         "libs": [],
         "x": 1270,
-        "y": 640,
+        "y": 700,
         "wires": [
             [
                 "9072cc52.1ec49"
@@ -1590,7 +1601,7 @@
         "finalize": "",
         "libs": [],
         "x": 1270,
-        "y": 700,
+        "y": 780,
         "wires": [
             [
                 "f0b889f1.a064f8"
@@ -1630,7 +1641,7 @@
         "finalize": "",
         "libs": [],
         "x": 760,
-        "y": 1240,
+        "y": 1280,
         "wires": [
             [
                 "f396a8a0.182d78"
@@ -1755,8 +1766,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 1470,
-        "y": 520,
+        "x": 1490,
+        "y": 480,
         "wires": []
     },
     {
@@ -1798,7 +1809,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 1490,
-        "y": 640,
+        "y": 700,
         "wires": []
     },
     {
@@ -1819,7 +1830,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 1490,
-        "y": 700,
+        "y": 780,
         "wires": []
     },
     {
@@ -1861,7 +1872,7 @@
         "fontSize": "",
         "color": "#000000",
         "x": 1050,
-        "y": 1240,
+        "y": 1280,
         "wires": []
     },
     {
@@ -1965,8 +1976,8 @@
         "z": "305c6dd9.7f9612",
         "name": "FX1 Maximale Windböe innerhalb der letzten Stunde",
         "info": "",
-        "x": 1070,
-        "y": 960,
+        "x": 790,
+        "y": 1100,
         "wires": []
     },
     {
@@ -2041,7 +2052,7 @@
         "y": 440,
         "wires": [
             [
-                "d94e9c4c.277eb"
+                "6e9a1a2b3cabbb63"
             ]
         ]
     },
@@ -2057,8 +2068,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1350,
-        "y": 220,
+        "x": 1310,
+        "y": 200,
         "wires": [
             []
         ]
@@ -2068,7 +2079,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "Calculate BV_WindAlarn",
-        "func": "var x = 0;\nvar active = flow.get('BV_WindMeasureActive');\nif (active === 1 && Number(global.get('AV_WindMax')) <= Number(flow.get('AI_speedHighLimit'))) {\n    x = 0;\n}\nif (active === 1 && Number(global.get('AV_WindMax')) >= Number(flow.get('AI_speedHighLimit'))) {\n    x = 1;\n}\n\nif (x === 1) {\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n    global.set('BV_WindAlarm1', 1);\n}\nif (x === 0) {\n    msg.payload = '<font size = 16><font color = green>' + 'Kein Alarm';\n    global.set('BV_WindAlarm1', 0);\n}\nif (active === 0) {\n    msg.payload = 'Funktion nicht aktiv!';\n    global.set('BV_WindAlarm1', 0);\n    x = 3;  //undefined \n}\nflow.set('BV_WindAlarm', x);\nglobal.set('BV_WindAlarm1', x);\nreturn msg;",
+        "func": "var x = 0;\nvar active = flow.get('BV_WindMeasureActive');\nif (active === 1 && Number(global.get('AV_WindMax')) <= Number(flow.get('AI_speedHighLimit'))) {\n    x = 0;\n}\nif (active === 1 && Number(global.get('AV_WindMax')) >= Number(flow.get('AI_speedHighLimit'))) {\n    x = 1;\n}\n\nif (x === 1) {\n    msg.payload = '<font size = 16><font color = red>' + 'Alarm';\n    global.set('BV_WindAlarm1', 1);\n}\nif (x === 0) {\n    msg.payload = '<font size = 16><font color = green>' + 'Kein Alarm';\n    global.set('BV_WindAlarm1', 0);\n}\nif (active === 0) {\n    msg.payload = 'Windschutz Funktion nicht aktiv!';\n    global.set('BV_WindAlarm1', 0);\n    x = 3;  //undefined \n}\nflow.set('BV_WindAlarm', x);\nglobal.set('BV_WindAlarm1', x);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2079,8 +2090,8 @@
         "y": 540,
         "wires": [
             [
-                "3427729b.2e5b0e",
-                "4a680ed27bbee30a"
+                "4a680ed27bbee30a",
+                "6ae826241c391281"
             ]
         ]
     },
@@ -2116,7 +2127,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 920,
+        "x": 1000,
         "y": 1040,
         "wires": [
             []
@@ -2175,7 +2186,7 @@
         "y": 1380,
         "wires": [
             [
-                "f4ad1967.b06c18"
+                "0320eee2fd222559"
             ]
         ]
     },
@@ -2195,7 +2206,7 @@
         "y": 1320,
         "wires": [
             [
-                "fba87f5f.94a7d"
+                "c744852d3c7ff422"
             ]
         ]
     },
@@ -2215,156 +2226,10 @@
         "y": 1460,
         "wires": [
             [
-                "4667887e.4aba18",
-                "623d40e040b15d8e"
+                "623d40e040b15d8e",
+                "b6e08105ffd85c3c"
             ]
         ]
-    },
-    {
-        "id": "6f07e1e2.4d9dc",
-        "type": "ui_slider",
-        "z": "951993f4.8206d",
-        "name": "Grenzwert",
-        "label": "Grenzwert in %",
-        "tooltip": "Grenzwert Regenwahrscheinlichkeit",
-        "group": "f38a2925ce1a334a",
-        "order": 4,
-        "width": "",
-        "height": "",
-        "passthru": true,
-        "outs": "end",
-        "topic": "",
-        "topicType": "str",
-        "min": 0,
-        "max": "100",
-        "step": "5",
-        "className": "",
-        "x": 650,
-        "y": 1040,
-        "wires": [
-            [
-                "ef1b7795.2a4dd8"
-            ]
-        ]
-    },
-    {
-        "id": "3427729b.2e5b0e",
-        "type": "ui_text",
-        "z": "951993f4.8206d",
-        "group": "d90c12143c2e28b4",
-        "order": 6,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 890,
-        "y": 540,
-        "wires": []
-    },
-    {
-        "id": "4667887e.4aba18",
-        "type": "ui_text",
-        "z": "951993f4.8206d",
-        "group": "f38a2925ce1a334a",
-        "order": 7,
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 890,
-        "y": 1460,
-        "wires": []
-    },
-    {
-        "id": "fba87f5f.94a7d",
-        "type": "ui_text",
-        "z": "951993f4.8206d",
-        "group": "f38a2925ce1a334a",
-        "order": 2,
-        "width": "",
-        "height": "",
-        "name": "Regen",
-        "label": "Regen",
-        "format": "{{msg.payload}}",
-        "layout": "",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 870,
-        "y": 1320,
-        "wires": []
-    },
-    {
-        "id": "d94e9c4c.277eb",
-        "type": "ui_gauge",
-        "z": "951993f4.8206d",
-        "name": "Windgeschwindigkeit",
-        "group": "d90c12143c2e28b4",
-        "order": 2,
-        "width": "",
-        "height": "",
-        "gtype": "gage",
-        "title": "Maximale Windböe innerhalb der letzten Stunde",
-        "label": "",
-        "format": "{{value}}km/h",
-        "min": "0.0",
-        "max": "70",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "diff": false,
-        "className": "",
-        "x": 1000,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "f4ad1967.b06c18",
-        "type": "ui_gauge",
-        "z": "951993f4.8206d",
-        "name": "Regenwahrscheinlichkeit",
-        "group": "f38a2925ce1a334a",
-        "order": 3,
-        "width": "",
-        "height": "",
-        "gtype": "gage",
-        "title": "Regenwahrscheinlichkeit",
-        "label": "",
-        "format": "{{value}} %",
-        "min": "0.0",
-        "max": "100",
-        "colors": [
-            "#00b500",
-            "#e6e600",
-            "#ca3838"
-        ],
-        "seg1": "",
-        "seg2": "",
-        "diff": false,
-        "className": "",
-        "x": 910,
-        "y": 1380,
-        "wires": []
     },
     {
         "id": "c17ab526119a92dd",
@@ -2378,7 +2243,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1290,
+        "x": 1190,
         "y": 320,
         "wires": [
             []
@@ -2409,33 +2274,6 @@
         ]
     },
     {
-        "id": "b06b5d44.62b0a",
-        "type": "ui_slider",
-        "z": "951993f4.8206d",
-        "name": "AI_speedHighLimit",
-        "label": "Grenzwert in km/h",
-        "tooltip": "Grenzwert Windgeschwindigkeit",
-        "group": "d90c12143c2e28b4",
-        "order": 3,
-        "width": "",
-        "height": "",
-        "passthru": true,
-        "outs": "end",
-        "topic": "",
-        "topicType": "str",
-        "min": 0,
-        "max": "70",
-        "step": "5",
-        "className": "",
-        "x": 990,
-        "y": 300,
-        "wires": [
-            [
-                "c17ab526119a92dd"
-            ]
-        ]
-    },
-    {
         "id": "53b6edee4ac8d11f",
         "type": "function",
         "z": "951993f4.8206d",
@@ -2447,7 +2285,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 880,
+        "x": 1020,
         "y": 960,
         "wires": [
             []
@@ -2484,82 +2322,6 @@
         "wires": []
     },
     {
-        "id": "93c84053385762e6",
-        "type": "ui_dropdown",
-        "z": "951993f4.8206d",
-        "name": "",
-        "label": "Windschutz",
-        "tooltip": "Windschutz",
-        "place": "Select option",
-        "group": "d90c12143c2e28b4",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "nicht aktiv",
-                "value": 0,
-                "type": "num"
-            },
-            {
-                "label": "aktiv",
-                "value": 1,
-                "type": "num"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 950,
-        "y": 220,
-        "wires": [
-            [
-                "bf465e27.4fc6a"
-            ]
-        ]
-    },
-    {
-        "id": "c87caffc91cbe0ac",
-        "type": "ui_dropdown",
-        "z": "951993f4.8206d",
-        "name": "",
-        "label": "Niederschlagschutz",
-        "tooltip": "Niederschlagschutz",
-        "place": "Select option",
-        "group": "f38a2925ce1a334a",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "nicht aktiv",
-                "value": 0,
-                "type": "num"
-            },
-            {
-                "label": "aktiv",
-                "value": 1,
-                "type": "num"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 670,
-        "y": 960,
-        "wires": [
-            [
-                "53b6edee4ac8d11f"
-            ]
-        ]
-    },
-    {
         "id": "2c11e35583775d53",
         "type": "function",
         "z": "951993f4.8206d",
@@ -2571,48 +2333,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 790,
+        "x": 850,
         "y": 1720,
         "wires": [
             []
-        ]
-    },
-    {
-        "id": "54ed893b95e5ba4a",
-        "type": "ui_dropdown",
-        "z": "951993f4.8206d",
-        "name": "",
-        "label": "Zeitprogramm",
-        "tooltip": "Zeitprogramm",
-        "place": "Select option",
-        "group": "14ea130f6e6b7405",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "nicht aktiv",
-                "value": 0,
-                "type": "num"
-            },
-            {
-                "label": "aktiv",
-                "value": 1,
-                "type": "num"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 560,
-        "y": 1720,
-        "wires": [
-            [
-                "2c11e35583775d53"
-            ]
         ]
     },
     {
@@ -2631,7 +2355,7 @@
         "y": 280,
         "wires": [
             [
-                "b06b5d44.62b0a"
+                "8b55b3f20bb6c3d4"
             ]
         ]
     },
@@ -2640,7 +2364,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "flow.get",
-        "func": "msg.payload = flow.get('BV_WindMeasureActive')\nreturn msg;",
+        "func": "msg.payload = flow.get('BV_WindMeasureActive');\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -2651,7 +2375,7 @@
         "y": 220,
         "wires": [
             [
-                "93c84053385762e6"
+                "89dc178a57615118"
             ]
         ]
     },
@@ -2671,7 +2395,7 @@
         "y": 960,
         "wires": [
             [
-                "c87caffc91cbe0ac"
+                "4c8767dc2180b4f7"
             ]
         ]
     },
@@ -2691,7 +2415,7 @@
         "y": 1040,
         "wires": [
             [
-                "6f07e1e2.4d9dc"
+                "28088e4e28917526"
             ]
         ]
     },
@@ -2711,7 +2435,7 @@
         "y": 1720,
         "wires": [
             [
-                "54ed893b95e5ba4a"
+                "2bc7a08f249fc8d7"
             ]
         ]
     },
@@ -2826,7 +2550,7 @@
         "payload": "",
         "payloadType": "str",
         "x": 110,
-        "y": 1980,
+        "y": 2100,
         "wires": [
             [
                 "e90bd963b62853aa"
@@ -2846,33 +2570,12 @@
         "finalize": "",
         "libs": [],
         "x": 470,
-        "y": 1980,
+        "y": 2100,
         "wires": [
             [
-                "2be34b1e51dc32ec"
+                "1e868a064385f86b"
             ]
         ]
-    },
-    {
-        "id": "2be34b1e51dc32ec",
-        "type": "ui_text",
-        "z": "951993f4.8206d",
-        "group": "14ea130f6e6b7405",
-        "order": "6",
-        "width": "",
-        "height": "",
-        "name": "",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "col-center",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 770,
-        "y": 1980,
-        "wires": []
     },
     {
         "id": "47d2361033b078b4",
@@ -3064,7 +2767,7 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 1100,
+        "x": 1120,
         "y": 2900,
         "wires": []
     },
@@ -3109,108 +2812,6 @@
         "x": 120,
         "y": 3700,
         "wires": []
-    },
-    {
-        "id": "360d48ad1f55d93b",
-        "type": "comment",
-        "z": "951993f4.8206d",
-        "name": "google.maps 48.6429777,9.004596",
-        "info": "https://www.google.de/maps/place/Annaweg+9,+71088+Holzgerlingen/@48.6429777,9.004596,19",
-        "x": 420,
-        "y": 1900,
-        "wires": []
-    },
-    {
-        "id": "4a0f7716252c51b0",
-        "type": "comment",
-        "z": "951993f4.8206d",
-        "name": "### This scenario is permanent and requires a file to read an write to ###",
-        "info": "",
-        "x": 440,
-        "y": 1780,
-        "wires": []
-    },
-    {
-        "id": "bdf30b33d76bea1b",
-        "type": "inject",
-        "z": "951993f4.8206d",
-        "name": "FireAfterReboot",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 120,
-        "y": 1840,
-        "wires": [
-            [
-                "b0f2b6a88bba87f7"
-            ]
-        ]
-    },
-    {
-        "id": "9173686a17c7a506",
-        "type": "ui_time_scheduler",
-        "z": "951993f4.8206d",
-        "group": "14ea130f6e6b7405",
-        "name": "Zeitprogramm",
-        "startDay": "1",
-        "refresh": 60,
-        "devices": [
-            "Jalausie"
-        ],
-        "singleOff": false,
-        "onlySendChange": false,
-        "customPayload": false,
-        "eventMode": false,
-        "eventOptions": [],
-        "sendTopic": false,
-        "lat": "48.6429777",
-        "lon": "9.00459619",
-        "customContextStore": "",
-        "outputs": 2,
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "x": 640,
-        "y": 1840,
-        "wires": [
-            [
-                "c8f663ba93b43758"
-            ],
-            [
-                "a2a3e33948f1e9fb"
-            ]
-        ]
-    },
-    {
-        "id": "a2a3e33948f1e9fb",
-        "type": "function",
-        "z": "951993f4.8206d",
-        "name": "BO_ScheduleOutDown",
-        "func": "\nif (msg.payload) {\n    flow.set('BO_ScheduleOutDown', 1);\n}\nelse {\n     flow.set('BO_ScheduleOutDown', 0);\n}\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 890,
-        "y": 1920,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "43328a7ab1222bd6",
@@ -3401,44 +3002,6 @@
         ]
     },
     {
-        "id": "b0f2b6a88bba87f7",
-        "type": "function",
-        "z": "951993f4.8206d",
-        "name": "flow.get Schedule text",
-        "func": "msg.payload = flow.get('Schedule');\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 1840,
-        "wires": [
-            [
-                "9173686a17c7a506"
-            ]
-        ]
-    },
-    {
-        "id": "c8f663ba93b43758",
-        "type": "function",
-        "z": "951993f4.8206d",
-        "name": "flow.set Schedule text",
-        "func": "flow.set('Schedule',msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 880,
-        "y": 1820,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "4ba9a9524f485de9",
         "type": "function",
         "z": "951993f4.8206d",
@@ -3461,7 +3024,7 @@
         "type": "function",
         "z": "951993f4.8206d",
         "name": "y101/y102 Up and Down",
-        "func": "// y101->Up\n// y101 -> Down\n\nvar stampUp = flow.get('StampUp');\nvar stampDown = flow.get('StampDown');\nvar durationDown = Date.now() - stampDown;\nflow.set('DurationDown', durationDown);           //Flow variable for debuging\nvar durationUp = Date.now() - stampUp;\nflow.set('DurationUp', durationUp);               //Flow variable for debuging\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n// alarm expression\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  expression\nvar x = Number(flow.get('BV_Schedule'));\n\n\n\n// Undefined function\nif (x === 3 && (alarm1 === 3 || alarm1 === 0) && (alarm2 === 3 || alarm2 === 0)) {\n     flow.set('StampDown', Date.now()); // Timestamp for down\n     flow.set('StampUp', Date.now());   // Timestamp for up\n     global.set('Up1', 0);         //reset when undefined\n     global.set('Down1', 0);         //reset when undefined\n}\n\n// Down function\nif ( x === 1 &&  (alarm1 === 0 || alarm1 === 3) &&  (alarm2 === 0 || alarm2 === 3) ) {\n     flow.set('StampUp', Date.now()); // Timestamp for up !!!!\n     // wait 10s\n     stampDown = flow.get('StampDown');\n     \n     if (durationDown < time1) {\n          msg.payload = \"y101:0\";\n     }\n     if (durationDown < time2 && durationDown > time1) {\n          msg.payload = \"y102:1\";\n     }\n     if (durationDown < time3 && durationDown > time2) {\n          msg.payload = \"y102:0\";\n     }  \n     return msg;  \n}\n//Up function\nif (alarm1 === 1 || alarm2 === 1) {\n     flow.set('StampDown', Date.now()); // Timestamp for down !!!!\n      //wait 10s\n     stampUp = Number(flow.get('StampUp'));\n     if (durationUp < time1) {\n          msg.payload = \"y102:0\";\n     }\n     if (durationUp < time2 && durationUp > time1) {\n          msg.payload = \"y101:1\";\n     }\n     // wait 60s Motorlaufzeit\n     if (durationUp < time3 && durationUp > time2) {\n          msg.payload = \"y101:0\";\n\n     }\n     // wait 2h repeat alarm\n     if (durationUp > time3 && (alarm1 === 1 || alarm2 === 1)) {\n         flow.set('StampUp', Date.now());\n          global.set('Up1', 0);         //repeat in Log-File\n     }\n     return msg;\n}",
+        "func": "// y101->Up\n// y101 -> Down\n\nvar stampUp = flow.get('StampUp');\nvar stampDown = flow.get('StampDown');\nvar durationDown = Date.now() - stampDown;\nflow.set('DurationDown', durationDown);           //Flow variable for debuging\nvar durationUp = Date.now() - stampUp;\nflow.set('DurationUp', durationUp);               //Flow variable for debuging\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n// alarm expression\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  expression\nvar x = Number(flow.get('BV_Schedule'));\n\n\n\n// Undefined function\nif (x === 3 && (alarm1 === 3 || alarm1 === 0) && (alarm2 === 3 || alarm2 === 0)) {\n     flow.set('StampDown', Date.now()); // Timestamp for down\n     flow.set('StampUp', Date.now());   // Timestamp for up\n     global.set('Up1', 0);         //reset when undefined\n     global.set('Down1', 0);         //reset when undefined\n}\n\n// Down function\nif ( x === 1 &&  (alarm1 === 0 || alarm1 === 3) &&  (alarm2 === 0 || alarm2 === 3) ) {\n     flow.set('StampUp', Date.now()); // Timestamp for up !!!!\n     // wait 10s\n     stampDown = flow.get('StampDown');\n     \n     if (durationDown < time1) {\n          global.set('Address', 0);         //Address for single write\n          // msg.payload = \"y101:0\";\n          msg.payload = false;\n     }\n     if (durationDown < time2 && durationDown > time1) {\n          global.set('Address', 1);         //Address for single write\n          //msg.payload = \"y102:1\";\n          msg.payload = true;\n     }\n     if (durationDown < time3 && durationDown > time2) {\n          global.set('Address', 1);         //Address for single write\n          //msg.payload = \"y102:0\";\n          msg.payload = false;\n     }  \n     return msg;  \n}\n//Up function\nif (alarm1 === 1 || alarm2 === 1) {\n     flow.set('StampDown', Date.now()); // Timestamp for down !!!!\n      //wait 10s\n     stampUp = Number(flow.get('StampUp'));\n     if (durationUp < time1) {\n          global.set('Address', 1);         //Address for single write\n          msg.payload = \"y102:0\";\n     }\n     if (durationUp < time2 && durationUp > time1) {\n          global.set('Address', 0);         //Address for single write\n          //msg.payload = \"y101:1\";\n          msg.payload = true;\n     }\n     // wait 60s Motorlaufzeit\n     if (durationUp < time3 && durationUp > time2) {\n          global.set('Address', 0);         //Address for single write\n          // msg.payload = \"y101:0\";\n          msg.payload = false;\n\n     }\n     // wait 2h repeat alarm\n     if (durationUp > time3 && (alarm1 === 1 || alarm2 === 1)) {\n         flow.set('StampUp', Date.now());\n          global.set('Up1', 0);         //repeat in Log-File\n     }\n     return msg;\n}",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -3474,6 +3037,454 @@
             [
                 "5e70d0d8da91504f"
             ]
+        ]
+    },
+    {
+        "id": "89dc178a57615118",
+        "type": "ui_dropdown",
+        "z": "951993f4.8206d",
+        "name": "",
+        "label": "Windschutz",
+        "tooltip": "Windschutz",
+        "place": "Select option",
+        "group": "d90c12143c2e28b4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "nicht aktiv",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "aktiv",
+                "value": 1,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 890,
+        "y": 200,
+        "wires": [
+            [
+                "bf465e27.4fc6a"
+            ]
+        ]
+    },
+    {
+        "id": "8b55b3f20bb6c3d4",
+        "type": "ui_slider",
+        "z": "951993f4.8206d",
+        "name": "AI_speedHighLimit",
+        "label": "Grenzwert in km/h",
+        "tooltip": "Grenzwert Windgeschwindigkeit",
+        "group": "d90c12143c2e28b4",
+        "order": 3,
+        "width": "",
+        "height": "",
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "topicType": "str",
+        "min": 0,
+        "max": "70",
+        "step": "5",
+        "className": "",
+        "x": 850,
+        "y": 300,
+        "wires": [
+            [
+                "c17ab526119a92dd"
+            ]
+        ]
+    },
+    {
+        "id": "6ae826241c391281",
+        "type": "ui_text",
+        "z": "951993f4.8206d",
+        "group": "d90c12143c2e28b4",
+        "order": 6,
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 870,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "6e9a1a2b3cabbb63",
+        "type": "ui_gauge",
+        "z": "951993f4.8206d",
+        "name": "Windgeschwindigkeit",
+        "group": "d90c12143c2e28b4",
+        "order": 2,
+        "width": "",
+        "height": "",
+        "gtype": "gage",
+        "title": "Maximale Windböe innerhalb der letzten Stunde",
+        "label": "",
+        "format": "{{value}}km/h",
+        "min": "0.0",
+        "max": "70",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 980,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "28088e4e28917526",
+        "type": "ui_slider",
+        "z": "951993f4.8206d",
+        "name": "Grenzwert",
+        "label": "Grenzwert in %",
+        "tooltip": "Grenzwert Regenwahrscheinlichkeit",
+        "group": "f38a2925ce1a334a",
+        "order": 4,
+        "width": "",
+        "height": "",
+        "passthru": true,
+        "outs": "end",
+        "topic": "",
+        "topicType": "str",
+        "min": 0,
+        "max": "100",
+        "step": "5",
+        "className": "",
+        "x": 690,
+        "y": 1040,
+        "wires": [
+            [
+                "ef1b7795.2a4dd8"
+            ]
+        ]
+    },
+    {
+        "id": "4c8767dc2180b4f7",
+        "type": "ui_dropdown",
+        "z": "951993f4.8206d",
+        "name": "",
+        "label": "Niederschlagschutz",
+        "tooltip": "Niederschlagschutz",
+        "place": "Select option",
+        "group": "f38a2925ce1a334a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "nicht aktiv",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "aktiv",
+                "value": 1,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 710,
+        "y": 960,
+        "wires": [
+            [
+                "53b6edee4ac8d11f"
+            ]
+        ]
+    },
+    {
+        "id": "0320eee2fd222559",
+        "type": "ui_gauge",
+        "z": "951993f4.8206d",
+        "name": "Regenwahrscheinlichkeit",
+        "group": "f38a2925ce1a334a",
+        "order": 3,
+        "width": "",
+        "height": "",
+        "gtype": "gage",
+        "title": "Regenwahrscheinlichkeit",
+        "label": "",
+        "format": "{{value}} %",
+        "min": "0.0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 910,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "b6e08105ffd85c3c",
+        "type": "ui_text",
+        "z": "951993f4.8206d",
+        "group": "f38a2925ce1a334a",
+        "order": 7,
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 890,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "c744852d3c7ff422",
+        "type": "ui_text",
+        "z": "951993f4.8206d",
+        "group": "f38a2925ce1a334a",
+        "order": 2,
+        "width": "",
+        "height": "",
+        "name": "Regen",
+        "label": "Regen",
+        "format": "{{msg.payload}}",
+        "layout": "",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 870,
+        "y": 1320,
+        "wires": []
+    },
+    {
+        "id": "1e868a064385f86b",
+        "type": "ui_text",
+        "z": "951993f4.8206d",
+        "group": "14ea130f6e6b7405",
+        "order": "6",
+        "width": "",
+        "height": "",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 790,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "2bc7a08f249fc8d7",
+        "type": "ui_dropdown",
+        "z": "951993f4.8206d",
+        "name": "",
+        "label": "Zeitprogramm",
+        "tooltip": "Zeitprogramm",
+        "place": "Select option",
+        "group": "14ea130f6e6b7405",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "nicht aktiv",
+                "value": 0,
+                "type": "num"
+            },
+            {
+                "label": "aktiv",
+                "value": 1,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 580,
+        "y": 1720,
+        "wires": [
+            [
+                "2c11e35583775d53"
+            ]
+        ]
+    },
+    {
+        "id": "b63638b7ac7d8bd9",
+        "type": "comment",
+        "z": "951993f4.8206d",
+        "name": "google.maps 48.6429777,9.004596",
+        "info": "https://www.google.de/maps/place/Annaweg+9,+71088+Holzgerlingen/@48.6429777,9.004596,19",
+        "x": 400,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "4b8baf48c4e8536a",
+        "type": "comment",
+        "z": "951993f4.8206d",
+        "name": "### This scenario is permanent and requires a file to read an write to ###",
+        "info": "",
+        "x": 420,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "cb7b164418cb4fd9",
+        "type": "inject",
+        "z": "951993f4.8206d",
+        "name": "FireAfterReboot",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 1900,
+        "wires": [
+            [
+                "b847da37993ea459"
+            ]
+        ]
+    },
+    {
+        "id": "b9799eb32f04ac87",
+        "type": "ui_time_scheduler",
+        "z": "951993f4.8206d",
+        "group": "14ea130f6e6b7405",
+        "name": "Zeitprogramm",
+        "startDay": "1",
+        "refresh": 60,
+        "devices": [
+            "Jalausie"
+        ],
+        "singleOff": false,
+        "onlySendChange": false,
+        "customPayload": false,
+        "eventMode": false,
+        "eventOptions": [],
+        "sendTopic": false,
+        "lat": "48.6429777",
+        "lon": "9.00459619",
+        "customContextStore": "",
+        "outputs": 2,
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "x": 620,
+        "y": 1900,
+        "wires": [
+            [
+                "7c5940da12f89b36"
+            ],
+            [
+                "219f03c9e1f11c70"
+            ]
+        ]
+    },
+    {
+        "id": "219f03c9e1f11c70",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "BO_ScheduleOutDown",
+        "func": "\nif (msg.payload) {\n    flow.set('BO_ScheduleOutDown', 1);\n}\nelse {\n     flow.set('BO_ScheduleOutDown', 0);\n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 1980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b847da37993ea459",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "flow.get Schedule text",
+        "func": "msg.payload = flow.get('Schedule');\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 1900,
+        "wires": [
+            [
+                "b9799eb32f04ac87"
+            ]
+        ]
+    },
+    {
+        "id": "7c5940da12f89b36",
+        "type": "function",
+        "z": "951993f4.8206d",
+        "name": "flow.set Schedule text",
+        "func": "flow.set('Schedule',msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 1880,
+        "wires": [
+            []
         ]
     },
     {
@@ -4769,7 +4780,7 @@
         "type": "function",
         "z": "812b0ff61703e7f7",
         "name": "y103/y104 Up and Down",
-        "func": "// y103->Up\n// y104 -> Down\n\nvar stampUp = flow.get('StampUp');\nvar stampDown = flow.get('StampDown');\nvar durationDown = Date.now() - stampDown;\nflow.set('DurationDown', durationDown);           //Flow variable for debuging\nvar durationUp = Date.now() - stampUp;\nflow.set('DurationUp', durationUp);               //Flow variable for debuging\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n// alarm expression\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  expression\nvar x = Number(flow.get('BV_Schedule'));\n\n\n\n// Undefined function\nif (x === 3 && (alarm1 === 3 || alarm1 === 0) && (alarm2 === 3 || alarm2 === 0)) {\n     flow.set('StampDown', Date.now()); // Timestamp for down\n     flow.set('StampUp', Date.now());   // Timestamp for up\n     global.set('Up2', 0);         //reset when undefined\n     global.set('Down2', 0);         //reset when undefined\n}\n\n// Down function\nif ( x === 1 &&  (alarm1 === 0 || alarm1 === 3) &&  (alarm2 === 0 || alarm2 === 3) ) {\n     flow.set('StampUp', Date.now()); // Timestamp for up !!!!\n     // wait 10s\n     stampDown = flow.get('StampDown');\n     \n     if (durationDown < time1) {\n          msg.payload = \"y103:0\";\n     }\n     if (durationDown < time2 && durationDown > time1) {\n          msg.payload = \"y104:1\";\n     }\n     if (durationDown < time3 && durationDown > time2) {\n          msg.payload = \"y104:0\";\n     }   \n     return msg; \n}\n//Up function\nif (alarm1 === 1 || alarm2 === 1) {\n     flow.set('StampDown', Date.now()); // Timestamp for down !!!!\n      //wait 10s\n     stampUp = Number(flow.get('StampUp'));\n     if (durationUp < time1) {\n          msg.payload = \"y104:0\";\n     }\n     if (durationUp < time2 && durationUp > time1) {\n          msg.payload = \"y103:1\";\n     }\n     // wait 60s Motorlaufzeit\n     if (durationUp < time3 && durationUp > time2) {\n          msg.payload = \"y103:0\";\n\n     }\n     // wait 2h repeat alarm\n     if (durationUp > time3 && (alarm1 === 1 || alarm2 === 1)) {\n         flow.set('StampUp', Date.now());\n          global.set('Up2', 0);         //repeat in Log-File\n     }\n     return msg;\n}\n",
+        "func": "// y103->Up\n// y104 -> Down\n\nvar stampUp = flow.get('StampUp');\nvar stampDown = flow.get('StampDown');\nvar durationDown = Date.now() - stampDown;\nflow.set('DurationDown', durationDown);           //Flow variable for debuging\nvar durationUp = Date.now() - stampUp;\nflow.set('DurationUp', durationUp);               //Flow variable for debuging\nvar time1 = 10000; // ms\nvar time2 = 70000; // ms\nvar time3 = 7200000; // ms 2 hours\n\n// alarm expression\nvar alarm1 = Number(flow.get('BV_RainAlarm'));\nvar alarm2 = Number(flow.get('BV_WindAlarm'));\n\n// schedule  expression\nvar x = Number(flow.get('BV_Schedule'));\n\n\n\n// Undefined function\nif (x === 3 && (alarm1 === 3 || alarm1 === 0) && (alarm2 === 3 || alarm2 === 0)) {\n     flow.set('StampDown', Date.now()); // Timestamp for down\n     flow.set('StampUp', Date.now());   // Timestamp for up\n     global.set('Up2', 0);         //reset when undefined\n     global.set('Down2', 0);         //reset when undefined\n}\n\n// Down function\nif ( x === 1 &&  (alarm1 === 0 || alarm1 === 3) &&  (alarm2 === 0 || alarm2 === 3) ) {\n     flow.set('StampUp', Date.now()); // Timestamp for up !!!!\n     // wait 10s\n     stampDown = flow.get('StampDown');\n     \n     if (durationDown < time1) {\n          global.set('Address', 2);         //Address for single write\n          //msg.payload = \"y103:0\";\n          msg.payload = false;\n     }\n     if (durationDown < time2 && durationDown > time1) {\n          global.set('Address', 3);         //Address for single write\n          //msg.payload = \"y104:1\";\n          msg.payload = true;\n     }\n     if (durationDown < time3 && durationDown > time2) {\n          global.set('Address', 3);         //Address for single write\n          //msg.payload = \"y104:0\";\n          msg.payload = false;\n     }   \n     return msg; \n}\n//Up function\nif (alarm1 === 1 || alarm2 === 1) {\n     flow.set('StampDown', Date.now()); // Timestamp for down !!!!\n      //wait 10s\n     stampUp = Number(flow.get('StampUp'));\n     if (durationUp < time1) {\n          global.set('Address', 3);         //Address for single write\n          //msg.payload = \"y104:0\";\n          msg.payload = false;\n     }\n     if (durationUp < time2 && durationUp > time1) {\n          global.set('Address', 2);         //Address for single write\n          //msg.payload = \"y103:1\";\n          msg.payload = true;\n     }\n     // wait 60s Motorlaufzeit\n     if (durationUp < time3 && durationUp > time2) {\n          global.set('Address', 2);         //Address for single write\n          // msg.payload = \"y103:0\";\n          msg.payload = false;\n\n     }\n     // wait 2h repeat alarm\n     if (durationUp > time3 && (alarm1 === 1 || alarm2 === 1)) {\n         flow.set('StampUp', Date.now());\n          global.set('Up2', 0);         //repeat in Log-File\n     }\n     return msg;\n}\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,

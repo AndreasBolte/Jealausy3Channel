@@ -313,8 +313,8 @@ module.exports = {
      * Refer to the documentation for further options: https://nodered.org/docs/api/context/
      */
     contextStorage: {
-        default: {
-            module:"localfilesystem"
+    default: {
+    module:"localfilesystem"
         },
     },
 
