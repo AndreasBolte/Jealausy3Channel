@@ -1,11 +1,33 @@
 #include <Controllino.h>
 #include <SoftwareSerial.h>
-
+#include <ModbusRTUSlave.h>
 
 // board: Controllino Mini
 // Date: 28.08.2025
 // Andreas Bolte
 // info@colmuspro.de
+
+#define MODBUS_BAUD 57600
+#define MODBUS_CONFIG SERIAL_8N1
+#define MODBUS_UNIT_ID 10
+#define MODBUS_SERIAL Serial
+
+ModbusRTUSlave modbus(MODBUS_SERIAL);
+
+const uint8_t numCoils = 10;
+const uint8_t numDiscreteInputs = 10;
+const uint8_t numHoldingRegisters = 10;
+// const byte numHoldingRegisters = 10;
+const uint8_t numInputRegisters = 10;
+
+bool coils[numCoils];
+bool discreteInputs[numDiscreteInputs];
+// uint16_t Unsigned: 0 to +65,535
+uint16_t holdingRegisters[numHoldingRegisters];
+uint16_t inputRegisters[numInputRegisters];
+
+
+
 
 // Integer constants for digital outputs
 const int DO_CHANNEL1UP = CONTROLLINO_D0;    //DO: Digital output CHANNEL 1 UP
@@ -26,19 +48,19 @@ const int DI_INTERRUPT_WIND = CONTROLLINO_IN0;  //IN0: Interrupt Input WIND
 const int DI_INTERRUPT_RAIN = CONTROLLINO_IN1;  //IN1: Interrupt Input RAIN
 
 // A4+A5 only AnalogInputs
-const int AI_SOLAR_HEATING_EXTERN = CONTROLLINO_A4;  //A5: Analog Input Heating Controll
+const int AI_SOLAR_HEATING_EXTERN = CONTROLLINO_A4;  //A4: Analog Input Heating Controll
 const int AI_ROOM_TEMPERATURE = CONTROLLINO_A5;      //A5: Analog Input temperature
 
-// Integer constants
-int DO_Channel1Up = 0;     //DO: Digital output CHANNEL 1 UP
-int DO_Channel1Down = 0;   //D1: Digital output CHANNEL 1 DOWN
-int DO_Channel2Up = 0;     //D2: Digital output CHANNEL 2 UP
-int DO_Channel2Down = 0;   //D3: Digital output CHANNEL 2 DOWN
-int DO_Wind_Led = 0;       //D5: Digital output LED WIND
-int DO_Rain_Led = 0;       //D5: Digital output LED RAIN
-int DI_RC_Channel1Up = 0;  //Remote Controll Channel 1 Up
+bool DO_Channel1Up = 0;    //DO: Digital output CHANNEL 1 UP
+bool DO_Channel1Down = 0;  //D1: Digital output CHANNEL 1 DOWN
+bool DO_Channel2Up = 0;    //D2: Digital output CHANNEL 2 UP
+bool DO_Channel2Down = 0;  //D3: Digital output CHANNEL 2 DOWN
+bool DO_Wind_Led = 0;      //D4: Digital output LED WIND
+bool DO_Rain_Led = 0;      //D5: Digital output LED RAIN
+
+int DI_RC_Channel1Up = 0;    //Remote Controll Channel 1 Up
 int DI_RC_Channel1Down = 0;  //Remote Controll Channel 1 Down
-int DI_RC_Channel2Up = 0;  //Remote Controll Channel 1 Up
+int DI_RC_Channel2Up = 0;    //Remote Controll Channel 1 Up
 int DI_RC_Channel2Down = 0;  //Remote Controll Channel 1 Down
 
 int DI_Wind = 0;  //Wind
@@ -46,10 +68,10 @@ int DI_Rain = 0;  //Rain
 int windCounter = 0;
 
 long int i = 0;        // Loop counter ca 120 s
-long int i0 = 2000;  // fix i4
-long int i1 = 4000;  // fix i4
-long int i2 = 6000;  // fix i4
-long int i3 = 80000;  // fix i4
+long int i0 = 2000;    // fix i4
+long int i1 = 4000;    // fix i4
+long int i2 = 6000;    // fix i4
+long int i3 = 80000;   // fix i4
 long int i4 = 100000;  // fix i4
 long int i5 = 200000;  // fix i5
 long int i6 = 300000;  // fix i6
@@ -60,7 +82,7 @@ unsigned long timeNew = 0;
 unsigned long timeOld = 0;
 float windSpeed = 0;
 const float SPEED_PRO_IMPULS = 1.2;  // from the description Vron other sensor 1,2 schwizer 2.4
-long int j = 0;                           // Loop counter ca 120 s
+long int j = 0;                      // Loop counter ca 120 s
 long int jMax = 100000;
 
 String inputString = "";
@@ -70,20 +92,6 @@ void windCount() {
   // increment the counter
   ++windCounter;
 }
-
-void serialEvent() {
-  while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    if (inChar == '\n') {
-      stringComplete = true;
-      break;
-    } else {
-      inputString += inChar;
-    }
-  }
-}
-
-
 
 void setup() {
   // put your setUP code here, to run once:
@@ -107,32 +115,31 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(DI_INTERRUPT_WIND), windCount, RISING);
   pinMode(DI_INTERRUPT_RAIN, INPUT);
 
+  modbus.configureCoils(coils, numCoils);
+  modbus.configureDiscreteInputs(discreteInputs, numDiscreteInputs);
+  modbus.configureHoldingRegisters(holdingRegisters, numHoldingRegisters);
+  modbus.configureInputRegisters(inputRegisters, numInputRegisters);
 
-  // initialize serial communication at 57600 bits per second:
-  Serial.begin(57600);
+  MODBUS_SERIAL.begin(MODBUS_BAUD, MODBUS_CONFIG);
+  modbus.begin(MODBUS_UNIT_ID, MODBUS_BAUD, MODBUS_CONFIG);
 
 }  //End void setup()
 
 void loop() {
 
-if (stringComplete) {
-    if (inputString.equals(String("y101:0"))) DO_Channel1Up = 0;
-    if (inputString.equals(String("y101:1"))) DO_Channel1Up = 1;
-    if (inputString.equals(String("y102:0"))) DO_Channel1Down = 0;
-    if (inputString.equals(String("y102:1"))) DO_Channel1Down = 1;
-    if (inputString.equals(String("y103:0"))) DO_Channel2Up = 0;
-    if (inputString.equals(String("y103:1"))) DO_Channel2Up = 1;
-    if (inputString.equals(String("y104:0"))) DO_Channel2Down = 0;
-    if (inputString.equals(String("y104:1"))) DO_Channel2Down = 1;
-    if (inputString.equals(String("y105:0"))) DO_Wind_Led = 0;
-    if (inputString.equals(String("y105:1"))) DO_Wind_Led = 1;
-    if (inputString.equals(String("y106:0"))) DO_Rain_Led =0;
-    if (inputString.equals(String("y106:1"))) DO_Rain_Led =1;
-    inputString = "";
-    stringComplete = false;
-  }
-    
-   // read all inputs
+  holdingRegisters[0] = uint16_t(17.43)>>16;
+  holdingRegisters[1] = uint16_t(17.43f);
+  holdingRegisters[2] = uint16_t(45.765f * 10.0f);
+  holdingRegisters[3] = uint16_t(23.8f * 10.0f);
+  holdingRegisters[4] = uint16_t(98.21876f * 10.0f);
+  holdingRegisters[5] = uint16_t(22.765f * 10.0f);
+  holdingRegisters[6] = uint16_t(76.0f * 10.0f);
+  holdingRegisters[7] = uint16_t(76.0f * 10.0f);
+  holdingRegisters[8] = uint16_t(0.0f);
+  holdingRegisters[9] = uint16_t(1.0f * 100.0f);
+  
+
+  // read all inputs
   DI_RC_Channel1Up = digitalRead(DI_CHANNEL1UP_RC);
   DI_RC_Channel1Down = digitalRead(DI_CHANNEL1DOWN_RC);
   DI_RC_Channel2Up = digitalRead(DI_CHANNEL2UP_RC);
@@ -141,39 +148,48 @@ if (stringComplete) {
 
   //send by polling time
   i = i + 1;
-  if (DO_Channel1Up == 1 && i == i0) Serial.println("x101:1");
-  if (DO_Channel1Up == 0 && i == i0) Serial.println("x101:0");
-  if (DO_Channel1Down == 1 && i == i1) Serial.println("x102:1");
-  if (DO_Channel1Down == 0 && i == i1) Serial.println("x102:0");
-  if (DO_Channel2Up == 1 && i == i2) Serial.println("103:1");
-  if (DO_Channel2Up == 0 && i == i2) Serial.println("x103:0");
-  if (DO_Channel2Down == 1 && i == i3) Serial.println("x104:1");
-  if (DO_Channel2Down == 0 && i == i3) Serial.println("x104:0");
 
-  if (DI_RC_Channel1Up == 1 && i == i0) Serial.println("x001:1");
-  if (DI_RC_Channel1Up == 0 && i == i0) Serial.println("x001:0");
-  if (DI_RC_Channel1Down == 1 && i == i1) Serial.println("x002:1");
-  if (DI_RC_Channel1Down == 0 && i == i1) Serial.println("x002:0");
-  if (DI_RC_Channel2Up == 1 && i == i2) Serial.println("x003:1");
-  if (DI_RC_Channel2Up == 0 && i == i2) Serial.println("x003:0");
-  if (DI_RC_Channel2Down == 1 && i == i3) Serial.println("x004:1");
-  if (DI_RC_Channel2Down == 0 && i == i3) Serial.println("x004:0");
-  if (DI_Rain == 0 && i == i4) Serial.println("x005:0");
-  if (DI_Rain == 1 && i == i5) Serial.println("x005:1");
+  DO_Channel1Up = coils[0];    //DO: Digital output CHANNEL 1 UP
+  DO_Channel1Down = coils[1];  //D1: Digital output CHANNEL 1 DOWN
+  DO_Channel2Up = coils[2];    //D2: Digital output CHANNEL 2 UP
+  DO_Channel2Down = coils[3];  //D3: Digital output CHANNEL 2 DOWN
+  DO_Wind_Led = coils[4];      //D4: Digital output LED WIND
+  DO_Rain_Led = coils[5];      //D5: Digital output LED RAIN
+
+
+
+  discreteInputs[3] = LOW;
+  discreteInputs[4] = HIGH;
+  discreteInputs[5] = LOW;
+  discreteInputs[6] = HIGH;
+  discreteInputs[7] = LOW;
+  discreteInputs[8] = LOW;
+  discreteInputs[9] = HIGH;
+ 
+  if (DI_RC_Channel1Up == 1 && i == i0) discreteInputs[0] = HIGH;
+  if (DI_RC_Channel1Up == 0 && i == i0) discreteInputs[0] = LOW;
+  if (DI_RC_Channel1Down == 1 && i == i1) discreteInputs[1] = HIGH;
+  if (DI_RC_Channel1Down == 0 && i == i1) discreteInputs[1] = LOW;
+  if (DI_RC_Channel2Up == 1 && i == i2) discreteInputs[2] = HIGH;
+  if (DI_RC_Channel2Up == 0 && i == i2) discreteInputs[2] = LOW;
+  if (DI_RC_Channel2Down == 1 && i == i3) discreteInputs[3] = HIGH;
+  if (DI_RC_Channel2Down == 0 && i == i3) discreteInputs[3] = LOW;
+  if (DI_Rain == 0 && i == i4) discreteInputs[4] = HIGH;
+  if (DI_Rain == 1 && i == i5) discreteInputs[4] = LOW;
+  modbus.poll();
+
   if (i == i6) {
     timeNew = millis();
     windSpeed = (float)((windCounter * SPEED_PRO_IMPULS * 3.6) / ((timeNew - timeOld)) * 1000);  // convert milis to seconds, unit km/h
     windCounter = 0;
     timeOld = timeNew;
-    Serial.print("x006:");
-    Serial.println(windSpeed);  // Node-Red Read
- }  //end if (j == jMax)
- if (i >= iMax) i = 0;
+  }  //end if (i == i6)
+  if (i >= iMax) i = 0;
 
   // // write all Engines
   if (DO_Channel1Up == 1 || DI_RC_Channel1Up == 1) digitalWrite(DO_CHANNEL1UP, HIGH);
   else digitalWrite(DO_CHANNEL1UP, LOW);
-  if (DO_Channel1Down == 1 ||DI_RC_Channel1Down == 1) digitalWrite(DO_CHANNEL1DOWN, HIGH);
+  if (DO_Channel1Down == 1 || DI_RC_Channel1Down == 1) digitalWrite(DO_CHANNEL1DOWN, HIGH);
   else digitalWrite(DO_CHANNEL1DOWN, LOW);
   if (DO_Channel2Up == 1 || DI_RC_Channel2Up == 1) digitalWrite(DO_CHANNEL2UP, HIGH);
   else digitalWrite(DO_CHANNEL2UP, LOW);
