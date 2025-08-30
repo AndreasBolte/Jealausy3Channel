@@ -115,7 +115,7 @@
             }
         },
         "site": {
-            "name": "Star",
+            "name": "Sun",
             "hideToolbar": "false",
             "allowSwipe": "false",
             "lockMenu": "false",
@@ -395,124 +395,13 @@
         "env": []
     },
     {
-        "id": "af45b270d2a3dee9",
-        "type": "ui-base",
-        "name": "Datum",
-        "path": "/dashboard",
-        "appIcon": "",
-        "includeClientData": true,
-        "acceptsClientConfig": [
-            "ui-notification",
-            "ui-control"
-        ],
-        "showPathInSidebar": false,
-        "headerContent": "page",
-        "navigationStyle": "default",
-        "titleBarStyle": "default",
-        "showReconnectNotification": true,
-        "notificationDisplayTime": "1",
-        "showDisconnectNotification": true,
-        "allowInstall": true
-    },
-    {
-        "id": "d897f53905cf149d",
-        "type": "ui-page",
-        "name": "Übersicht",
-        "ui": "af45b270d2a3dee9",
-        "path": "",
-        "icon": "home",
-        "layout": "grid",
-        "theme": "335b1f2c0907c645",
-        "breakpoints": [
-            {
-                "name": "Default",
-                "px": "0",
-                "cols": "3"
-            },
-            {
-                "name": "Tablet",
-                "px": "576",
-                "cols": "6"
-            },
-            {
-                "name": "Small Desktop",
-                "px": "768",
-                "cols": "9"
-            },
-            {
-                "name": "Desktop",
-                "px": "1024",
-                "cols": "12"
-            }
-        ],
-        "order": 1,
-        "className": "",
-        "visible": true,
-        "disabled": false
-    },
-    {
-        "id": "335b1f2c0907c645",
-        "type": "ui-theme",
-        "name": "ui-base.label.green",
-        "colors": {
-            "surface": "#a9df9c",
-            "primary": "#e3f5de",
-            "bgPage": "#e3f5de",
-            "groupBg": "#a9df9c",
-            "groupOutline": "#e3f5de"
-        },
-        "sizes": {
-            "density": "default",
-            "pagePadding": "12px",
-            "groupGap": "12px",
-            "groupBorderRadius": "4px",
-            "widgetGap": "12px"
-        }
-    },
-    {
-        "id": "d5cfa710c3fdada2",
-        "type": "ui-page",
-        "name": "Jalausie",
-        "ui": "af45b270d2a3dee9",
-        "path": "/page2",
-        "icon": "blinds-horizontal-closed",
-        "layout": "grid",
-        "theme": "335b1f2c0907c645",
-        "breakpoints": [
-            {
-                "name": "Default",
-                "px": "0",
-                "cols": "3"
-            },
-            {
-                "name": "Tablet",
-                "px": "576",
-                "cols": "6"
-            },
-            {
-                "name": "Small Desktop",
-                "px": "768",
-                "cols": "9"
-            },
-            {
-                "name": "Desktop",
-                "px": "1024",
-                "cols": "12"
-            }
-        ],
-        "order": 2,
-        "className": "",
-        "visible": "true",
-        "disabled": "false"
-    },
-    {
         "id": "73facf39de5e6333",
         "type": "modbus-client",
         "name": "Arduino",
         "clienttype": "simpleser",
         "bufferCommands": true,
-        "stateLogEnabled": false,
-        "queueLogEnabled": false,
+        "stateLogEnabled": true,
+        "queueLogEnabled": true,
         "failureLogEnabled": true,
         "tcpHost": "127.0.0.1",
         "tcpPort": "502",
@@ -525,23 +414,26 @@
         "serialParity": "none",
         "serialConnectionDelay": "100",
         "serialAsciiResponseStartDelimiter": "0x3A",
-        "unit_id": 10,
-        "commandDelay": 1,
-        "clientTimeout": 1000,
+        "unit_id": "10",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
         "reconnectOnTimeout": true,
-        "reconnectTimeout": 2000,
+        "reconnectTimeout": "2000",
         "parallelUnitIdsAllowed": true,
-        "showErrors": false,
+        "showErrors": true,
         "showWarnings": true,
-        "showLogs": true
+        "showLogs": false
     },
     {
-        "id": "fcaccc877367d30e",
-        "type": "ui_tab",
-        "name": "Zeitprogramm1",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
+        "id": "cf2ecd3598188257",
+        "type": "ui_group",
+        "name": "USB-Verbindung",
+        "tab": "2038a0f4c400756e",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
     },
     {
         "id": "c765b07b9b16ddfe",
@@ -549,8 +441,8 @@
         "z": "5f4e599e.885b58",
         "name": "yxxx: BO's IMPOTRTANT PROGRAMM INFORMATION",
         "info": "y101:0 DO_Channel1Up\ny102:0 DO_Channel1Down\ny103:0 DO_Channel2Up\ny104:0 DO_Channel2Down\ny105:0 DO_Wind_Led\ny106:0 DO_Rain_Led\n",
-        "x": 220,
-        "y": 660,
+        "x": 240,
+        "y": 800,
         "wires": []
     },
     {
@@ -562,8 +454,8 @@
             "5e70d0d8da91504f",
             "751ce24b8f19b37a"
         ],
-        "x": 55,
-        "y": 940,
+        "x": 75,
+        "y": 1080,
         "wires": [
             [
                 "fa2de90dba6775b9",
@@ -585,8 +477,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1000,
-        "y": 1080,
+        "x": 1020,
+        "y": 1220,
         "wires": []
     },
     {
@@ -601,8 +493,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
-        "y": 1080,
+        "x": 480,
+        "y": 1220,
         "wires": [
             [
                 "733cfb5a2e33a914",
@@ -622,8 +514,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 460,
-        "y": 1160,
+        "x": 480,
+        "y": 1300,
         "wires": [
             [
                 "733cfb5a2e33a914",
@@ -648,8 +540,8 @@
         "topic": "",
         "payload": "xxx",
         "payloadType": "str",
-        "x": 210,
-        "y": 1160,
+        "x": 230,
+        "y": 1300,
         "wires": [
             [
                 "8a17fd5bdfb252c7"
@@ -673,8 +565,8 @@
         "topic": "",
         "payload": "xxx",
         "payloadType": "str",
-        "x": 210,
-        "y": 1080,
+        "x": 230,
+        "y": 1220,
         "wires": [
             [
                 "174128fcda369768"
@@ -698,11 +590,12 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 120,
+        "x": 110,
+        "y": 40,
         "wires": [
             [
-                "67a9fac8b98d13c9"
+                "67a9fac8b98d13c9",
+                "24868853b126dccd"
             ]
         ]
     },
@@ -718,8 +611,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
-        "y": 120,
+        "x": 330,
+        "y": 40,
         "wires": [
             []
         ]
@@ -736,12 +629,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1080,
-        "y": 480,
+        "x": 1100,
+        "y": 620,
         "wires": [
-            [
-                "5181c5b0eb586da5"
-            ]
+            []
         ]
     },
     {
@@ -756,8 +647,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1040,
-        "y": 260,
+        "x": 1140,
+        "y": 240,
         "wires": [
             []
         ]
@@ -774,8 +665,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 1080,
+        "x": 780,
+        "y": 1220,
         "wires": [
             [
                 "3789304c443c2e38",
@@ -795,8 +686,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 750,
-        "y": 1160,
+        "x": 770,
+        "y": 1300,
         "wires": [
             [
                 "fbc20bd689c03450"
@@ -820,8 +711,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 150,
-        "y": 480,
+        "x": 170,
+        "y": 620,
         "wires": [
             [
                 "7233e611801fafb8"
@@ -845,8 +736,8 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 150,
-        "y": 520,
+        "x": 170,
+        "y": 660,
         "wires": [
             [
                 "7233e611801fafb8"
@@ -870,8 +761,8 @@
         "topic": "",
         "payload": "10",
         "payloadType": "num",
-        "x": 170,
-        "y": 560,
+        "x": 190,
+        "y": 700,
         "wires": [
             [
                 "a7d52561cbb0b56a"
@@ -895,8 +786,8 @@
         "topic": "",
         "payload": "40",
         "payloadType": "num",
-        "x": 170,
-        "y": 600,
+        "x": 190,
+        "y": 740,
         "wires": [
             [
                 "a7d52561cbb0b56a"
@@ -915,8 +806,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 260,
+        "x": 860,
+        "y": 240,
         "wires": [
             [
                 "0faa7ffaa05dd981",
@@ -936,8 +827,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 480,
+        "x": 410,
+        "y": 620,
         "wires": [
             [
                 "5bf81fe3f12325fc"
@@ -956,8 +847,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 650,
-        "y": 860,
+        "x": 670,
+        "y": 1000,
         "wires": [
             [
                 "f6bd87f94eff3040",
@@ -976,8 +867,8 @@
         "createDir": true,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 990,
-        "y": 860,
+        "x": 1010,
+        "y": 1000,
         "wires": [
             [
                 "99f550abf36e84d3"
@@ -1001,8 +892,8 @@
         "bytopic": "all",
         "topic": "topic",
         "outputs": 1,
-        "x": 600,
-        "y": 480,
+        "x": 620,
+        "y": 620,
         "wires": [
             [
                 "0faa7ffaa05dd981",
@@ -1027,8 +918,8 @@
         "bytopic": "all",
         "topic": "topic",
         "outputs": 1,
-        "x": 600,
-        "y": 580,
+        "x": 620,
+        "y": 720,
         "wires": [
             [
                 "0faa7ffaa05dd981",
@@ -1048,8 +939,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 580,
+        "x": 410,
+        "y": 720,
         "wires": [
             [
                 "8a6e736b0980d23f"
@@ -1065,8 +956,8 @@
         "links": [
             "232bd278fb580272"
         ],
-        "x": 1285,
-        "y": 860,
+        "x": 1305,
+        "y": 1000,
         "wires": []
     },
     {
@@ -1082,8 +973,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 920,
+        "x": 910,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1099,25 +990,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 990,
-        "y": 1160,
-        "wires": []
-    },
-    {
-        "id": "5181c5b0eb586da5",
-        "type": "debug",
-        "z": "5f4e599e.885b58",
-        "name": "serial in IMMER!",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1280,
-        "y": 400,
+        "x": 1010,
+        "y": 1300,
         "wires": []
     },
     {
@@ -1133,11 +1007,13 @@
         "keepMsgProperties": false,
         "delayOnStart": false,
         "startDelayTime": "",
-        "x": 1310,
-        "y": 1000,
+        "x": 1290,
+        "y": 1140,
         "wires": [
             [],
-            []
+            [
+                "3f6c6ec6d75c8f03"
+            ]
         ]
     },
     {
@@ -1152,8 +1028,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 980,
-        "y": 1000,
+        "x": 1000,
+        "y": 1140,
         "wires": [
             [
                 "a011af2b2f0929ae",
@@ -1173,8 +1049,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1280,
-        "y": 920,
+        "x": 1300,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1183,15 +1059,15 @@
         "z": "5f4e599e.885b58",
         "name": "Modbus-Read Wind",
         "topic": "",
-        "showStatusActivities": false,
+        "showStatusActivities": true,
         "logIOActivities": false,
-        "showErrors": false,
+        "showErrors": true,
         "showWarnings": true,
         "unitid": "10",
         "dataType": "HoldingRegister",
         "adr": "2",
         "quantity": "2",
-        "rate": "20",
+        "rate": "21",
         "rateUnit": "s",
         "delayOnStart": false,
         "startDelayTime": "",
@@ -1199,9 +1075,9 @@
         "useIOFile": false,
         "ioFile": "",
         "useIOForPayload": false,
-        "emptyMsgOnFail": false,
-        "x": 170,
-        "y": 260,
+        "emptyMsgOnFail": true,
+        "x": 270,
+        "y": 240,
         "wires": [
             [
                 "8c36d2c998fc9fa4"
@@ -1243,11 +1119,12 @@
         "fanOutMultipleResult": false,
         "setTopic": true,
         "outputs": 1,
-        "x": 430,
-        "y": 260,
+        "x": 530,
+        "y": 240,
         "wires": [
             [
-                "a187c5fb0a52afcc"
+                "a187c5fb0a52afcc",
+                "24868853b126dccd"
             ]
         ]
     },
@@ -1257,10 +1134,10 @@
         "z": "5f4e599e.885b58",
         "name": "Modbus-Read-Rain",
         "topic": "",
-        "showStatusActivities": false,
+        "showStatusActivities": true,
         "logIOActivities": false,
         "showErrors": false,
-        "showWarnings": true,
+        "showWarnings": false,
         "unitid": "10",
         "dataType": "Input",
         "adr": "4",
@@ -1272,15 +1149,230 @@
         "server": "73facf39de5e6333",
         "useIOFile": false,
         "ioFile": "",
-        "useIOForPayload": false,
+        "useIOForPayload": true,
         "emptyMsgOnFail": false,
-        "x": 330,
-        "y": 360,
+        "x": 270,
+        "y": 500,
         "wires": [
             [
-                "a187c5fb0a52afcc"
+                "a187c5fb0a52afcc",
+                "5aabcb65b00e8239"
             ],
             []
+        ]
+    },
+    {
+        "id": "cb865eb830c1358d",
+        "type": "ui_switch",
+        "z": "5f4e599e.885b58",
+        "name": "",
+        "label": "RX Empfange Daten",
+        "tooltip": "RX Empfange Daten",
+        "group": "cf2ecd3598188257",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "wb_sunny",
+        "oncolor": "SlateBlue",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "wb_sunny",
+        "offcolor": "Gainsboro",
+        "animate": false,
+        "className": "",
+        "x": 1100,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "24868853b126dccd",
+        "type": "trigger",
+        "z": "5f4e599e.885b58",
+        "name": "",
+        "op1": "true",
+        "op2": "false",
+        "op1type": "bool",
+        "op2type": "bool",
+        "duration": "2",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 740,
+        "y": 100,
+        "wires": [
+            [
+                "cb865eb830c1358d",
+                "a59d740acd4a67c5"
+            ]
+        ]
+    },
+    {
+        "id": "5aabcb65b00e8239",
+        "type": "trigger",
+        "z": "5f4e599e.885b58",
+        "name": "",
+        "op1": "true",
+        "op2": "false",
+        "op1type": "bool",
+        "op2type": "bool",
+        "duration": "2",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 520,
+        "y": 500,
+        "wires": [
+            [
+                "b749fc4f40745f33",
+                "a59d740acd4a67c5"
+            ]
+        ]
+    },
+    {
+        "id": "b749fc4f40745f33",
+        "type": "ui_switch",
+        "z": "5f4e599e.885b58",
+        "name": "",
+        "label": "TX Sende Daten",
+        "tooltip": "TX Sende Daten",
+        "group": "cf2ecd3598188257",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "wb_sunny",
+        "oncolor": "SlateBlue",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "wb_sunny",
+        "offcolor": "Gainsboro",
+        "animate": false,
+        "className": "",
+        "x": 710,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3f6c6ec6d75c8f03",
+        "type": "modbus-response",
+        "z": "5f4e599e.885b58",
+        "name": "",
+        "registerShowMax": 20,
+        "x": 1530,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "a59d740acd4a67c5",
+        "type": "trigger",
+        "z": "5f4e599e.885b58",
+        "name": "Watchdog 50s",
+        "op1": "false",
+        "op2": "true",
+        "op1type": "bool",
+        "op2type": "bool",
+        "duration": "50",
+        "extend": true,
+        "overrideDelay": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "3d91128d4cda1aa3"
+            ]
+        ]
+    },
+    {
+        "id": "93f914758b5ea8d5",
+        "type": "ui_toast",
+        "z": "5f4e599e.885b58",
+        "position": "dialog",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 1,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1130,
+        "y": 380,
+        "wires": [
+            [
+                "011ad4eec9ca23a8"
+            ]
+        ]
+    },
+    {
+        "id": "3d91128d4cda1aa3",
+        "type": "function",
+        "z": "5f4e599e.885b58",
+        "name": "USB Error",
+        "func": "msg.payload = 'USB Verbindungsfehler mit Controllino Mini \\n';\nmsg.topic = 'COM-Port /dev/ttyACM0 Fehler'\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 380,
+        "wires": [
+            [
+                "93f914758b5ea8d5"
+            ]
+        ]
+    },
+    {
+        "id": "011ad4eec9ca23a8",
+        "type": "function",
+        "z": "5f4e599e.885b58",
+        "name": "msg.Payload = true",
+        "func": "msg.Payload = true;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 380,
+        "wires": [
+            [
+                "a59d740acd4a67c5"
+            ]
         ]
     },
     {
