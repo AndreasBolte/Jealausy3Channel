@@ -1,8 +1,0 @@
-Wind LED
-Regen LED
-Hardware OBEN UNTEN testen
-RX und TX LED -> Erledigt 30.08.2025
-Alarm wenn USB falsch angeschlossen ist  -> Erledigt 30.08.2025
-Dashboard ändern auf 2 -> Entfällt Schedule funktioniert nicht 30.08.2025
-Entwickeln auf STAR ->  -> Erledigt 30.08.2025
-Kommunikation über Modbus ändern -> Modbus funktioniert 30.08.2025
