@@ -1308,6 +1308,49 @@
         ]
     },
     {
+        "id": "0b2f4bf0c0562a77",
+        "type": "inject",
+        "z": "305c6dd9.7f9612",
+        "name": "once",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 134.1990966796875,
+        "y": 193.20614624023438,
+        "wires": [
+            [
+                "9077deca9623f4d6"
+            ]
+        ]
+    },
+    {
+        "id": "9077deca9623f4d6",
+        "type": "function",
+        "z": "305c6dd9.7f9612",
+        "name": "init global Contex",
+        "func": "global.set('WindSpeedMax',0.0);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 414.1990966796875,
+        "y": 193.20614624023438,
+        "wires": [
+            []
+        ]
+    },
+    {
         "id": "7fd6493.2450cb8",
         "type": "comment",
         "z": "951993f4.8206d",
