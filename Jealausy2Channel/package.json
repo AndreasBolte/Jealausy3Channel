@@ -6,11 +6,10 @@
     "dependencies": {
         "node-red-contrib-buffer-parser": "~3.2.2",
         "node-red-contrib-dwd-local-weather": "~1.0.5",
-        "node-red-contrib-fs-ops": "~1.6.0",
-        "node-red-contrib-modbus": "~5.43.0",
+        "node-red-contrib-modbus": "~5.45.2",
         "node-red-contrib-ui-time-scheduler": "~1.17.2",
         "node-red-dashboard": "~3.6.6",
-        "node-red-node-ui-table": "~0.4.5",
+        "node-red-node-serialport": "~2.0.3",
         "thethingbox-node-timestamp": "~2.0.0"
     }
 }
